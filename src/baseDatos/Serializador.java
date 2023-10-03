@@ -13,7 +13,7 @@ import java.util.List;
  * objetos que se quieren escribir en el archivo, y éste se encarga de todo el proceso.
  */
 public class Serializador extends BaseDatos {
-	public void escribirObjetos(List<Serializable> objectos) throws BaseDatosException {
+	public void escribirObjetos(List<Serializable> objetos) throws BaseDatosException {
 		// obtener el archivo src/baseDatos/temp/datos.txt.
 		File archivo = RUTA_ARCHIVO.toFile();
 		// crear las carpetas src/baseDatos/temp si no existen
@@ -43,7 +43,7 @@ public class Serializador extends BaseDatos {
 		}
 
 		// para cada objeto en la lista objetos, escribirlo en el archivo
-		for (Serializable object : objectos) {
+		for (Serializable object : objetos) {
 			try {
 				objectOutputStream.writeObject(object);
 			} catch (IOException e) {

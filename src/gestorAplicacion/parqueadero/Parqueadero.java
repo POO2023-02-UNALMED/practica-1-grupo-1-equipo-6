@@ -1,13 +1,17 @@
-//Sebastián
+// Sebastián
+// Alejandro
 
 package gestorAplicacion.parqueadero;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *Clase que instancia un parqueadero con servicio de parqueo, taller y concesionario.
  */
-public class Parqueadero {
+public class Parqueadero implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private int plazasTotales;
 	private int plazasDisponibles;
 	private double tarifa;

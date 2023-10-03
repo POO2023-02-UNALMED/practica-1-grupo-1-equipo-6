@@ -5,8 +5,13 @@ package uiMain;
 import baseDatos.BaseDatosException;
 import baseDatos.Deserializador;
 import baseDatos.Serializador;
+import gestorAplicacion.parqueadero.Parqueadero;
+
+import java.util.List;
 
 public class Main {
+	private static Parqueadero parqueadero;
+
 	public static void main(String[] args) {
 		try {
 			leerDatos();
@@ -29,11 +34,11 @@ public class Main {
 		deserializador = new Deserializador();
 
 		if (deserializador.existenDatos()) {
-			// TODO: Leer los objetos cuando tengamos las clases, por ejemplo:
-			// parqueadero = (Parqueadero) deserializador.leerObjeto();
+			// leer los datos guardados de la clase parqueadero
+			parqueadero = (Parqueadero) deserializador.leerObjeto();
 		} else {
 			// si no hay datos guardados, crear nuevas instancias de las clases
-			// parquedero = new Parqueadero();
+			parqueadero = new Parqueadero();
 		}
 
 		deserializador.close();
@@ -41,8 +46,8 @@ public class Main {
 
 	private static void escribirDatos() throws BaseDatosException {
 		Serializador serializador = new Serializador();
-		// TODO: escribir los objetos cuando tengamos las clases
-		// serializador.escribirObjetos(List.of(parqueadero));
+		// persistir datos de las clases
+		serializador.escribirObjetos(List.of(parqueadero));
 	}
 
 	private static void imprimirError(Exception error) {

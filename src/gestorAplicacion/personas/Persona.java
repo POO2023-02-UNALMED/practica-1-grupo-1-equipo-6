@@ -1,7 +1,7 @@
 package gestorAplicacion.personas;
 
 import java.util.ArrayList;
-import vehiculos.Vehiculo;
+import gestorAplicacion.vehiculos.Vehiculo;
 
 public class Persona{
     private String nombre;
@@ -14,10 +14,10 @@ public class Persona{
 
     public Persona(String nombre, int identificacion, int telefono, String correo, String direccion, boolean discapacitado){
         this.nombre= nombre;
-        this.identidficacion= identificacion;
+        this.identificacion = identificacion;
         this.telefono= telefono;
         this.correo= correo;
         this.direccion= direccion;
-        this.discapacitado= discapacitado
+        this.discapacitado= discapacitado;
     }
 }

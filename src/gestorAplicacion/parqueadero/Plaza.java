@@ -23,7 +23,33 @@ public class Plaza {
 		
 	}
 	
+	public void setDiscapacitado(boolean disc) {
+		this.discapacitado = disc;
+	}
+	public boolean getDiscapacitado() {
+		return this.discapacitado;
+	}
 	
+	public void setNumeroPlaza(int numeroP) {
+		this.numeroPlaza = numeroP;
+	}
+	public int getNumeroPlaza() {
+		return this.numeroPlaza;
+	}
+	
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public String getEstado() {
+		return this.estado;
+	}
+	
+	public void setVehiculo(Vehiculo vehi) {
+		this.vehiculo = vehi;
+	}
+	public Vehiculo getVehiculo() {
+		return this.vehiculo;
+	}
 	
 	
 

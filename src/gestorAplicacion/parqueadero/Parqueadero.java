@@ -5,6 +5,7 @@ package gestorAplicacion.parqueadero;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import gestorAplicacion.vehiculos.*;
 
 /**
  *Clase que instancia un parqueadero con servicio de parqueo, taller y concesionario.
@@ -15,10 +16,12 @@ public class Parqueadero implements Serializable {
 	private int plazasTotales;
 	private int plazasDisponibles;
 	private double tarifa;
-	private ArrayList<Plaza> plazas = new ArrayList<Plaza>();
+	private ArrayList<Plaza> plazas;
 	
-	public Parqueadero() {
-		
+	public Parqueadero(int plazasTotales, double tarifa) {
+		this.plazasTotales = plazasTotales;
+		this.plazasDisponibles = plazasTotales;
+		this.tarifa = tarifa;
 	}
 	
 	//Getters and Setters

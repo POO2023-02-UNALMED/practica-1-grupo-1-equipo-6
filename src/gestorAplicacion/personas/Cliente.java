@@ -1,3 +1,4 @@
+//Sara Isabel Suárez Londoño
 package gestorAplicacion.personas;
 
 //debemos heredar de clase persona

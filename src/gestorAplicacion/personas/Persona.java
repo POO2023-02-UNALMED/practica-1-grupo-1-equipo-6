@@ -1,23 +1,55 @@
-package gestorAplicacion.personas;
+//Sofía
 
-import java.util.ArrayList;
-import gestorAplicacion.vehiculos.Vehiculo;
+package gestorAplicacion.personas;
 
 public class Persona{
     private String nombre;
-    private int identificacion;
-    private int telefono;
+    private long cedula;
+    private long telefono;
     private String correo;
     private String direccion;
-    private boolean discapacitado;
-    private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
-    public Persona(String nombre, int identificacion, int telefono, String correo, String direccion, boolean discapacitado){
+    public Persona(String nombre, long cedula, int telefono, String correo, String direccion){
         this.nombre= nombre;
-        this.identificacion = identificacion;
+        this.cedula = cedula;
         this.telefono= telefono;
         this.correo= correo;
         this.direccion= direccion;
-        this.discapacitado= discapacitado;
     }
+    
+    public void setNombre(String nombre) {
+    	this.nombre = nombre;
+    }
+    public String getNombre() {
+    	return this.nombre;
+    }
+    
+    public void setCedula(long ced) {
+    	this.cedula = ced;
+    }
+    public long getCedula() {
+    	return this.cedula;
+    }
+    
+    public void setTelefono(long telefono) {
+    	this.telefono = telefono;
+    }
+    public long getTelefono() {
+    	return this.telefono;
+    }
+    
+    public void setCorreo(String correo) {
+    	this.correo = correo;
+    }
+    public String getCorreo() {
+    	return this.correo;
+    }
+    
+    public void setDireccion(String direccion) {
+    	this.direccion = direccion;
+    }
+    public String getDireccion() {
+    	return this.direccion;
+    }
+    
 }

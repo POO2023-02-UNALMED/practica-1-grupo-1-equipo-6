@@ -37,7 +37,7 @@ public class Vehiculo implements Serializable {
 	private String modelo;
 
 	public Vehiculo(String placa, Cliente dueno, String marca, String color, String modelo) {
-		this.placa = placa;
+		this.placa = placa.toUpperCase();
 		this.dueno = dueno;
 		this.marca = marca;
 		this.color = color;

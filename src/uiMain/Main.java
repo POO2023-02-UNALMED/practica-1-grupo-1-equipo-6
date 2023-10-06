@@ -25,19 +25,21 @@ public class Main {
 			return;
 		}
 
-		int opcion;
+		int eleccion;
 		do {
-			System.out.println("Menú principal");
-			System.out.println("1. Ingresar un vehículo al parqueadero");
-			System.out.println("2. Comprar un carro");
-			System.out.println("3. Taller");
-			System.out.println("4. Vender un carro");
-			System.out.println("5. Manejo del parqueadero");
-			System.out.println("6. Salir");
-			opcion = consola.pedirEntero("Escoja una opción");
-			switch (opcion) {
-				case 1:
+			eleccion = consola.pedirEleccion("Menú principal", List.of(
+				"Ingresar un vehículo al parqueadero",
+				"Comprar un carro",
+				"Taller",
+				"Vender un carro",
+				"Manejo del parqueadero",
+				"Salir"
+			));
+			switch (eleccion) {
+				case 0:
 					ingresarVehiculo();
+					break;
+				case 1:
 					break;
 				case 2:
 					break;
@@ -45,14 +47,8 @@ public class Main {
 					break;
 				case 4:
 					break;
-				case 5:
-					break;
-				case 6:
-					break;
-				default:
-					System.out.println("Opción inválida");
 			}
-		} while (opcion != 6);
+		} while (eleccion != 5);
 
 		try {
 			baseDatos.escribirDatos();

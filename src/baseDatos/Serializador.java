@@ -3,22 +3,19 @@
 package baseDatos;
 
 import java.io.*;
-import java.util.List;
 
 /**
- * Provee escritura de los datos en el archivo src/baseDatos/temp/datos.txt
+ * Provee escritura de los datos en un archivo
  * <br>
  * <br>
- * Tiene un único método escribirObjetos, el cual recibe como único parámetro una lista de todos los
- * objetos que se quieren escribir en el archivo, y éste se encarga de todo el proceso.
+ * Tiene un único método escribirObjetos, el cual recibe como único parámetro un objeto
+ * que se quiere escribir en el archivo, y éste método se encarga de todo el proceso.
  */
-public class Serializador extends BaseDatos {
-	public void escribirObjetos(List<Serializable> objetos) throws BaseDatosException {
-		// obtener el archivo src/baseDatos/temp/datos.txt.
-		File archivo = RUTA_ARCHIVO.toFile();
-		// crear las carpetas src/baseDatos/temp si no existen
+public class Serializador {
+	public void escribirObjeto(File archivo, Serializable objeto) throws BaseDatosException {
+		// crear las carpetas padre de archivo si no existen
 		archivo.getParentFile().mkdirs();
-		// crear el archivo src/baseDatos/temp/datos.txt si no existe
+		// crear el archivo si no existe
 		try {
 			archivo.createNewFile();
 		} catch (IOException e) {
@@ -42,13 +39,11 @@ public class Serializador extends BaseDatos {
 			throw new BaseDatosException("Ha ocurrido un error durante el guardado de los datos", e);
 		}
 
-		// para cada objeto en la lista objetos, escribirlo en el archivo
-		for (Serializable object : objetos) {
-			try {
-				objectOutputStream.writeObject(object);
-			} catch (IOException e) {
-				throw new BaseDatosException("Ha ocurrido un error escribiendo los datos del objeto", e);
-			}
+		// escribir el objeto en el archivo
+		try {
+			objectOutputStream.writeObject(objeto);
+		} catch (IOException e) {
+			throw new BaseDatosException("Ha ocurrido un error escribiendo los datos del objeto", e);
 		}
 
 		// cerrar el archivo

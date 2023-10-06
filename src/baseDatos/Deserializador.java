@@ -5,7 +5,7 @@ package baseDatos;
 import java.io.*;
 
 /**
- * Provee lectura de los datos guardados en el archivo src/baseDatos/temp/datos.txt
+ * Provee lectura de los datos guardados en un archivo
  * <br>
  * <br>
  * Luego de instanciar esta clase, utilice el método existenDatos para asegurarse de que el archivo
@@ -17,15 +17,15 @@ import java.io.*;
  * Los métodos de esta clase que alzan excepciones de tipo BaseDatosException son mensajes de error
  * para mostrar al usuario.
  */
-public class Deserializador extends BaseDatos {
+public class Deserializador {
 	private FileInputStream fileInputStream;
 	private ObjectInputStream objectInputStream;
 
-	public Deserializador() throws BaseDatosException {
-		// instanciar FileInputStream
-		// si da error, entonces asignarle null y retornar para no continuar con el resto del constructor
+	public Deserializador(File archivo) throws BaseDatosException {
+		// Instanciar FileInputStream
+		// Si da error, entonces asignarle null y retornar para no continuar con el resto del constructor
 		try {
-			fileInputStream = new FileInputStream(RUTA_ARCHIVO.toFile());
+			fileInputStream = new FileInputStream(archivo);
 		} catch (FileNotFoundException e) {
 			fileInputStream = null;
 			return;

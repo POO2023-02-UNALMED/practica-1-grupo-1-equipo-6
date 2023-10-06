@@ -3,10 +3,13 @@
 
 package gestorAplicacion.personas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import gestorAplicacion.vehiculos.Vehiculo;
 
-public class Cliente extends Persona{
+public class Cliente extends Persona implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private boolean discapacitado;
     private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 
@@ -14,7 +17,7 @@ public class Cliente extends Persona{
 		super(nombre, cedula, telefono, correo, direccion);
 		this.discapacitado = discapacitado;
 	}
-	
+
     public void agregarVehiculo(Vehiculo vehiculo) {
     	this.vehiculos.add(vehiculo);
     }

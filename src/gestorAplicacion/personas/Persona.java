@@ -2,7 +2,11 @@
 
 package gestorAplicacion.personas;
 
-public class Persona{
+import java.io.Serializable;
+
+public class Persona implements Serializable {
+	private static final long serialVersionUID = 1L;
+
     private String nombre;
     private long cedula;
     private long telefono;
@@ -51,5 +55,4 @@ public class Persona{
     public String getDireccion() {
     	return this.direccion;
     }
-    
 }

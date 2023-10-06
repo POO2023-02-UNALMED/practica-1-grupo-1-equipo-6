@@ -17,20 +17,23 @@ public class BaseDatos implements Serializable {
 
 	/**
 	 * Lee y carga los datos guardados en el archivo src/baseDatos/temp/datos.txt
-	 * @return true si existen datos y se logró leerlos, false si no hay datos o ocurrió algún error.
+	 * @return los datos en una instancia de BaseDatos si existen datos y se logró leerlos,
+	 * null si no hay datos o si ocurrió algún error.
 	 * @throws BaseDatosException
 	 */
-	public boolean leerDatos() throws BaseDatosException {
+	public static BaseDatos leerDatos() throws BaseDatosException {
 		Deserializador deserializador = new Deserializador(ARCHIVO);
 		boolean existenDatos = deserializador.existenDatos();
 
+		BaseDatos baseDatos = null;
+
 		if (existenDatos) {
 			// leer los datos guardados
-			parqueadero = (Parqueadero) deserializador.leerObjeto();
+			baseDatos = (BaseDatos) deserializador.leerObjeto();
 		}
 
 		deserializador.close();
-		return existenDatos;
+		return baseDatos;
 	}
 
 	public void escribirDatos() throws BaseDatosException {

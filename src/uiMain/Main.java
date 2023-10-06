@@ -7,7 +7,7 @@ import baseDatos.BaseDatosException;
 import gestorAplicacion.parqueadero.Parqueadero;
 
 public class Main {
-	private static BaseDatos baseDatos = new BaseDatos();
+	private static BaseDatos baseDatos;
 	private static Parqueadero parqueadero;
 
 	public static void main(String[] args) {
@@ -28,10 +28,11 @@ public class Main {
 	}
 
 	private static void leerDatos() throws BaseDatosException {
-		boolean datosCargados = baseDatos.leerDatos();
-		if (datosCargados) {
+		baseDatos = BaseDatos.leerDatos();
+		if (baseDatos != null) {
 			parqueadero = baseDatos.getParqueadero();
 		} else {
+			baseDatos = new BaseDatos();
 			// si no hay datos guardados, crear nuevas instancias de las clases
 			parqueadero = new Parqueadero();
 		}

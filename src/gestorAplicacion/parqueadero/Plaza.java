@@ -2,12 +2,15 @@
 
 package gestorAplicacion.parqueadero;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import gestorAplicacion.vehiculos.Vehiculo;
 
-public class Plaza {
+public class Plaza implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private int numeroPlaza;
 	private boolean discapacitado;  //Si es una plaza para clientes discapacitados o no
 	private String estado;  //Disponible u ocupado

@@ -49,7 +49,7 @@ public class Vehiculo implements Serializable {
 	}
 
 	public void setPlaca(String placa) {
-		this.placa = placa;
+		this.placa = placa.toUpperCase();
 	}
 
 	public Cliente getDueno() {

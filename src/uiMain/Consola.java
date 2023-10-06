@@ -1,5 +1,6 @@
 package uiMain;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Consola {
@@ -37,6 +38,25 @@ public class Consola {
 	public String pedirString(String mensaje) {
 		System.out.print(mensaje + ": ");
 		return scanner().nextLine();
+	}
+
+	/**
+	 * Recibe el mensaje y una lista de opciones, devuelve el índice de la opción escogida.
+	 * Este metodo imprime una lista de opciones en pantalla y espera que se escoja una,
+	 * verifica que sea una opción válida y la retorna. Si no es válida entonces repite la
+	 * pregunta.
+	 */
+	public int pedirEleccion(String mensaje, List<String> opciones) {
+		System.out.println(mensaje);
+		for (int i = 0; i < opciones.size(); i++) {
+			System.out.printf("%d. %s%n", i+1, opciones.get(i));
+		}
+		int eleccion = scanner().nextInt();
+		if (eleccion <= 0 || eleccion > opciones.size()) {
+			System.out.println("Opción inválida");
+			return pedirEleccion(mensaje, opciones);
+		}
+		return eleccion - 1;
 	}
 
 	private Scanner scanner() {

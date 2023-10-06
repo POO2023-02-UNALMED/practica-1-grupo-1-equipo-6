@@ -6,6 +6,11 @@ import baseDatos.BaseDatos;
 import baseDatos.BaseDatosException;
 import gestorAplicacion.parqueadero.Parqueadero;
 import gestorAplicacion.personas.Cliente;
+import gestorAplicacion.vehiculos.Carro;
+import gestorAplicacion.vehiculos.Moto;
+import gestorAplicacion.vehiculos.Vehiculo;
+
+import java.util.List;
 
 public class Main {
 	private static BaseDatos baseDatos;
@@ -74,7 +79,16 @@ public class Main {
 		}
 
 		String placa = consola.pedirString("Ingrese la placa del vehículo a ingresar");
-		// TODO: continuara...
+		Vehiculo vehiculo = baseDatos.buscarVehiculoRegistrado(placa);
+		if (vehiculo == null) {
+			vehiculo = registrarVehiculo(placa, cliente);
+		}
+
+		if (vehiculo instanceof Carro) {
+			// mostrar plazas para carro
+		} else {
+			// mostrar plazas para moto
+		}
 	}
 
 	private static Cliente registrarCliente(long cedula) {
@@ -90,6 +104,28 @@ public class Main {
 		return cliente;
 	}
 
+	private static Vehiculo registrarVehiculo(String placa, Cliente dueno) {
+		System.out.println("Registro de vehículo");
+		int tipoVehiculo = consola.pedirEleccion("Elija el tipo de vehiculo", List.of("Carro", "Moto"));
+		String marca = consola.pedirString("Ingrese la marca del vehículo");
+		String color = consola.pedirString("Ingrese el color del vehículo");
+		String modelo = consola.pedirString("Ingrese el modelo del vehículo");
+		Vehiculo vehiculo;
+		if (tipoVehiculo == 0) {
+			vehiculo = new Carro(placa, dueno, marca, color, modelo);
+		} else {
+			int tipoMoto = consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
+			String tipo = "normal";
+			if (tipoMoto == 1) {
+				tipo = "altoCC";
+			}
+			vehiculo = new Moto(placa, dueno, marca, color, modelo, tipo);
+		}
+		baseDatos.registrarVehiculo(vehiculo);
+		System.out.println("Vehículo registrado");
+		return vehiculo;
+	}
+
 	private static void leerDatos() throws BaseDatosException {
 		baseDatos = BaseDatos.leerDatos();
 		if (baseDatos != null) {
@@ -99,8 +135,9 @@ public class Main {
 			// si no hay datos guardados, crear nuevas instancias de las clases
 			System.out.println("Configuración inicial del parqueadero");
 			int plazasTotales = consola.pedirEntero("Ingrese el número de plazas totales");
-			double tarifa = consola.pedirEntero("Ingrese la tarifa");
-			parqueadero = new Parqueadero(plazasTotales, tarifa);
+			double tarifaCarro = consola.pedirEntero("Ingrese la tarifa para carros");
+			double tarifaMoto = consola.pedirEntero("Ingrese la tarifa para motos");
+			parqueadero = new Parqueadero(plazasTotales, tarifaCarro, tarifaMoto);
 			baseDatos.setParqueadero(parqueadero);
 		}
 	}

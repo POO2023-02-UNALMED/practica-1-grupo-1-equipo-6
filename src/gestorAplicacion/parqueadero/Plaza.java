@@ -8,17 +8,19 @@ import java.util.List;
 import gestorAplicacion.vehiculos.Vehiculo;
 
 public class Plaza {
-	private boolean discapacitado;  //Si es una plaza para clientes discapacitados o no
 	private int numeroPlaza;
+	private boolean discapacitado;  //Si es una plaza para clientes discapacitados o no
 	private String estado;  //Disponible u ocupado
 	private Vehiculo vehiculo; // El vehículo que lo está ocupando
+	private String tipo; //Si es de tipo carro o moto
 	private static List<Plaza> plazasTotales = new ArrayList<Plaza>();
 	
-	public Plaza(int numPlaza, String estado, boolean discapacitado, Vehiculo vehi) {
+	public Plaza(int numPlaza, boolean discapacitado, Vehiculo vehi, String tipo) {
 		this.numeroPlaza = numPlaza;
-		this.estado = estado;
+		this.estado = "Disponible";
 		this.discapacitado = discapacitado;
 		this.vehiculo = vehi;
+		this.tipo = tipo;
 		Plaza.plazasTotales.add(this);
 		
 	}
@@ -47,10 +49,18 @@ public class Plaza {
 	public void setVehiculo(Vehiculo vehi) {
 		this.vehiculo = vehi;
 	}
+	
 	public Vehiculo getVehiculo() {
 		return this.vehiculo;
 	}
 	
+	public String getTipo() {
+		return this.tipo;
+	}
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 	
 
 }

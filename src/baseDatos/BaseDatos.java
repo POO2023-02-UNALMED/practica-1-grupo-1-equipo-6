@@ -32,7 +32,11 @@ public class BaseDatos implements Serializable {
 		BaseDatos baseDatos = null;
 		if (existenDatos) {
 			// leer los datos guardados
-			baseDatos = (BaseDatos) deserializador.leerObjeto();
+			try {
+				baseDatos = (BaseDatos) deserializador.leerObjeto();
+			} catch (ClassCastException e) {
+				baseDatos = null;
+			}
 		}
 
 		deserializador.close();

@@ -23,12 +23,13 @@ public class BaseDatos implements Serializable {
 	public boolean leerDatos() throws BaseDatosException {
 		Deserializador deserializador = new Deserializador(ARCHIVO);
 		boolean existenDatos = deserializador.existenDatos();
-		deserializador.close();
 
 		if (existenDatos) {
 			// leer los datos guardados
 			parqueadero = (Parqueadero) deserializador.leerObjeto();
 		}
+
+		deserializador.close();
 		return existenDatos;
 	}
 

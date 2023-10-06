@@ -51,6 +51,7 @@ public class Consola {
 		for (int i = 0; i < opciones.size(); i++) {
 			System.out.printf("%d. %s%n", i+1, opciones.get(i));
 		}
+		System.out.print("Escoja una opción: ");
 		int eleccion = scanner().nextInt();
 		if (eleccion <= 0 || eleccion > opciones.size()) {
 			System.out.println("Opción inválida");

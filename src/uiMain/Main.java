@@ -80,6 +80,11 @@ public class Main {
 			vehiculo = registrarVehiculo(placa, cliente);
 		}
 
+		if (vehiculo.estaParqueado()) {
+			System.out.println("El vehículo ya se encuentra en el parqueadero!");
+			return;
+		}
+
 		if (vehiculo instanceof Carro) {
 			// mostrar plazas para carro
 		} else {

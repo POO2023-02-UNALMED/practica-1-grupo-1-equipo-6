@@ -60,16 +60,9 @@ public class Main {
 	private static void ingresarVehiculo() {
 		System.out.println("Ingresar vehículo");
 		long cedula = consola.pedirLong("Ingrese cédula");
-		Cliente cliente = baseDatos.buscarClienteRegistrado(cedula);
+		Cliente cliente = buscarORegistrarCliente(cedula);
 		if (cliente == null) {
-			System.out.println("Cliente no registrado");
-			boolean continuarRegistro = consola.pedirBoolean("Desea registrarse?");
-			if (continuarRegistro) {
-				cliente = registrarCliente(cedula);
-			} else {
-				System.out.println("Ha escogido no registrarse.");
-				return;
-			}
+			return;
 		} else {
 			System.out.println("Bienvenido de nuevo, " + cliente.getNombre());
 		}
@@ -89,6 +82,28 @@ public class Main {
 			// mostrar plazas para carro
 		} else {
 			// mostrar plazas para moto
+		}
+	}
+
+	/**
+	 * Busca un cliente en la base de datos por su cédula.
+	 * Si el cliente no está registrado, le pregunta si desea registrarse y
+	 * se procede con el registro.
+	 * Cuando el cliente elige no registrarse devuelve null.
+	 */
+	private static Cliente buscarORegistrarCliente(long cedula) {
+		Cliente cliente = baseDatos.buscarClienteRegistrado(cedula);
+		if (cliente == null) {
+			System.out.println("Cliente no registrado");
+			boolean continuarRegistro = consola.pedirBoolean("Desea registrarse?");
+			if (continuarRegistro) {
+				return registrarCliente(cedula);
+			} else {
+				System.out.println("Ha escogido no registrarse.");
+				return null;
+			}
+		} else {
+			return cliente;
 		}
 	}
 

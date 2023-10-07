@@ -10,19 +10,28 @@ import java.util.List;
 
 public class Main {
 	private static BaseDatos baseDatos;
-	private static Consola consola = new Consola();
 
 	public static void main(String[] args) {
 		try {
 			leerDatos();
 		} catch (BaseDatosException e) {
-			consola.imprimirError(e);
+			Consola.imprimirError(e);
 			return;
 		}
 
+		ejecutarFuncionalidades();
+
+		try {
+			baseDatos.escribirDatos();
+		} catch (BaseDatosException e) {
+			Consola.imprimirError(e);
+		}
+	}
+
+	private static void ejecutarFuncionalidades() {
 		int eleccion;
 		do {
-			eleccion = consola.pedirEleccion("Menú principal", List.of(
+			eleccion = Consola.pedirEleccion("Menú principal", List.of(
 				"Ingresar un vehículo al parqueadero",
 				"Comprar un carro",
 				"Taller",
@@ -53,12 +62,6 @@ public class Main {
 				funcionalidad.ejecutar();
 			}
 		} while (eleccion != 5);
-
-		try {
-			baseDatos.escribirDatos();
-		} catch (BaseDatosException e) {
-			Consola.imprimirError(e);
-		}
 	}
 
 	private static void leerDatos() throws BaseDatosException {

@@ -11,7 +11,7 @@ public class IngresarVehiculo extends Funcionalidad {
 	@Override
 	public void ejecutar() {
 		System.out.println("Ingresar vehículo");
-		long cedula = consola.pedirLong("Ingrese cédula");
+		long cedula = Consola.pedirLong("Ingrese cédula");
 		Cliente cliente = buscarORegistrarCliente(cedula);
 		if (cliente == null) {
 			return;
@@ -19,7 +19,7 @@ public class IngresarVehiculo extends Funcionalidad {
 			System.out.println("Bienvenido de nuevo, " + cliente.getNombre());
 		}
 
-		String placa = consola.pedirString("Ingrese la placa del vehículo a ingresar");
+		String placa = Consola.pedirString("Ingrese la placa del vehículo a ingresar");
 		Vehiculo vehiculo = baseDatos.buscarVehiculoRegistrado(placa);
 		if (vehiculo == null) {
 			vehiculo = registrarVehiculo(placa, cliente);
@@ -41,15 +41,15 @@ public class IngresarVehiculo extends Funcionalidad {
 
 	private Vehiculo registrarVehiculo(String placa, Cliente dueno) {
 		System.out.println("Registro de vehículo");
-		int tipoVehiculo = consola.pedirEleccion("Elija el tipo de vehiculo", List.of("Carro", "Moto"));
-		String marca = consola.pedirString("Ingrese la marca del vehículo");
-		String color = consola.pedirString("Ingrese el color del vehículo");
-		String modelo = consola.pedirString("Ingrese el modelo del vehículo");
+		int tipoVehiculo = Consola.pedirEleccion("Elija el tipo de vehiculo", List.of("Carro", "Moto"));
+		String marca = Consola.pedirString("Ingrese la marca del vehículo");
+		String color = Consola.pedirString("Ingrese el color del vehículo");
+		String modelo = Consola.pedirString("Ingrese el modelo del vehículo");
 		Vehiculo vehiculo;
 		if (tipoVehiculo == 0) {
 			vehiculo = new Carro(placa, dueno, marca, color, modelo);
 		} else {
-			int tipoMoto = consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
+			int tipoMoto = Consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
 			String tipo = "normal";
 			if (tipoMoto == 1) {
 				tipo = "altoCC";

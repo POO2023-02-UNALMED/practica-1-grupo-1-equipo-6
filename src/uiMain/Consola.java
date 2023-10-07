@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Consola {
-	public void imprimirError(Exception error) {
+	public static void imprimirError(Exception error) {
 		System.out.println("Error: " + error.getMessage());
 		Throwable causa = error.getCause();
 		if (causa != null) {
@@ -12,17 +12,17 @@ public class Consola {
 		}
 	}
 
-	public int pedirEntero(String mensaje) {
+	public static int pedirEntero(String mensaje) {
 		System.out.print(mensaje + ": ");
 		return scanner().nextInt();
 	}
 
-	public long pedirLong(String mensaje) {
+	public static long pedirLong(String mensaje) {
 		System.out.print(mensaje + ": ");
 		return scanner().nextLong();
 	}
 
-	public boolean pedirBoolean(String mensaje) {
+	public static boolean pedirBoolean(String mensaje) {
 		System.out.print(mensaje + " (si/no): ");
 		char eleccion = scanner().nextLine().toLowerCase().charAt(0);
 		if (eleccion == 's') {
@@ -35,7 +35,7 @@ public class Consola {
 		}
 	}
 
-	public String pedirString(String mensaje) {
+	public static String pedirString(String mensaje) {
 		System.out.print(mensaje + ": ");
 		return scanner().nextLine();
 	}
@@ -46,7 +46,7 @@ public class Consola {
 	 * verifica que sea una opción válida y la retorna. Si no es válida entonces repite la
 	 * pregunta.
 	 */
-	public int pedirEleccion(String mensaje, List<String> opciones) {
+	public static int pedirEleccion(String mensaje, List<String> opciones) {
 		System.out.println(mensaje);
 		for (int i = 0; i < opciones.size(); i++) {
 			System.out.printf("%d. %s%n", i+1, opciones.get(i));
@@ -60,7 +60,7 @@ public class Consola {
 		return eleccion - 1;
 	}
 
-	private Scanner scanner() {
+	private static Scanner scanner() {
 		return new Scanner(System.in);
 	}
 }

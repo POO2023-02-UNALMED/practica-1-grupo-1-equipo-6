@@ -49,7 +49,6 @@ public class Main {
 					break;
 			}
 			if (funcionalidad != null) {
-				funcionalidad.setConsola(consola);
 				funcionalidad.setBaseDatos(baseDatos);
 				funcionalidad.ejecutar();
 			}
@@ -58,7 +57,7 @@ public class Main {
 		try {
 			baseDatos.escribirDatos();
 		} catch (BaseDatosException e) {
-			consola.imprimirError(e);
+			Consola.imprimirError(e);
 		}
 	}
 
@@ -68,9 +67,9 @@ public class Main {
 			baseDatos = new BaseDatos();
 			// si no hay datos guardados, crear nuevas instancias de las clases
 			System.out.println("Configuración inicial del parqueadero");
-			int plazasTotales = consola.pedirEntero("Ingrese el número de plazas totales");
-			double tarifaCarro = consola.pedirEntero("Ingrese la tarifa para carros");
-			double tarifaMoto = consola.pedirEntero("Ingrese la tarifa para motos");
+			int plazasTotales = Consola.pedirEntero("Ingrese el número de plazas totales");
+			double tarifaCarro = Consola.pedirEntero("Ingrese la tarifa para carros");
+			double tarifaMoto = Consola.pedirEntero("Ingrese la tarifa para motos");
 			Parqueadero parqueadero = new Parqueadero(plazasTotales, tarifaCarro, tarifaMoto);
 			baseDatos.setParqueadero(parqueadero);
 		}

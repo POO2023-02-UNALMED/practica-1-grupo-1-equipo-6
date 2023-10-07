@@ -5,16 +5,11 @@ import gestorAplicacion.personas.Cliente;
 
 public abstract class Funcionalidad {
 	protected BaseDatos baseDatos;
-	protected Consola consola;
 
 	public abstract void ejecutar();
 
 	public void setBaseDatos(BaseDatos baseDatos) {
 		this.baseDatos = baseDatos;
-	}
-
-	public void setConsola(Consola consola) {
-		this.consola = consola;
 	}
 
 	/**
@@ -27,7 +22,7 @@ public abstract class Funcionalidad {
 		Cliente cliente = baseDatos.buscarClienteRegistrado(cedula);
 		if (cliente == null) {
 			System.out.println("Cliente no registrado");
-			boolean continuarRegistro = consola.pedirBoolean("Desea registrarse?");
+			boolean continuarRegistro = Consola.pedirBoolean("Desea registrarse?");
 			if (continuarRegistro) {
 				return registrarCliente(cedula);
 			} else {
@@ -44,11 +39,11 @@ public abstract class Funcionalidad {
 	 */
 	private Cliente registrarCliente(long cedula) {
 		System.out.println("Registro de cliente");
-		String nombre = consola.pedirString("Ingrese nombre");
-		int telefono = consola.pedirEntero("Ingrese teléfono");
-		String correo = consola.pedirString("Ingrese correo");
-		String direccion = consola.pedirString("Ingrese dirección");
-		boolean discapacitado = consola.pedirBoolean("Usted se encuentra en condición de discapacitado?");
+		String nombre = Consola.pedirString("Ingrese nombre");
+		int telefono = Consola.pedirEntero("Ingrese teléfono");
+		String correo = Consola.pedirString("Ingrese correo");
+		String direccion = Consola.pedirString("Ingrese dirección");
+		boolean discapacitado = Consola.pedirBoolean("Usted se encuentra en condición de discapacitado?");
 		Cliente cliente = new Cliente(nombre, cedula, telefono, correo, direccion, discapacitado);
 		baseDatos.registrarCliente(cliente);
 		System.out.println("Cliente registrado. Bienvenido!");

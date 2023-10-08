@@ -6,6 +6,7 @@ package gestorAplicacion.parqueadero;
 import java.io.Serializable;
 import java.util.ArrayList;
 import gestorAplicacion.vehiculos.*;
+import gestorAplicacion.personas.*;
 
 /**
  *Clase que instancia un parqueadero con servicio de parqueo, taller y concesionario.
@@ -24,7 +25,7 @@ public class Parqueadero implements Serializable {
 		this.plazasDisponibles = plazasTotales;
 		this.tarifaCarro = tarifaCarro;
 		this.tarifaMoto = tarifaMoto;
-		inicializarPlazas(plazasTotales);
+		this.inicializarPlazas(plazasTotales);
 	}
 	
 	//Getters and Setters

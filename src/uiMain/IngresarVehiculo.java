@@ -54,7 +54,8 @@ public class IngresarVehiculo extends Funcionalidad {
 			if (tipoMoto == 1) {
 				tipo = "altoCC";
 			}
-			vehiculo = new Moto(placa, dueno, marca, color, modelo, tipo);
+			int cilindraje = Consola.pedirEntero("Ingrese el cilindraje de la moto(su valor numerico)");
+			vehiculo = new Moto(placa, dueno, marca, color, modelo, tipo, cilindraje);
 		}
 		baseDatos.registrarVehiculo(vehiculo);
 		System.out.println("Vehículo registrado");

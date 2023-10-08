@@ -1,25 +1,32 @@
 //Sofía
-
+//Sebastian
 package gestorAplicacion.parqueadero;
 
 public class Producto {
-	private String tipoRepuesto;
+	private String tipo;
 	private long precio;
 	private String calidad;
+	private String estado;
 	private String marca;
 	
-	public Producto(String tipoR, long precio,String calidad, String marca) {
-		this.tipoRepuesto = tipoR;
+	//sobrecargar el constructor para tener uno para productos de venta y otro para los productos que contienen los vehiculos
+	public Producto(String tipo, long precio, String calidad, String marca) {
+		this.tipo = tipo;
 		this.precio = precio;
 		this.calidad = calidad;
+		this.estado = "Perfecto";
 		this.marca = marca;
 	}
-	
-	public void setTipoRepuesto(String rep) {
-		this.tipoRepuesto = rep;
+	//constructor para los vehiculos
+	public Producto(String tipo, String marca, String estado) {
+		this(tipo, 0, estado, marca);
 	}
-	public String getTipoRepuesto() {
-		return this.tipoRepuesto;
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public String getTipo() {
+		return this.tipo;
 	}
 	
 	public void setPrecio(long precio) {
@@ -41,6 +48,12 @@ public class Producto {
 	}
 	public String getMarca() {
 		return this.marca;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 }

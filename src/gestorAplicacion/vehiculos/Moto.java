@@ -22,6 +22,8 @@ public class Moto extends Vehiculo implements Serializable {
 	private Producto freno;
 	private Producto cadena;
 	private Producto pedales; //clutch y pedales de cambio
+	private Producto bateria;
+	private Producto amortiguador;
 	private Producto[] depositos; //array con los depositos de la moto(gasolina, liquidos, aceite)
 	private Producto[] llantas; //array que contiene las llantas del vehiculo
 	private Producto[] rines; //array que contiene los rines del vehiculo
@@ -37,6 +39,8 @@ public class Moto extends Vehiculo implements Serializable {
 		this.freno = this.inicializarProducto("Freno");
 		this.cadena = this.inicializarProducto("Cadena");
 		this.pedales = this.inicializarProducto("Pedales");
+		this.bateria = this.inicializarProducto("Bateria");
+		this.amortiguador = this.inicializarProducto("Amortiguador");
 		this.inicializarDepositos();
 		this.inicializarLlantas();
 		this.inicializarRines();
@@ -110,8 +114,20 @@ public class Moto extends Vehiculo implements Serializable {
 	public void setRines(Producto[] rines) {
 		this.rines = rines;
 	}
+	public Producto getBateria() {
+		return bateria;
+	}
+	public void setBateria(Producto bateria) {
+		this.bateria = bateria;
+	}
+	public Producto getAmortiguador() {
+		return amortiguador;
+	}
+	public void setAmortiguador(Producto amortiguador) {
+		this.amortiguador = amortiguador;
+	}
 
-	
+
 	//metodo que crea dos Productos tipo llanta y los agrega al array this.llantas
 	private void inicializarLlantas(){
 		this.llantas = new Producto[2]; // se asigna a this.llantas un array de tipo Producto con tamaño 2
@@ -132,8 +148,8 @@ public class Moto extends Vehiculo implements Serializable {
 	private void inicializarDepositos() {
 		this.depositos = new Producto[3];
 		this.depositos[0] = new Producto("Tanque de gasolina", this.getMarca(), "Desgastado");
-		this.depositos[0] = new Producto("Desposito de aceite", this.getMarca(), "Desgastado");
-		this.depositos[0] = new Producto("Desposito de liquidos", this.getMarca(), "Desgastado");
+		this.depositos[1] = new Producto("Desposito de aceite", this.getMarca(), "Desgastado");
+		this.depositos[2] = new Producto("Desposito de liquidos", this.getMarca(), "Desgastado");
 	}
 	
 	//metodo para asignar un solo producto

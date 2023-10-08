@@ -47,7 +47,13 @@ public class IngresarVehiculo extends Funcionalidad {
 		String modelo = Consola.pedirString("Ingrese el modelo del vehículo");
 		Vehiculo vehiculo;
 		if (tipoVehiculo == 0) {
-			vehiculo = new Carro(placa, dueno, marca, color, modelo);
+			int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
+			String tipo = "mecanico";
+			if (tipoCarro == 1) {
+				tipo = "automatico";
+			}
+			int puestos = Consola.pedirEntero("Ingrese el numero de puestos del Carro");
+			vehiculo = new Carro(placa, dueno, marca, color, modelo, tipo, puestos);
 		} else {
 			int tipoMoto = Consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
 			String tipo = "normal";

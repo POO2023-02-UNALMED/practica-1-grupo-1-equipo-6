@@ -138,7 +138,7 @@ public class Moto extends Vehiculo implements Serializable {
 	
 	//metodo que crea dos Productos tipo Rin y los agrega a this.rines
 	private void inicializarRines(){
-		this.llantas = new Producto[2]; // se asigna a this.rines un array de tipo Producto con tamaño 2
+		this.rines = new Producto[2]; // se asigna a this.rines un array de tipo Producto con tamaño 2
 		for (int i = 0; i < 2; i++) {
 			this.rines[i] = new Producto("Rin", this.getMarca(), "Desgastado");
 		}

@@ -1,5 +1,6 @@
 // Alejandro Arias Orozco
 // Sebastian
+
 package gestorAplicacion.vehiculos;
 
 import gestorAplicacion.personas.Cliente;
@@ -125,7 +126,7 @@ public class Carro extends Vehiculo implements Serializable {
 	}
 	//metodo que crea cuatro Productos tipo Rin y los agrega a this.rines
 	private void inicializarRines(){
-		this.llantas = new Producto[4]; // se asigna a this.rines un array de tipo Producto con tamaño 4
+		this.rines = new Producto[4]; // se asigna a this.rines un array de tipo Producto con tamaño 4
 		for (int i = 0; i < 4; i++) {
 			this.rines[i] = new Producto("Rin", this.getMarca(), "Desgastado");
 		}

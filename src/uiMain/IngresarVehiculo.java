@@ -83,11 +83,20 @@ public class IngresarVehiculo extends Funcionalidad {
 		System.out.println();
 
 		int numeroPlaza = Consola.pedirEntero("Elija una plaza");
-		Plaza plaza = parqueadero.buscarPlaza(numeroPlaza);
+		Plaza plaza = buscarPlaza(plazas, numeroPlaza);
 		if (plaza == null) {
 			System.out.println("Plaza no encontrada, por favor escoja una plaza válida.");
 			return pedirPlaza(plazas);
 		}
 		return plaza;
+	}
+
+	private Plaza buscarPlaza(List<Plaza> plazas, int numeroPlaza) {
+		for (Plaza plaza : plazas) {
+			if (plaza.getNumeroPlaza() == numeroPlaza) {
+				return plaza;
+			}
+		}
+		return null;
 	}
 }

@@ -13,10 +13,9 @@ public class Empleado extends Persona implements Serializable{
 	private String cargo;
     private double salario;
     private double comision;
-	private Vehiculo vehiculo; //debe recibirse un vehiculo para que pueda ser usado en los métodos por el empleado, ya sea el que va a revisarlo o el que lo va a vender
     
-    public Empleado(String nombre, long cedula, long telefono, String correo, String direccion, Vehiculo vehiculo, String cargo, double salario) {
-    	super(nombre, cedula, telefono, correo, direccion, vehiculo);
+    public Empleado(String nombre, long cedula, long telefono, String correo, String direccion, String cargo, double salario) {
+    	super(nombre, cedula, telefono, correo, direccion);
     	this.cargo = cargo;
     	this.salario = salario;
     	this.comision = 0.1;

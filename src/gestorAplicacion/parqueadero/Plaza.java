@@ -50,6 +50,9 @@ public class Plaza implements Serializable {
 	}
 	
 	public void setVehiculo(Vehiculo vehi) {
+		if (this.vehiculo != null) {
+			this.vehiculo.setPlaza(null);
+		}
 		this.vehiculo = vehi;
 		if (vehi == null) {
 			this.estado = "Disponible";

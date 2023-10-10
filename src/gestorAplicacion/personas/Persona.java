@@ -13,7 +13,7 @@ public class Persona implements Serializable {
     private String correo;
     private String direccion;
 
-    public Persona(String nombre, long cedula, int telefono, String correo, String direccion){
+    public Persona(String nombre, long cedula, long telefono, String correo, String direccion){
         this.nombre= nombre;
         this.cedula = cedula;
         this.telefono= telefono;

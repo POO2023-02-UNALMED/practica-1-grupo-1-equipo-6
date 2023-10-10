@@ -3,6 +3,7 @@
 
 package uiMain;
 
+import gestorAplicacion.parqueadero.Plaza;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.vehiculos.Moto;
@@ -33,11 +34,9 @@ public class IngresarVehiculo extends Funcionalidad {
 			return;
 		}
 
-		if (vehiculo instanceof Carro) {
-			// mostrar plazas para carro
-		} else {
-			// mostrar plazas para moto
-		}
+		List<Plaza> plazas = parqueadero.plazasDisponiblesPara(vehiculo);
+		Plaza plaza = pedirPlaza(plazas);
+		plaza.setVehiculo(vehiculo);
 
 		// TODO: continuara...
 	}
@@ -69,5 +68,26 @@ public class IngresarVehiculo extends Funcionalidad {
 		baseDatos.registrarVehiculo(vehiculo);
 		System.out.println("Vehículo registrado");
 		return vehiculo;
+	}
+
+	private Plaza pedirPlaza(List<Plaza> plazas) {
+		System.out.println("Plazas disponibles:");
+		int i = 1;
+		for (Plaza plaza : plazas) {
+			System.out.printf("%d", plaza.getNumeroPlaza());
+			if (i < plazas.size()) {
+				System.out.print(" ");
+			}
+			i++;
+		}
+		System.out.println();
+
+		int numeroPlaza = Consola.pedirEntero("Elija una plaza");
+		Plaza plaza = parqueadero.buscarPlaza(numeroPlaza);
+		if (plaza == null) {
+			System.out.println("Plaza no encontrada, por favor escoja una plaza válida.");
+			return pedirPlaza(plazas);
+		}
+		return plaza;
 	}
 }

@@ -5,6 +5,8 @@ package gestorAplicacion.parqueadero;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 import gestorAplicacion.vehiculos.*;
 import gestorAplicacion.personas.*;
 
@@ -69,6 +71,39 @@ public class Parqueadero implements Serializable {
 				plaza.setVehiculo(null);
 			}
 		}
+	}
+
+	// retorna las plazas que hay disponibles (estado == "Disponible") que tienen las características
+	// del vehículo pasado como parámetro (tipo de vehículo: Carro, Moto, Moto altoCC)
+	public List<Plaza> plazasDisponiblesPara(Vehiculo vehiculo) {
+		List<Plaza> plazasDisponibles = new ArrayList<>();
+		String tipo;
+		if (vehiculo instanceof Carro) {
+			tipo = "Carro";
+		} else {
+			Moto moto = (Moto) vehiculo;
+			if (moto.getTipo().equals("normal")) {
+				tipo = "Moto";
+			} else {
+				tipo = "Moto altoCC";
+			}
+		}
+		for (Plaza plaza : plazas) {
+			if (plaza.getTipo().equals(tipo) && plaza.getEstado().equals("Disponible")) {
+				plazasDisponibles.add(plaza);
+			}
+		}
+		return plazasDisponibles;
+	}
+
+	// busca una plaza por el número de plaza, si no la encuentra retorna null.
+	public Plaza buscarPlaza(int numeroPlaza) {
+		for (Plaza plaza : plazas) {
+			if (plaza.getNumeroPlaza() == numeroPlaza) {
+				return plaza;
+			}
+		}
+		return null;
 	}
 
 	// tomemos por convencion que el 60% de las plazas sean de tipo carro y el 40 % de tipo moto

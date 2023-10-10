@@ -3,15 +3,18 @@
 package uiMain;
 
 import baseDatos.BaseDatos;
+import gestorAplicacion.parqueadero.Parqueadero;
 import gestorAplicacion.personas.Cliente;
 
 public abstract class Funcionalidad {
 	protected BaseDatos baseDatos;
+	protected Parqueadero parqueadero;
 
 	public abstract void ejecutar();
 
 	public void setBaseDatos(BaseDatos baseDatos) {
 		this.baseDatos = baseDatos;
+		parqueadero = baseDatos.getParqueadero();
 	}
 
 	/**

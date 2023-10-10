@@ -51,8 +51,13 @@ public class Plaza implements Serializable {
 	
 	public void setVehiculo(Vehiculo vehi) {
 		this.vehiculo = vehi;
+		if (vehi == null) {
+			this.estado = "Disponible";
+		} else {
+			this.estado = "No disponible";
+		}
 	}
-	
+
 	public Vehiculo getVehiculo() {
 		return this.vehiculo;
 	}

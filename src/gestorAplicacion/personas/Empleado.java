@@ -45,7 +45,7 @@ public class Empleado extends Persona implements Serializable{
      * Metodo que utiliza un empleado tipo mecanico para revisar un vehiculo y devolver su estado, usar para verificar en la funcionalidad venta de
      * Vehiculo
      */
-    public String revisarCarro(Vehiculo vehiculo) {
+    public String revisarVehiculo(Vehiculo vehiculo) {
     	String r = ""; //string que se va a retornar
     	
     	//comprobar que el empleado sea de tipo mecanico, sino lanzar excepcion(implementar)
@@ -112,7 +112,58 @@ public class Empleado extends Persona implements Serializable{
     		
     		//mismo proceso pero con un vehiculo de tipo moto
     		if (vehiculo instanceof Moto) {
-    			//.... continuar, revisar antes porque no me gusta jajaja
+    			if (((Moto) vehiculo).getMotor().getEstado().equals("Mal estado")) {
+    				r += "Motor\n";
+    			}
+    			if (((Moto) vehiculo).getTransmision().getEstado().equals("Mal estado")) {
+    				r += "Transmision\n";
+    			}
+    			if (((Moto) vehiculo).getAcelerador().getEstado().equals("Mal estado")) {
+    				r += "Acelerador\n";
+    			}
+    			if (((Moto) vehiculo).getFreno().getEstado().equals("Mal estado")) {
+    				r += "Freno\n";
+    			}
+    			if (((Moto) vehiculo).getCadena().getEstado().equals("Mal estado")) {
+    				r += "Cadena\n";
+    			}
+    			if (((Moto) vehiculo).getPedales().getEstado().equals("Mal estado")) {
+    				r += "Pedales\n";
+    			}
+    			if (((Moto) vehiculo).getBateria().getEstado().equals("Mal estado")) {
+    				r += "Bateria\n";
+    			}
+    			if (((Moto) vehiculo).getMotor().getEstado().equals("Male estado")) {
+    				r += "Amortiguador\n";
+    			}
+    			
+    			int c = 0;
+    			for (int i = 0; i < 3; i++) {
+    				if (((Moto) vehiculo).getDepositos()[i].getEstado() == "Mal estado") {
+    					c += 1;
+    				}
+    			}
+    			if(c != 0) {
+    				r += c + "Depositos\n"; c = 0;
+    			}
+    			
+    			for (int i = 0; i < 2; i++) {
+    				if (((Moto) vehiculo).getLlantas()[i].getEstado() == "Mal estado") {
+    					c += 1;
+    				}
+    			}
+    			if(c != 0) {
+    				r += c + "Llantas\n"; c = 0;
+    			}
+    			
+    			for (int i = 0; i < 2; i++) {
+    				if (((Moto) vehiculo).getRines()[i].getEstado() == "Mal estado") {
+    					c += 1;
+    				}
+    			}
+    			if(c != 0) {
+    				r += c + "Depositos\n"; c = 0;
+    			}
     		}
     		
     		//despues revisar si el string sigue como se inicializo, es decir todos los componentes estan en buen estado, sino se regresa el string

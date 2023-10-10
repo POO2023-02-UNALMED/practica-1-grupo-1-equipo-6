@@ -10,16 +10,16 @@ public class Producto {
 	private String marca;
 	
 	//sobrecargar el constructor para tener uno para productos de venta y otro para los productos que contienen los vehiculos
-	public Producto(String tipo, long precio, String calidad, String marca) {
+	public Producto(String tipo, long precio, String calidad, String marca, String estado) {
 		this.tipo = tipo;
 		this.precio = precio;
 		this.calidad = calidad;
-		this.estado = "Perfecto";
 		this.marca = marca;
+		this.estado = estado;
 	}
 	//constructor para los vehiculos
 	public Producto(String tipo, String marca, String estado) {
-		this(tipo, 0, estado, marca);
+		this(tipo, 0, marca, "Primera", estado);
 	}
 	
 	public void setTipo(String tipo) {

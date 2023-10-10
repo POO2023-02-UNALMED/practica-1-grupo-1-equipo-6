@@ -1,3 +1,6 @@
+// Alejandro Arias Orozco
+// Sebastián
+
 package uiMain;
 
 import gestorAplicacion.personas.Cliente;

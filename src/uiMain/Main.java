@@ -39,24 +39,14 @@ public class Main {
 				"Manejo del parqueadero",
 				"Salir"
 			));
-			Funcionalidad funcionalidad = null;
-			switch (eleccion) {
-				case 0:
-					funcionalidad = new IngresarVehiculo();
-					break;
-				case 1:
-					funcionalidad = new ComprarCarro();
-					break;
-				case 2:
-					funcionalidad = new Taller();
-					break;
-				case 3:
-					funcionalidad = new VenderCarro();
-					break;
-				case 4:
-					funcionalidad = new ManejoParqueadero();
-					break;
-			}
+			Funcionalidad funcionalidad = switch (eleccion) {
+				case 0 -> new IngresarVehiculo();
+				case 1 -> new ComprarCarro();
+				case 2 -> new Taller();
+				case 3 -> new VenderCarro();
+				case 4 -> new ManejoParqueadero();
+				default -> null;
+			};
 			if (funcionalidad != null) {
 				funcionalidad.setBaseDatos(baseDatos);
 				funcionalidad.ejecutar();

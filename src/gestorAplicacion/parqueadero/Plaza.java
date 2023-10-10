@@ -55,6 +55,7 @@ public class Plaza implements Serializable {
 			this.estado = "Disponible";
 		} else {
 			this.estado = "No disponible";
+			vehi.setPlaza(this);
 		}
 	}
 

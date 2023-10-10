@@ -1,3 +1,4 @@
+// Katherine
 //Sofía
 
 package gestorAplicacion.personas;

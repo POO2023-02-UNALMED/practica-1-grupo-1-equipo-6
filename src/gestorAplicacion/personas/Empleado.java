@@ -1,5 +1,6 @@
 //Sofía
 //sebas
+// Katherine
 
 package gestorAplicacion.personas;
 

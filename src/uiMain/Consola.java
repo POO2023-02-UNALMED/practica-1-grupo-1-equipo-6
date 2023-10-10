@@ -90,12 +90,18 @@ public class Consola {
 	}
 
 	/**
-	 * Imprime un mensaje precedido por 
+	 * Imprime un mensaje precedido por un ">" y seguido por un ":" para indicarle al usuario
+	 * que debe ingresar un valor.
 	 */
 	private static void imprimirMensaje(String mensaje) {
-		System.out.println("> " + mensaje + ": ");
+		System.out.print("> " + mensaje + ": ");
 	}
 
+	/**
+	 * Imprime un mensaje precedido por un ">" y seguido por el valor del
+	 * argumento `extra` y por un ":" para indicarle al usuario que debe
+	 * ingresar un valor.
+	 */
 	private static void imprimirMensaje(String mensaje, String extra) {
 		imprimirMensaje(mensaje + " " + extra);
 	}

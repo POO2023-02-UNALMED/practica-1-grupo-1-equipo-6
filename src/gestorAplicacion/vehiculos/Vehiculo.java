@@ -93,6 +93,10 @@ public class Vehiculo implements Serializable {
 	}
 
 
+	/**
+	 * Este método retorna true si el vehículo se encuentra en el parqueadero, false si no lo está.
+	 * El vehículo se considera parqueado si el atributo plaza no es null.
+	 */
 	public boolean estaParqueado() {
 		return this.plaza != null;
 	}

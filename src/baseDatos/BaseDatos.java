@@ -30,24 +30,26 @@ public class BaseDatos implements Serializable {
 	 * @throws BaseDatosException
 	 */
 	public static BaseDatos leerDatos() throws BaseDatosException {
+		// crear una instancia de Deserializador para realizar la lectura de los datos
 		Deserializador deserializador = new Deserializador(ARCHIVO);
+
+		// verifica si los datos existen
 		boolean existenDatos = deserializador.existenDatos();
 
+		// si los datos no existen, entonces se devolverá null
 		BaseDatos baseDatos = null;
 		if (existenDatos) {
-			// leer los datos guardados
-			try {
-				baseDatos = (BaseDatos) deserializador.leerObjeto();
-			} catch (ClassCastException e) {
-				baseDatos = null;
-			}
+			// Si los datos existen, entonces leer los datos guardados
+			baseDatos = (BaseDatos) deserializador.leerObjeto();
 		}
 
+		// cerrar el deserializador luego de leer los datos
 		deserializador.close();
 		return baseDatos;
 	}
 
 	public void escribirDatos() throws BaseDatosException {
+		// crear una instancia de Serializador para realizar el guardado de los datos
 		Serializador serializador = new Serializador();
 		// persistir datos de las clases
 		serializador.escribirObjeto(ARCHIVO, this);

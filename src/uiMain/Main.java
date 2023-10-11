@@ -12,6 +12,7 @@ public class Main {
 	private static BaseDatos baseDatos;
 
 	public static void main(String[] args) {
+		// leer los datos del archivo src/baseDatos/temp/datos.txt y cargarlos en memoria
 		try {
 			leerDatos();
 		} catch (BaseDatosException e) {
@@ -21,6 +22,8 @@ public class Main {
 
 		ejecutarFuncionalidades();
 
+		// escribir los datos actualizados al archivo luego de haber ejecutado las funcionalidades
+		// y de que el usuario haya decidido salir del programa.
 		try {
 			baseDatos.escribirDatos();
 		} catch (BaseDatosException e) {
@@ -31,6 +34,7 @@ public class Main {
 	private static void ejecutarFuncionalidades() {
 		int eleccion;
 		do {
+			// pedirle al usuario que elija una funcionalidad, o salir del programa.
 			eleccion = Consola.pedirEleccion("Menú principal", List.of(
 				"Ingresar un vehículo al parqueadero",
 				"Comprar un carro",
@@ -39,6 +43,7 @@ public class Main {
 				"Manejo del parqueadero",
 				"Salir"
 			));
+			// instanciar las clases de las funcionalidades según la eleccion del usuario.
 			Funcionalidad funcionalidad = switch (eleccion) {
 				case 0 -> new IngresarVehiculo();
 				case 1 -> new ComprarCarro();
@@ -47,23 +52,32 @@ public class Main {
 				case 4 -> new ManejoParqueadero();
 				default -> null;
 			};
+			// si el usuario eligió una funcionalidad (es decir, no salir), entonces ejecutarla.
 			if (funcionalidad != null) {
 				funcionalidad.setBaseDatos(baseDatos);
 				funcionalidad.ejecutar();
 			}
+		// La elección en el indice 5 es salir. Si el usuario elige esta opción,
+		// entonces salir del ciclo while. Si elige una funcionalidad válida,
+		// entonces se volverá a mostrar el menú al finalizar su ejecución.
 		} while (eleccion != 5);
 	}
 
 	private static void leerDatos() throws BaseDatosException {
+		// leer los datos guardados en el archivo y cargarlos en memoria
 		baseDatos = BaseDatos.leerDatos();
 		if (baseDatos == null) {
+			// si el archivo no existe o no fue posible leerlo, entonces crear una nueva instancia de BaseDatos
 			baseDatos = new BaseDatos();
-			// si no hay datos guardados, crear nuevas instancias de las clases
+			// Se debe crear una nueva instancia de Parqueadero, por lo tanto se pregunta al usuario
+			// las características del mismo
 			System.out.println("Configuración inicial del parqueadero");
 			int plazasTotales = Consola.pedirEntero("Ingrese el número de plazas totales");
 			double tarifaCarro = Consola.pedirEntero("Ingrese la tarifa para carros");
 			double tarifaMoto = Consola.pedirEntero("Ingrese la tarifa para motos");
+			// Se crea la instancia con base en los valores escogidos por el usuario.
 			Parqueadero parqueadero = new Parqueadero(plazasTotales, tarifaCarro, tarifaMoto);
+			// Se guarda el parqueadero en la base de datos
 			baseDatos.setParqueadero(parqueadero);
 		}
 	}

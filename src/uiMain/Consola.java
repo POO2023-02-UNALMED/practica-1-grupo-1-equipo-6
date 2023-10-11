@@ -49,12 +49,13 @@ public class Consola {
 	 */
 	public static boolean pedirBoolean(String mensaje) {
 		imprimirMensaje(mensaje, "(si/no)");
+		// pedir al usuario que ingrese su eleccion y tomar solo la primera letra en minusculas
 		char eleccion = scanner().nextLine().toLowerCase().charAt(0);
 		if (eleccion == 's') {
 			return true;
 		} else if (eleccion == 'n') {
 			return false;
-		} else {
+		} else { // si el usuario escribió otra cosa, entonces volver a preguntarle.
 			System.out.println("Opción inválida");
 			return pedirBoolean(mensaje);
 		}
@@ -76,16 +77,23 @@ public class Consola {
 	 * Si no es válida entonces repite la pregunta.
 	 */
 	public static int pedirEleccion(String mensaje, List<String> opciones) {
+		// imprimir el mensaje y las opciones
 		System.out.println(mensaje);
 		for (int i = 0; i < opciones.size(); i++) {
 			System.out.printf("%d. %s%n", i+1, opciones.get(i));
 		}
+
+		// pedirle al usuario que escoja una opcion
 		imprimirMensaje("Escoja una opción");
 		int eleccion = scanner().nextInt();
+
+		// verificar que la opcion escogida es valida. Si no lo es, entonces volver a preguntar.
 		if (eleccion <= 0 || eleccion > opciones.size()) {
 			System.out.println("Opción inválida");
 			return pedirEleccion(mensaje, opciones);
 		}
+
+		// devolver el indice de la opcion escogida.
 		return eleccion - 1;
 	}
 

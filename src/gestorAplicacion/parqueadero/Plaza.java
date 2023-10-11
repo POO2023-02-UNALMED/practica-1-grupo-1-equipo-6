@@ -50,14 +50,19 @@ public class Plaza implements Serializable {
 	}
 	
 	public void setVehiculo(Vehiculo vehi) {
+		// si esta plaza ya tiene un vehiculo, entonces hacer null la plaza del mismo.
 		if (this.vehiculo != null) {
 			this.vehiculo.setPlaza(null);
 		}
+
 		this.vehiculo = vehi;
+
+		// asignar el estado de la plaza
 		if (vehi == null) {
 			this.estado = "Disponible";
 		} else {
 			this.estado = "No disponible";
+			// asignarle la plaza al vehiculo
 			vehi.setPlaza(this);
 		}
 	}

@@ -36,7 +36,7 @@ public class IngresarVehiculo extends Funcionalidad {
 		}
 
 		// verificar que el vehiculo que se está ingresando pertenece al cliente que lo intenta ingresar.
-		if (vehiculo.registradoPor(cliente)) {
+		if (!vehiculo.registradoPor(cliente)) {
 			System.out.println("Este vehiculo se encuentra registrado por otro cliente.");
 			return;
 		}

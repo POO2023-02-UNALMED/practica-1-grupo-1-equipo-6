@@ -100,4 +100,8 @@ public class Vehiculo implements Serializable {
 	public boolean estaParqueado() {
 		return this.plaza != null;
 	}
+
+	public boolean registradoPor(Cliente cliente) {
+		return dueno.getCedula() == cliente.getCedula();
+	}
 }

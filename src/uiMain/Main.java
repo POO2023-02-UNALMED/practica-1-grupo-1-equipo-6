@@ -61,6 +61,8 @@ public class Main {
 		// entonces salir del ciclo while. Si elige una funcionalidad válida,
 		// entonces se volverá a mostrar el menú al finalizar su ejecución.
 		} while (eleccion != 5);
+
+		System.out.println("Gracias por su visita, vuelva pronto.");
 	}
 
 	private static void leerDatos() throws BaseDatosException {

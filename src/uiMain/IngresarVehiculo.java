@@ -24,8 +24,6 @@ public class IngresarVehiculo extends Funcionalidad {
 		Cliente cliente = buscarORegistrarCliente(cedula);
 		if (cliente == null) { // esto puede ocurrir si el usuario elige no registrarse
 			return; // en ese caso, no continuamos con la funcionalidad y se regresa al menú principal
-		} else {
-			System.out.println("Bienvenido de nuevo, " + cliente.getNombre());
 		}
 
 		// Se le pide al cliente que ingrese la placa del vehiculo
@@ -35,6 +33,12 @@ public class IngresarVehiculo extends Funcionalidad {
 		Vehiculo vehiculo = baseDatos.buscarVehiculoRegistrado(placa);
 		if (vehiculo == null) { // si no está, entonces pedirle al usuario la información y registrarlo
 			vehiculo = registrarVehiculo(placa, cliente);
+		}
+
+		// verificar que el vehiculo que se está ingresando pertenece al cliente que lo intenta ingresar.
+		if (vehiculo.getDueno().getCedula() != cliente.getCedula()) {
+			System.out.println("Este vehiculo se encuentra registrado por otro cliente.");
+			return;
 		}
 
 		// si el vehiculo ya se encuentra en el parqueadero, entonces informar al cliente de esto y

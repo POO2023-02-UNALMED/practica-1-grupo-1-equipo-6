@@ -47,6 +47,7 @@ public abstract class Funcionalidad {
 				return null;
 			}
 		} else {
+			System.out.println("Bienvenido de nuevo, " + cliente.getNombre());
 			return cliente;
 		}
 	}

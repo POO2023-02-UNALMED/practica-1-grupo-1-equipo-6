@@ -12,6 +12,8 @@ import java.util.Scanner;
  * de opciones, etc.
  */
 public class Consola {
+	private static Scanner scanner = new Scanner(System.in);
+
 	/**
 	 * Imprime un error en consola, mostrando su mensaje y si existe, el mensaje de su causa.
 	 */
@@ -25,18 +27,30 @@ public class Consola {
 
 	/**
 	 * Imprime el mensaje y espera que el usuario ingrese un entero, retornándolo.
+	 * Si el usuario ingresa otra cosa, volver a pedirle que ingrese un valor entero.
 	 */
 	public static int pedirEntero(String mensaje) {
 		imprimirMensaje(mensaje);
-		return scanner().nextInt();
+		try {
+			return Integer.parseInt(scanner.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("Por favor ingrese un número");
+			return pedirEntero(mensaje);
+		}
 	}
 
 	/**
-	 * Imprime el mensaje y espera que el usuario ingrese un número long, retornándolo.
+	 * Imprime el mensaje y espera que el usuario ingrese un long, retornándolo.
+	 * Si el usuario ingresa otra cosa, volver a pedirle que ingrese un valor long.
 	 */
 	public static long pedirLong(String mensaje) {
 		imprimirMensaje(mensaje);
-		return scanner().nextLong();
+		try {
+			return Long.parseLong(scanner.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("Por favor ingrese un número");
+			return pedirEntero(mensaje);
+		}
 	}
 
 	/**
@@ -50,7 +64,7 @@ public class Consola {
 	public static boolean pedirBoolean(String mensaje) {
 		imprimirMensaje(mensaje, "(si/no)");
 		// pedir al usuario que ingrese su eleccion y tomar solo la primera letra en minusculas
-		char eleccion = scanner().nextLine().toLowerCase().charAt(0);
+		char eleccion = scanner.nextLine().toLowerCase().charAt(0);
 		if (eleccion == 's') {
 			return true;
 		} else if (eleccion == 'n') {
@@ -67,7 +81,7 @@ public class Consola {
 	 */
 	public static String pedirString(String mensaje) {
 		imprimirMensaje(mensaje);
-		return scanner().nextLine();
+		return scanner.nextLine();
 	}
 
 	/**
@@ -84,17 +98,22 @@ public class Consola {
 		}
 
 		// pedirle al usuario que escoja una opcion
-		imprimirMensaje("Escoja una opción");
-		int eleccion = scanner().nextInt();
+		int eleccion = pedirEleccion(opciones);
+
+		// devolver el indice de la opcion escogida.
+		return eleccion - 1;
+	}
+
+	private static int pedirEleccion(List<String> opciones) {
+		int eleccion = pedirEntero("Escoja una opción");
 
 		// verificar que la opcion escogida es valida. Si no lo es, entonces volver a preguntar.
 		if (eleccion <= 0 || eleccion > opciones.size()) {
 			System.out.println("Opción inválida");
-			return pedirEleccion(mensaje, opciones);
+			return pedirEleccion(opciones);
 		}
 
-		// devolver el indice de la opcion escogida.
-		return eleccion - 1;
+		return eleccion;
 	}
 
 	/**
@@ -112,9 +131,5 @@ public class Consola {
 	 */
 	private static void imprimirMensaje(String mensaje, String extra) {
 		imprimirMensaje(mensaje + " " + extra);
-	}
-
-	private static Scanner scanner() {
-		return new Scanner(System.in);
 	}
 }

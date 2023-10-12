@@ -53,28 +53,28 @@ public class Empleado extends Persona implements Serializable{
     	
     		//verificar si el vehiculo es de tipo carro e ir buscando componente a componente si hay alguno en mal estado o dañado
     		if (vehiculo instanceof Carro) {
-    			if (((Carro) vehiculo).getMotor().getEstado() == "Mal estado") {
+    			if (((Carro) vehiculo).getMotor().getEstado().equals("Mal estado")) {
     				r += "Motor\n";
     			}
-    			if (((Carro) vehiculo).getTransmision().getEstado() == "Mal estado") {
+    			if (((Carro) vehiculo).getTransmision().getEstado().equals("Mal estado")) {
     				r += "Transmision\n";
     			}
-    			if (((Carro) vehiculo).getAcelerador().getEstado() == "Mal estado") {
+    			if (((Carro) vehiculo).getAcelerador().getEstado().equals("Mal estado")) {
     				r += "Acelerador\n";
     			}
-    			if (((Carro) vehiculo).getFreno().getEstado() == "Mal estado") {
+    			if (((Carro) vehiculo).getFreno().getEstado().equals("Mal estado")) {
     				r += "Freno\n";
     			}
-    			if (((Carro) vehiculo).getBateria().getEstado() == "Mal estado") {
+    			if (((Carro) vehiculo).getBateria().getEstado().equals("Mal estado"))  {
     				r += "Bateria\n";
     			}
-    			if (((Carro) vehiculo).getPedal().getEstado() == "Mal estado") {
+    			if (((Carro) vehiculo).getPedal().getEstado().equals("Mal estado")) {
     				r += "Pedal\n";
     			}
     		
     			int c = 0;
     			for (int i = 0; i < 3; i++) {
-    				if (((Carro) vehiculo).getDepositos()[i].getEstado() == "Mal estado") {
+    				if (((Carro) vehiculo).getDepositos()[i].getEstado().equals("Mal estado") {
     					c += 1;
     				}
     			}
@@ -83,7 +83,7 @@ public class Empleado extends Persona implements Serializable{
     			}
     			
     			for (int i = 0; i < 4; i++) {
-    				if (((Carro) vehiculo).getLlantas()[i].getEstado() == "Mal estado") {
+    				if (((Carro) vehiculo).getLlantas()[i].getEstado().equals("Mal estado")) {
     					c += 1;
     				}
     			}
@@ -92,7 +92,7 @@ public class Empleado extends Persona implements Serializable{
     			}
     		
     			for (int i = 0; i < 4; i++) {
-    				if (((Carro) vehiculo).getRines()[i].getEstado() == "Mal estado") {
+    				if (((Carro) vehiculo).getRines()[i].getEstado().equals("Mal estado")) {
     					c += 1;
     				}
     			}
@@ -101,7 +101,7 @@ public class Empleado extends Persona implements Serializable{
     			}
     		
     			for (int i = 0; i < 4; i++) {
-    				if (((Carro) vehiculo).getAmortiguadores()[i].getEstado() == "Mal estado") {
+    				if (((Carro) vehiculo).getAmortiguadores()[i].getEstado().equals("Mal estado")) {
     					c += 1;
     				}
     			}
@@ -139,7 +139,7 @@ public class Empleado extends Persona implements Serializable{
     			
     			int c = 0;
     			for (int i = 0; i < 3; i++) {
-    				if (((Moto) vehiculo).getDepositos()[i].getEstado() == "Mal estado") {
+    				if (((Moto) vehiculo).getDepositos()[i].getEstado().equals("Mal estado")) {
     					c += 1;
     				}
     			}
@@ -148,7 +148,7 @@ public class Empleado extends Persona implements Serializable{
     			}
     			
     			for (int i = 0; i < 2; i++) {
-    				if (((Moto) vehiculo).getLlantas()[i].getEstado() == "Mal estado") {
+    				if (((Moto) vehiculo).getLlantas()[i].getEstado().equals("Mal estado")) {
     					c += 1;
     				}
     			}
@@ -157,7 +157,7 @@ public class Empleado extends Persona implements Serializable{
     			}
     			
     			for (int i = 0; i < 2; i++) {
-    				if (((Moto) vehiculo).getRines()[i].getEstado() == "Mal estado") {
+    				if (((Moto) vehiculo).getRines()[i].getEstado().equals("Mal estado")) {
     					c += 1;
     				}
     			}

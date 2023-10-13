@@ -59,7 +59,24 @@ public class Parqueadero implements Serializable {
 		return this.plazas;
 	}
 	
-	
+	//metodo para ingresar un vehiculo al parqueadero(movido desde Plaza)
+	public void ingresarVehiculo(Vehiculo vehi, Plaza plaza) {
+		// si esta plaza ya tiene un vehiculo, entonces hacer null la plaza del mismo.
+		if (plaza.getVehiculo() != null) {
+			plaza.getVehiculo().setPlaza(null);
+		}
+
+		plaza.setVehiculo(vehi);
+
+		// asignar el estado de la plaza
+		if (vehi == null) {
+			plaza.setEstado("Disponible");
+		} else {
+			plaza.setEstado("No disponible");
+			// asignarle la plaza al vehiculo
+			vehi.setPlaza(plaza);
+		}
+	}
 	
 	//metodo que se encarga de retirar el vehiculo del parqueadero, es decir, de desasignar el vehiculo a la plaza donde se encuentra, se sobrecarga.
 	public void retirarVehiculo(int numPlaza) {

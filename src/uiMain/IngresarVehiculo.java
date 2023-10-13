@@ -57,7 +57,7 @@ public class IngresarVehiculo extends Funcionalidad {
 		Plaza plaza = pedirPlaza(plazas);
 
 		// ingresar el vehiculo al parqueadero
-		plaza.setVehiculo(vehiculo); // TODO: Aqui tal vez se deberia de llamar a un metodo de Parqueadero y no de Plaza
+		parqueadero.ingresarVehiculo(vehiculo, plaza); // TODO: Aqui tal vez se deberia de llamar a un metodo de Parqueadero y no de Plaza
 
 		// TODO: continuara...
 	}

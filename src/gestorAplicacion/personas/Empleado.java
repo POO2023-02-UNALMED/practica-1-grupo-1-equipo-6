@@ -74,7 +74,7 @@ public class Empleado extends Persona implements Serializable{
     		
     			int c = 0;
     			for (int i = 0; i < 3; i++) {
-    				if (((Carro) vehiculo).getDepositos()[i].getEstado().equals("Mal estado") {
+    				if (((Carro) vehiculo).getDepositos()[i].getEstado().equals("Mal estado")) {
     					c += 1;
     				}
     			}
@@ -133,7 +133,7 @@ public class Empleado extends Persona implements Serializable{
     			if (((Moto) vehiculo).getBateria().getEstado().equals("Mal estado")) {
     				r += "Bateria\n";
     			}
-    			if (((Moto) vehiculo).getMotor().getEstado().equals("Male estado")) {
+    			if (((Moto) vehiculo).getMotor().getEstado().equals("Mal estado")) {
     				r += "Amortiguador\n";
     			}
     			

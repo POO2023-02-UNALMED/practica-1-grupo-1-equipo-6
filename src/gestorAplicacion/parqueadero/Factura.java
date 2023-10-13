@@ -3,24 +3,23 @@
 package gestorAplicacion.parqueadero;
 
 import gestorAplicacion.personas.*;
+import java.util.HashMap;
 
 public class Factura {
-	private String tipoFactura; //Puede ser de ingreso, taller, compra de carro, venta de carro.
+	private HashMap<String, Integer> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
 	private int numeroFactura;
 	private String fecha;
 	private double precio;
-	private int cantidad;
 	private Cliente cliente;
 	private Empleado empleado;
 	
-	public Factura(String tipoFac, Cliente cliente, Empleado empleado, int numeroFactura,String fecha,double precio, int cantidad) {
-		this.tipoFactura = tipoFac;
+	public Factura(Cliente cliente, Empleado empleado, int numeroFactura, String fecha, double precio, int cantidad) {
 		this.numeroFactura = numeroFactura;
 		this.fecha = fecha;
 		this.precio = precio;
-		this.cantidad = cantidad;
 		this.cliente = cliente;
 		this.empleado = empleado;
+		this.servicios = new HashMap<>();
 	}
 
 	public int getNumeroFactura() {
@@ -29,14 +28,6 @@ public class Factura {
 	public void setNumeroFactura(int numeroFactura) {
 		this.numeroFactura = numeroFactura;
 	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
 	public String getFecha() {
 		return fecha;
 	}
@@ -65,11 +56,15 @@ public class Factura {
 		return this.empleado;
 	}
 	
-	public void setTipoFactura(String tipoF) {
-		this.tipoFactura = tipoF;
-	}
-	public String getTipoFactura() {
-		return this.tipoFactura;
+	//metodos para manipular el hashmap
+	
+	//metodo que agrega productos comprados y el numero de estos productos
+	public void agregarProducto(Producto producto, int cantidad) {
+		this.servicios.put(producto.getTipo(), this.servicios.getOrDefault(producto.getTipo(), 0) + cantidad);
 	}
 	
+	//metodo que agrega un servicio y su valor
+	public void agregarServicio(String servicio, int valor) {
+		this.servicios.put(servicio, valor);
+	}
 }

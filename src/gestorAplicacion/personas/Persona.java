@@ -60,6 +60,11 @@ public class Persona implements Serializable, Identificable<Long> {
     }
 
 	@Override
+	public Long getIdentificacion() {
+		return cedula;
+	}
+
+	@Override
 	public boolean tieneIdentificacion(Long cedula) {
 		return this.cedula == cedula;
 	}

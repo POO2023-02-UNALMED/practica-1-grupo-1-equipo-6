@@ -107,6 +107,11 @@ public class Vehiculo implements Serializable, Identificable<String> {
 	}
 
 	@Override
+	public String getIdentificacion() {
+		return placa;
+	}
+
+	@Override
 	public boolean tieneIdentificacion(String identificacion) {
 		String placa = identificacion.toUpperCase();
 		return this.placa.equals(placa);

@@ -10,8 +10,8 @@ import gestorAplicacion.vehiculos.Vehiculo;
 import java.io.File;
 import java.io.Serializable;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Esta clase se encarga de toda la persistencia.
@@ -20,15 +20,14 @@ public class BaseDatos implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final File ARCHIVO = Paths.get(".", "src", "baseDatos", "temp", "datos.txt").toFile();
-	private List<Cliente> clientesRegistrados = new ArrayList<>();
-	private List<Vehiculo> vehiculosRegistrados = new ArrayList<>();
+	private Map<Long, Cliente> clientesRegistrados = new HashMap<>();
+	private Map<String, Vehiculo> vehiculosRegistrados = new HashMap<>();
 	private Parqueadero parqueadero;
 
 	/**
 	 * Lee y carga los datos guardados en el archivo src/baseDatos/temp/datos.txt
-	 * @return los datos en una instancia de BaseDatos si existen datos y se logró leerlos,
+	 * Retorna los datos en una instancia de BaseDatos si existen datos y se logró leerlos,
 	 * null si no hay datos o si ocurrió algún error.
-	 * @throws BaseDatosException
 	 */
 	public static BaseDatos leerDatos() throws BaseDatosException {
 		// crear una instancia de Deserializador para realizar la lectura de los datos
@@ -49,6 +48,9 @@ public class BaseDatos implements Serializable {
 		return baseDatos;
 	}
 
+	/**
+	 * Persiste los datos de la base de datos en un archivo.
+	 */
 	public void escribirDatos() throws BaseDatosException {
 		// crear una instancia de Serializador para realizar el guardado de los datos
 		Serializador serializador = new Serializador();
@@ -60,6 +62,9 @@ public class BaseDatos implements Serializable {
 		return parqueadero;
 	}
 
+	/**
+	 * Guarda el parqueadero en la base de datos.
+	 */
 	public void setParqueadero(Parqueadero parqueadero) {
 		this.parqueadero = parqueadero;
 	}
@@ -69,11 +74,15 @@ public class BaseDatos implements Serializable {
 	 * en caso de que esté registrado, o null en caso contrario.
 	 */
 	public Cliente buscarClienteRegistrado(long cedula) {
-		return buscarRegistrado(clientesRegistrados, cedula);
+		return clientesRegistrados.get(cedula);
 	}
 
-	public void registrarCliente(Cliente cliente) {
-		this.clientesRegistrados.add(cliente);
+	/**
+	 * Registra un cliente en la base de datos.
+	 * Si el cliente ya está registrado, retorna false, de lo contrario retorna true.
+	 */
+	public boolean registrarCliente(Cliente cliente) {
+		return registrar(clientesRegistrados, cliente);
 	}
 
 	/**
@@ -81,19 +90,27 @@ public class BaseDatos implements Serializable {
 	 * en caso de que esté registrado, o null en caso contrario.
 	 */
 	public Vehiculo buscarVehiculoRegistrado(String placa) {
-		return buscarRegistrado(vehiculosRegistrados, placa);
+		return vehiculosRegistrados.get(placa);
 	}
 
-	public void registrarVehiculo(Vehiculo vehiculo) {
-		this.vehiculosRegistrados.add(vehiculo);
+	/**
+	 * Registra un vehículo en la base de datos.
+	 * Si el vehículo ya está registrado, retorna false, de lo contrario retorna true.
+	 */
+	public boolean registrarVehiculo(Vehiculo vehiculo) {
+		return registrar(vehiculosRegistrados, vehiculo);
 	}
 
-	private <T, U extends Identificable<T>> U buscarRegistrado(List<U> registrados, T identificacion) {
-		for (U registrado : registrados) {
-			if (registrado.tieneIdentificacion(identificacion)) {
-				return registrado;
-			}
+	/**
+	 * Agrega un objeto a un Map si no existe. La clave utilizada es la identificacion del objeto.
+	 * Retorna true si se realizó el registro, false si el objecto ya estaba registrado.
+	 */
+	private <T, U extends Identificable<T>> boolean registrar(Map<T, U> registrados, U obj) {
+		T identificacion = obj.getIdentificacion();
+		if (registrados.get(identificacion) != null) {
+			return false;
 		}
-		return null;
+		registrados.put(identificacion, obj);
+		return true;
 	}
 }

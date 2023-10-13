@@ -3,9 +3,13 @@
 package gestorAplicacion.parqueadero;
 
 import gestorAplicacion.personas.*;
+
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Factura {
+public class Factura implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private HashMap<String, Integer> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
 	private int numeroFactura;
 	private String fecha;

@@ -1,9 +1,12 @@
 package gestorAplicacion.parqueadero;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Almacen {
+public class Almacen implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private int capacidadMaxima;
 	private static List<Producto> inventario = new ArrayList<Producto>();
 	

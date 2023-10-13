@@ -76,7 +76,8 @@ public class Parqueadero implements Serializable {
 	}
 
 	// retorna las plazas que hay disponibles (estado == "Disponible") que tienen las características
-	// del vehículo pasado como parámetro (tipo de vehículo: Carro, Moto, Moto altoCC)
+	// del vehículo pasado como parámetro (tipo de vehículo: Carro, Moto, Moto altoCC) y que estén
+	// disponibles para el dueño (si la plaza es para discapacitados, el dueño debe estar registrado como tal).
 	public List<Plaza> plazasDisponiblesPara(Vehiculo vehiculo) {
 		List<Plaza> plazasDisponibles = new ArrayList<>();
 		String tipo;
@@ -91,7 +92,7 @@ public class Parqueadero implements Serializable {
 			}
 		}
 		for (Plaza plaza : plazas) {
-			if (plaza.getTipo().equals(tipo) && plaza.getEstado().equals("Disponible")) {
+			if (plaza.getTipo().equals(tipo) && plaza.getEstado().equals("Disponible") && plaza.getDiscapacitado() == vehiculo.getDueno().isDiscapacidad()) {
 				plazasDisponibles.add(plaza);
 			}
 		}

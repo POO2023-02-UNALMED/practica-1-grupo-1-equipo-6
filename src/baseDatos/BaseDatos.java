@@ -2,6 +2,7 @@
 
 package baseDatos;
 
+import gestorAplicacion.Identificable;
 import gestorAplicacion.parqueadero.Parqueadero;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Vehiculo;
@@ -68,12 +69,7 @@ public class BaseDatos implements Serializable {
 	 * en caso de que esté registrado, o null en caso contrario.
 	 */
 	public Cliente buscarClienteRegistrado(long cedula) {
-		for (Cliente cliente : clientesRegistrados) {
-			if (cliente.getCedula() == cedula) {
-				return cliente;
-			}
-		}
-		return null;
+		return buscarRegistrado(clientesRegistrados, cedula);
 	}
 
 	public void registrarCliente(Cliente cliente) {
@@ -85,16 +81,19 @@ public class BaseDatos implements Serializable {
 	 * en caso de que esté registrado, o null en caso contrario.
 	 */
 	public Vehiculo buscarVehiculoRegistrado(String placa) {
-		placa = placa.toUpperCase();
-		for (Vehiculo vehiculo : vehiculosRegistrados) {
-			if (vehiculo.getPlaca().equals(placa)) {
-				return vehiculo;
-			}
-		}
-		return null;
+		return buscarRegistrado(vehiculosRegistrados, placa);
 	}
 
 	public void registrarVehiculo(Vehiculo vehiculo) {
 		this.vehiculosRegistrados.add(vehiculo);
+	}
+
+	private <T, U extends Identificable<T>> U buscarRegistrado(List<U> registrados, T identificacion) {
+		for (U registrado : registrados) {
+			if (registrado.tieneIdentificacion(identificacion)) {
+				return registrado;
+			}
+		}
+		return null;
 	}
 }

@@ -2,12 +2,13 @@
 
 package gestorAplicacion.vehiculos;
 
+import gestorAplicacion.Identificable;
 import gestorAplicacion.parqueadero.Plaza;
 import gestorAplicacion.personas.Cliente;
 
 import java.io.Serializable;
 
-public class Vehiculo implements Serializable {
+public class Vehiculo implements Serializable, Identificable<String> {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -103,5 +104,11 @@ public class Vehiculo implements Serializable {
 
 	public boolean registradoPor(Cliente cliente) {
 		return dueno.getCedula() == cliente.getCedula();
+	}
+
+	@Override
+	public boolean tieneIdentificacion(String identificacion) {
+		String placa = identificacion.toUpperCase();
+		return this.placa.equals(placa);
 	}
 }

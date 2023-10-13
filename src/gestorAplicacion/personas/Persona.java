@@ -3,9 +3,11 @@
 
 package gestorAplicacion.personas;
 
+import gestorAplicacion.Identificable;
+
 import java.io.Serializable;
 
-public class Persona implements Serializable {
+public class Persona implements Serializable, Identificable<Long> {
 	private static final long serialVersionUID = 1L;
 
     private String nombre;
@@ -56,4 +58,9 @@ public class Persona implements Serializable {
     public String getDireccion() {
     	return this.direccion;
     }
+
+	@Override
+	public boolean tieneIdentificacion(Long cedula) {
+		return this.cedula == cedula;
+	}
 }

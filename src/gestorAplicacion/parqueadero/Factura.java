@@ -6,20 +6,21 @@ import gestorAplicacion.personas.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.time.*;
 
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private HashMap<String, Integer> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
 	private int numeroFactura;
-	private String fecha;
+	private LocalDate fecha;
 	private double precio;
 	private Cliente cliente;
 	private Empleado empleado;
 	
-	public Factura(Cliente cliente, Empleado empleado, int numeroFactura, String fecha, double precio, int cantidad) {
+	public Factura(Cliente cliente, Empleado empleado, int numeroFactura, double precio, int cantidad) {
 		this.numeroFactura = numeroFactura;
-		this.fecha = fecha;
+		this.fecha = LocalDate.now();
 		this.precio = precio;
 		this.cliente = cliente;
 		this.empleado = empleado;
@@ -33,9 +34,9 @@ public class Factura implements Serializable {
 		this.numeroFactura = numeroFactura;
 	}
 	public String getFecha() {
-		return fecha;
+		return fecha.toString();
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 

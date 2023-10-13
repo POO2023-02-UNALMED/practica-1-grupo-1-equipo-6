@@ -109,7 +109,7 @@ public class Parqueadero implements Serializable {
 			}
 		}
 		for (Plaza plaza : plazas) {
-			if (plaza.getTipo().equals(tipo) && plaza.getEstado().equals("Disponible") && plaza.getDiscapacitado() == vehiculo.getDueno().isDiscapacidad()) {
+			if (plaza.getTipo().equals(tipo) && plaza.getEstado().equals("Disponible") && plaza.getDiscapacitado() == vehiculo.getDueno().isDiscapacitado()) {
 				plazasDisponibles.add(plaza);
 			}
 		}
@@ -159,6 +159,11 @@ public class Parqueadero implements Serializable {
 				this.plazas.add(new Plaza(i + numPlazasCarros, false, null, "Moto"));
 			}
 		}
+	}
+	
+	// metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero
+	public void generarFactura(Cliente cliente) {
+		// TODO: continuar
 	}
 }
 

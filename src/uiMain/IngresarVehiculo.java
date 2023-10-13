@@ -59,7 +59,8 @@ public class IngresarVehiculo extends Funcionalidad {
 		// ingresar el vehiculo al parqueadero
 		parqueadero.ingresarVehiculo(vehiculo, plaza); // TODO: Aqui tal vez se deberia de llamar a un metodo de Parqueadero y no de Plaza
 
-		// TODO: continuara...
+		// asignar al cliente una factura con el servicio de Parqueadero en primera instancia
+		// TODO: implementar metodo en parqueadero que se encargue de instanciar y asignar la factura
 	}
 
 	private Vehiculo registrarVehiculo(String placa, Cliente dueno) {

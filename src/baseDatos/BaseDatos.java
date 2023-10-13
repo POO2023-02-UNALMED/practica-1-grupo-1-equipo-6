@@ -19,7 +19,7 @@ import java.util.Map;
 public class BaseDatos implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static final File ARCHIVO = Paths.get(".", "src", "baseDatos", "temp", "datos.txt").toFile();
+	private static File archivo = Paths.get(".", "src", "baseDatos", "temp", "datos.txt").toFile();
 	private Map<Long, Cliente> clientesRegistrados = new HashMap<>();
 	private Map<String, Vehiculo> vehiculosRegistrados = new HashMap<>();
 	private Parqueadero parqueadero;
@@ -31,7 +31,7 @@ public class BaseDatos implements Serializable {
 	 */
 	public static BaseDatos leerDatos() throws BaseDatosException {
 		// crear una instancia de Deserializador para realizar la lectura de los datos
-		Deserializador deserializador = new Deserializador(ARCHIVO);
+		Deserializador deserializador = new Deserializador(archivo);
 
 		// verifica si los datos existen
 		boolean existenDatos = deserializador.existenDatos();
@@ -55,7 +55,7 @@ public class BaseDatos implements Serializable {
 		// crear una instancia de Serializador para realizar el guardado de los datos
 		Serializador serializador = new Serializador();
 		// persistir datos de las clases
-		serializador.escribirObjeto(ARCHIVO, this);
+		serializador.escribirObjeto(archivo, this);
 	}
 
 	public Parqueadero getParqueadero() {
@@ -99,6 +99,18 @@ public class BaseDatos implements Serializable {
 	 */
 	public boolean registrarVehiculo(Vehiculo vehiculo) {
 		return registrar(vehiculosRegistrados, vehiculo);
+	}
+
+	public boolean hayClientesRegistrados() {
+		return !clientesRegistrados.isEmpty();
+	}
+
+	public boolean hayVehiculosRegistrados() {
+		return !clientesRegistrados.isEmpty();
+	}
+
+	public static void setArchivo(File archivo) {
+		BaseDatos.archivo = archivo;
 	}
 
 	/**

@@ -104,6 +104,11 @@ public class Consola {
 		return eleccion - 1;
 	}
 
+	public static void setScanner(Scanner scanner) {
+		Consola.scanner = scanner;
+	}
+
+
 	private static int pedirEleccion(List<String> opciones) {
 		int eleccion = pedirEntero("Escoja una opción");
 

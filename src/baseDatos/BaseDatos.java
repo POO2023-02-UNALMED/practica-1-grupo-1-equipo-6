@@ -90,7 +90,7 @@ public class BaseDatos implements Serializable {
 	 * en caso de que esté registrado, o null en caso contrario.
 	 */
 	public Vehiculo buscarVehiculoRegistrado(String placa) {
-		return vehiculosRegistrados.get(placa);
+		return vehiculosRegistrados.get(placa.toUpperCase());
 	}
 
 	/**

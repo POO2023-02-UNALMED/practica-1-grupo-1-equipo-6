@@ -7,6 +7,7 @@ import gestorAplicacion.parqueadero.Plaza;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.vehiculos.Moto;
+import gestorAplicacion.vehiculos.TipoVehiculo;
 import gestorAplicacion.vehiculos.Vehiculo;
 
 import java.util.List;
@@ -75,9 +76,9 @@ public class IngresarVehiculo extends Funcionalidad {
 		if (tipoVehiculo == 0) { // Si el tipo de vehiculo es un carro...
 			// preguntarle al usuario el tipo y numero de puestos del carro
 			int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
-			String tipo = "mecanico";
+			TipoVehiculo tipo = TipoVehiculo.MECANICO;
 			if (tipoCarro == 1) {
-				tipo = "automatico";
+				tipo = TipoVehiculo.AUTOMATICO;
 			}
 			int puestos = Consola.pedirEntero("Ingrese el numero de puestos del Carro");
 			// crear la instancia del carro con la información suministrada por el cliente
@@ -85,9 +86,9 @@ public class IngresarVehiculo extends Funcionalidad {
 		} else { // Si el tipo de vehiculo es una moto...
 			// preguntar el tipo de moto al cliente y su cilindraje
 			int tipoMoto = Consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
-			String tipo = "normal";
+			TipoVehiculo tipo = TipoVehiculo.NORMAL;
 			if (tipoMoto == 1) {
-				tipo = "altoCC";
+				tipo = TipoVehiculo.ALTOCC;
 			}
 			int cilindraje = Consola.pedirEntero("Ingrese el cilindraje de la moto(su valor numerico)");
 			// crear la instancia de la moto con la información suministrada por el cliente

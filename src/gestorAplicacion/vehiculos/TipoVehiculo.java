@@ -1,5 +1,5 @@
 package gestorAplicacion.vehiculos;
 
-public enum TiposVehiculos {
+public enum TipoVehiculo {
 	NORMAL,ALTOCC,AUTOMATICO,MECANICO;
 }

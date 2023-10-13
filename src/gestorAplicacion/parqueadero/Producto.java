@@ -7,14 +7,14 @@ import java.io.Serializable;
 public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String tipo;
+	private TipoProducto tipo;
 	private long precio;
 	private String calidad;
 	private String estado;
 	private String marca;
 	
 	//sobrecargar el constructor para tener uno para productos de venta y otro para los productos que contienen los vehiculos
-	public Producto(String tipo, long precio, String calidad, String marca, String estado) {
+	public Producto(TipoProducto tipo, long precio, String marca, String calidad, String estado) {
 		this.tipo = tipo;
 		this.precio = precio;
 		this.calidad = calidad;
@@ -22,15 +22,15 @@ public class Producto implements Serializable {
 		this.estado = estado;
 	}
 	//constructor para los vehiculos
-	public Producto(String tipo, String marca, String estado) {
+	public Producto(TipoProducto tipo, String marca, String estado) {
 		this(tipo, 0, marca, "Primera", estado);
 	}
 	
-	public void setTipo(String tipo) {
+	public void setTipo(TipoProducto tipo) {
 		this.tipo = tipo;
 	}
 	public String getTipo() {
-		return this.tipo;
+		return this.tipo.name();
 	}
 	
 	public void setPrecio(long precio) {

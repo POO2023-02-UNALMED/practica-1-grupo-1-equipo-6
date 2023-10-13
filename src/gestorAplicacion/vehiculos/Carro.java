@@ -5,13 +5,14 @@ package gestorAplicacion.vehiculos;
 
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.parqueadero.Producto;
+import gestorAplicacion.parqueadero.TipoProducto;
 
 import java.io.Serializable;
 
 public class Carro extends Vehiculo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private String tipo;//mecanico o automatico
+	private TipoVehiculo tipo;//mecanico o automatico
 	private int puestos;
 	private Producto motor;
 	private Producto transmision;
@@ -25,16 +26,16 @@ public class Carro extends Vehiculo implements Serializable {
 	private Producto[] amortiguadores;
 	
 	
-	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, String tipo, int puestos) {
+	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos) {
 		super(placa, dueno, marca, color, modelo);
 		this.tipo = tipo;
 		this.puestos = puestos;
-		this.motor = this.inicializarProducto("Motor");
-		this.transmision = this.inicializarProducto("Transmision");
-		this.acelerador = this.inicializarProducto("Acelerador");
-		this.freno = this.inicializarProducto("Freno");
-		this.bateria = this.inicializarProducto("Bateria");
-		this.pedal = this.inicializarProducto("Pedal");
+		this.motor = this.inicializarProducto(TipoProducto.MOTOR);
+		this.transmision = this.inicializarProducto(TipoProducto.TRANSMISION);
+		this.acelerador = this.inicializarProducto(TipoProducto.ACELERADOR);
+		this.freno = this.inicializarProducto(TipoProducto.FRENO);
+		this.bateria = this.inicializarProducto(TipoProducto.BATERIA);
+		this.pedal = this.inicializarProducto(TipoProducto.PEDAL);
 		this.inicializarDepositos();
 		this.inicializarLlantas();
 		this.inicializarRines();
@@ -44,9 +45,9 @@ public class Carro extends Vehiculo implements Serializable {
 	
 	//getters and setters
 	public String getTipo() {
-		return tipo;
+		return tipo.name();
 	}
-	public void setTipo(String tipo) {
+	public void setTipo(TipoVehiculo tipo) {
 		this.tipo = tipo;
 	}
 	public int getPuestos() {
@@ -121,27 +122,27 @@ public class Carro extends Vehiculo implements Serializable {
 	private void inicializarLlantas(){
 		this.llantas = new Producto[4]; // se asigna a this.llantas un array de tipo Producto con tamaño 4
 		for (int i = 0; i < 4; i++) {
-			this.llantas[i] = new Producto("Llanta", this.getMarca(), "Desgastado");
+			this.llantas[i] = new Producto(TipoProducto.LLANTA, this.getMarca(), "Desgastado");
 		}
 	}
 	//metodo que crea cuatro Productos tipo Rin y los agrega a this.rines
 	private void inicializarRines(){
 		this.rines = new Producto[4]; // se asigna a this.rines un array de tipo Producto con tamaño 4
 		for (int i = 0; i < 4; i++) {
-			this.rines[i] = new Producto("Rin", this.getMarca(), "Desgastado");
+			this.rines[i] = new Producto(TipoProducto.RIN, this.getMarca(), "Desgastado");
 		}
 	}
 		
 	//metodo que crea los depositos y los asigna a this.depositos
 	private void inicializarDepositos() {
 		this.depositos = new Producto[3];
-		this.depositos[0] = new Producto("Tanque de gasolina", this.getMarca(), "Desgastado");
-		this.depositos[1] = new Producto("Desposito de aceite", this.getMarca(), "Desgastado");
-		this.depositos[2] = new Producto("Desposito de liquidos", this.getMarca(), "Desgastado");
+		this.depositos[0] = new Producto(TipoProducto.GASOLINA, this.getMarca(), "Desgastado");
+		this.depositos[1] = new Producto(TipoProducto.ACEITE, this.getMarca(), "Desgastado");
+		this.depositos[2] = new Producto(TipoProducto.LIQUIDOS, this.getMarca(), "Desgastado");
 		}
 		
 	//metodo para asignar un solo producto
-	private Producto inicializarProducto(String tipo) {
+	private Producto inicializarProducto(TipoProducto tipo) {
 		return new Producto(tipo, this.getMarca(), "Desgastado");
 	}
 	
@@ -149,7 +150,7 @@ public class Carro extends Vehiculo implements Serializable {
 	private void inicializarAmortiguadores() {
 		this.amortiguadores = new Producto[4];
 		for (int i = 0; i < 4; i++) {
-			this.amortiguadores[i] = new Producto("Amortiguador", this.getMarca(), "Desgastado");
+			this.amortiguadores[i] = new Producto(TipoProducto.AMORTIGUADOR, this.getMarca(), "Desgastado");
 		}
 	}
 }

@@ -38,7 +38,7 @@ public class Vehiculo implements Serializable, Identificable<String> {
 	private String modelo;
 
 	public Vehiculo(String placa, Cliente dueno, String marca, String color, String modelo) {
-		this.placa = placa.toUpperCase();
+		this.placa = normalizarPlaca(placa);
 		this.dueno = dueno;
 		this.marca = marca;
 		this.color = color;
@@ -50,7 +50,7 @@ public class Vehiculo implements Serializable, Identificable<String> {
 	}
 
 	public void setPlaca(String placa) {
-		this.placa = placa.toUpperCase();
+		this.placa = normalizarPlaca(placa);
 	}
 
 	public Cliente getDueno() {
@@ -113,7 +113,11 @@ public class Vehiculo implements Serializable, Identificable<String> {
 
 	@Override
 	public boolean tieneIdentificacion(String identificacion) {
-		String placa = identificacion.toUpperCase();
+		String placa = normalizarPlaca(identificacion);
 		return this.placa.equals(placa);
+	}
+
+	public static String normalizarPlaca(String placa) {
+		return placa.strip().toUpperCase();
 	}
 }

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -99,6 +100,11 @@ public class BaseDatos implements Serializable {
 	 */
 	public boolean registrarVehiculo(Vehiculo vehiculo) {
 		return registrar(vehiculosRegistrados, vehiculo);
+	}
+
+	public List<Vehiculo> vehiculosRegistradosPor(Cliente cliente) {
+		long cedula = cliente.getIdentificacion();
+		return vehiculosRegistrados.values().stream().filter(vehiculo -> vehiculo.getDueno().tieneIdentificacion(cedula)).toList();
 	}
 
 	public boolean hayClientesRegistrados() {

@@ -4,6 +4,7 @@ package uiMain;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 /**
  * Esta es una clase con diferentes métodos para interactuar con el usuario
@@ -86,21 +87,36 @@ public class Consola {
 
 	/**
 	 * Recibe el mensaje y una lista de opciones, devuelve el índice de la opción escogida.
-	 * Este metodo imprime un mensaje junto con una lista de opciones en pantalla y espera
-	 * que el usuario escoja una, luego verifica que ésta sea una opción válida y la retorna.
+	 * Este método imprime un mensaje junto con una lista de opciones en pantalla y espera
+	 * que el usuario escoja una, luego verifica que esta sea una opción válida y la retorna.
 	 * Si no es válida entonces repite la pregunta.
 	 */
 	public static int pedirEleccion(String mensaje, List<String> opciones) {
+		return pedirEleccion(mensaje, opciones, e -> true);
+	}
+
+	/**
+	 * Recibe el mensaje y una lista de opciones, devuelve el índice de la opción escogida.
+	 * Este método imprime un mensaje junto con una lista de opciones en pantalla y espera
+	 * que el usuario escoja una, luego verifica que esta sea una opción válida y la retorna.
+	 * Si no es válida entonces repite la pregunta.
+	 *
+	 * El parámetro verificarCondiciones es una función que devuelve true o false y sirve para
+	 * verificar condiciones extra que se deben cumplir para que la elección del usuario sea
+	 * válida. Cuando verificarCondiciones devuelve false, se le vuelve a preguntar al usuario
+	 * que elija una opción hasta que verificarCondiciones devuelva true.
+	 */
+	public static int pedirEleccion(String mensaje, List<String> opciones, Predicate<Integer> verificarCondiciones) {
 		// imprimir el mensaje y las opciones
 		System.out.println(mensaje);
 		for (int i = 0; i < opciones.size(); i++) {
 			System.out.printf("%d. %s%n", i+1, opciones.get(i));
 		}
 
-		// pedirle al usuario que escoja una opcion
-		int eleccion = pedirEleccion(opciones);
+		// pedirle al usuario que escoja una opción
+		int eleccion = pedirEleccion(opciones, verificarCondiciones);
 
-		// devolver el indice de la opcion escogida.
+		// devolver el índice de la opción escogida.
 		return eleccion - 1;
 	}
 
@@ -108,14 +124,13 @@ public class Consola {
 		Consola.scanner = scanner;
 	}
 
-
-	private static int pedirEleccion(List<String> opciones) {
+	private static int pedirEleccion(List<String> opciones, Predicate<Integer> verificarCondiciones) {
 		int eleccion = pedirEntero("Escoja una opción");
 
-		// verificar que la opcion escogida es valida. Si no lo es, entonces volver a preguntar.
-		if (eleccion <= 0 || eleccion > opciones.size()) {
+		// verificar que la opción escogida es válida. Si no lo es, entonces volver a preguntar.
+		if (eleccion <= 0 || eleccion > opciones.size() || !verificarCondiciones.test(eleccion - 1)) {
 			System.out.println("Opción inválida");
-			return pedirEleccion(opciones);
+			return pedirEleccion(opciones, verificarCondiciones);
 		}
 
 		return eleccion;

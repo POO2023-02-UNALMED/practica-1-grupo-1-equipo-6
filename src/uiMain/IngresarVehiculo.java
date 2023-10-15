@@ -10,15 +10,16 @@ import gestorAplicacion.vehiculos.Moto;
 import gestorAplicacion.vehiculos.TipoVehiculo;
 import gestorAplicacion.vehiculos.Vehiculo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IngresarVehiculo extends Funcionalidad {
 	@Override
 	public void ejecutar() {
-		// Funcionalidad ingresar vehiculo
+		// Funcionalidad ingresar vehículo
 		System.out.println("Ingresar vehículo");
 
-		// Se le pide al cliente que ingrese su cedula
+		// Se le pide al cliente que ingrese su cédula
 		long cedula = Consola.pedirLong("Ingrese cédula");
 
 		// Se busca un cliente con esa cédula y si no existe, registrarlo.
@@ -27,43 +28,89 @@ public class IngresarVehiculo extends Funcionalidad {
 			return; // en ese caso, no continuamos con la funcionalidad y se regresa al menú principal
 		}
 
-		// Se le pide al cliente que ingrese la placa del vehiculo
-		String placa = Consola.pedirString("Ingrese la placa del vehículo a ingresar");
-
-		// Se busca en la base de datos el vehiculo para ver si ya está registrado
-		Vehiculo vehiculo = baseDatos.buscarVehiculoRegistrado(placa);
-		if (vehiculo == null) { // si no está, entonces pedirle al usuario la información y registrarlo
-			vehiculo = registrarVehiculo(placa, cliente);
+		// mostrar al usuario sus vehículos registrados, entre otras opciones, y pedirle que elija uno
+		Vehiculo vehiculo = pedirEleccionVehiculoRegistrado(cliente);
+		if (vehiculo == null) { // sucede cuando el usuario elige volver al menú principal
+			return; // volvemos al menú principal
 		}
 
-		// verificar que el vehiculo que se está ingresando pertenece al cliente que lo intenta ingresar.
+		// verificar que el vehículo que se está ingresando pertenece al cliente que lo intenta ingresar.
 		if (!vehiculo.registradoPor(cliente)) {
 			System.out.println("Este vehiculo se encuentra registrado por otro cliente.");
 			return;
 		}
 
-		// si el vehiculo ya se encuentra en el parqueadero, entonces informar al cliente de esto y
-		// volver al menú principal
-		if (vehiculo.estaParqueado()) {
-			System.out.println("El vehículo ya se encuentra en el parqueadero!");
-			return;
-		}
-
-		// buscar las plazas que hay disponibles que cumplen con las caracteristicas del vehiculo
+		// buscar las plazas que hay disponibles que cumplen con las características del vehículo
 		// que el cliente desea ingresar
 		List<Plaza> plazas = parqueadero.plazasDisponiblesPara(vehiculo);
 
 		// mostrar las plazas disponibles al usuario y pedirle que escoja una.
 		Plaza plaza = pedirPlaza(plazas);
 
-		// ingresar el vehiculo al parqueadero
-		parqueadero.ingresarVehiculo(vehiculo, plaza); // TODO: Aqui tal vez se deberia de llamar a un metodo de Parqueadero y no de Plaza
+		// ingresar el vehículo al parqueadero
+		parqueadero.ingresarVehiculo(vehiculo, plaza);
 
 		// asignar al cliente una factura con el servicio de Parqueadero en primera instancia
 		parqueadero.generarFactura(cliente); // TODO: solucionar el tema de la hora de ingreso
 	}
 
-	private Vehiculo registrarVehiculo(String placa, Cliente dueno) {
+	private Vehiculo pedirEleccionVehiculoRegistrado(Cliente cliente) {
+		// se obtiene una lista de los vehículos que están registrados por el cliente
+		List<Vehiculo> vehiculosDelCliente = baseDatos.vehiculosRegistradosPor(cliente);
+
+		// se crea una lista de opciones para que el usuario escoja una. Incluye los vehículos del usuario (solo la placa)
+		// y opciones para registrar vehículo y para volver al menú principal.
+		List<String> opcionesVehiculos = new ArrayList<>(vehiculosDelCliente.stream().map(Vehiculo::getPlaca).toList());
+		opcionesVehiculos.add("Registrar vehículo");
+		opcionesVehiculos.add("Volver al menú principal");
+
+		// se pide al usuario que elija una opción, y se verifica que si se escogió un vehículo,
+		// este no se encuentre ya adentro del parqueadero.
+		int vehiculoEleccion = Consola.pedirEleccion("Sus vehículos registrados", opcionesVehiculos, eleccion -> {
+			// las elecciones >= al tamaño de vehiculosDelCliente son las de registrar y volver. En esas no verificamos nada
+			if (eleccion >= vehiculosDelCliente.size()) {
+				return true;
+			}
+
+			Vehiculo vehiculo = vehiculosDelCliente.get(eleccion);
+
+			// si el vehículo ya se encuentra en el parqueadero, entonces informar al cliente de esto y
+			// volver a preguntarle que escoja un vehículo
+			if (vehiculo.estaParqueado()) {
+				System.out.println("El vehículo ya se encuentra en el parqueadero!");
+				return false;
+			}
+
+			return true;
+		});
+
+		Vehiculo vehiculo;
+		if (vehiculoEleccion == vehiculosDelCliente.size()) { // cuando el usuario elige registrar vehículo
+			vehiculo = registrarVehiculo(cliente);
+			if (vehiculo == null) { // esto puede suceder si el usuario decidió salir del registro de vehículo
+				return pedirEleccionVehiculoRegistrado(cliente);
+			}
+			return vehiculo;
+		} else if (vehiculoEleccion == vehiculosDelCliente.size() + 1) { // cuando el usuario elige volver al menú
+			return null;
+		} else { // cuando el usuario elige un vehículo
+			return vehiculosDelCliente.get(vehiculoEleccion);
+		}
+	}
+
+	private Vehiculo registrarVehiculo(Cliente dueno) {
+		// Se le pide al cliente que ingrese la placa del vehiculo
+		String placa = Consola.pedirString("Ingrese la placa del vehículo a registrar (o 'q' para salir)");
+
+		if (placa.equals("q")) {
+			return null;
+		}
+
+		if (baseDatos.buscarVehiculoRegistrado(placa) != null) {
+			System.out.println("Ese vehículo ya está registrado");
+			return registrarVehiculo(dueno);
+		}
+
 		// Pedir los datos al cliente del vehiculo por registrar.
 		System.out.println("Registro de vehículo");
 		int tipoVehiculo = Consola.pedirEleccion("Elija el tipo de vehiculo", List.of("Carro", "Moto"));

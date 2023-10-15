@@ -41,6 +41,7 @@ public class Main {
 				"Taller",
 				"Vender un carro",
 				"Manejo del parqueadero",
+				"Otras funcionalidades",
 				"Salir"
 			));
 			// instanciar las clases de las funcionalidades según la eleccion del usuario.
@@ -52,15 +53,27 @@ public class Main {
 				case 4 -> new ManejoParqueadero();
 				default -> null;
 			};
+			// si el usuario eligió otras funcionalidades, mostrarlas y pedirle que elija una
+			if (eleccion == 5) {
+				int otraEleccion = Consola.pedirEleccion("Funcionalidades extra", List.of(
+						"Registrar cliente",
+						"Registrar vehículo",
+						"Volver al menú principal"
+				));
+				switch (otraEleccion) {
+					case 0 -> funcionalidad = new RegistrarCliente();
+					case 1 -> funcionalidad = new RegistrarVehiculo();
+				}
+			}
 			// si el usuario eligió una funcionalidad (es decir, no salir), entonces ejecutarla.
 			if (funcionalidad != null) {
 				funcionalidad.setBaseDatos(baseDatos);
 				funcionalidad.ejecutar();
 			}
-		// La elección en el indice 5 es salir. Si el usuario elige esta opción,
+		// La elección en el índice 6 es salir. Si el usuario elige esta opción,
 		// entonces salir del ciclo while. Si elige una funcionalidad válida,
 		// entonces se volverá a mostrar el menú al finalizar su ejecución.
-		} while (eleccion != 5);
+		} while (eleccion != 6);
 
 		System.out.println("Gracias por su visita, vuelva pronto.");
 	}

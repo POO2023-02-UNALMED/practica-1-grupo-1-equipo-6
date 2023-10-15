@@ -98,59 +98,6 @@ public class IngresarVehiculo extends Funcionalidad {
 		}
 	}
 
-	private Vehiculo registrarVehiculo(Cliente dueno) {
-		// Se le pide al cliente que ingrese la placa del vehiculo
-		String placa = Consola.pedirString("Ingrese la placa del vehículo a registrar (o 'q' para salir)");
-
-		if (placa.equals("q")) {
-			return null;
-		}
-
-		if (baseDatos.buscarVehiculoRegistrado(placa) != null) {
-			System.out.println("Ese vehículo ya está registrado");
-			return registrarVehiculo(dueno);
-		}
-
-		// Pedir los datos al cliente del vehiculo por registrar.
-		System.out.println("Registro de vehículo");
-		int tipoVehiculo = Consola.pedirEleccion("Elija el tipo de vehiculo", List.of("Carro", "Moto"));
-		String marca = Consola.pedirString("Ingrese la marca del vehículo");
-		String color = Consola.pedirString("Ingrese el color del vehículo");
-		String modelo = Consola.pedirString("Ingrese el modelo del vehículo");
-
-		Vehiculo vehiculo;
-
-		// crear instancias del vehiculo según el tipo escogido por el cliente
-		if (tipoVehiculo == 0) { // Si el tipo de vehiculo es un carro...
-			// preguntarle al usuario el tipo y numero de puestos del carro
-			int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
-			TipoVehiculo tipo = TipoVehiculo.MECANICO;
-			if (tipoCarro == 1) {
-				tipo = TipoVehiculo.AUTOMATICO;
-			}
-			int puestos = Consola.pedirEntero("Ingrese el numero de puestos del Carro");
-			// crear la instancia del carro con la información suministrada por el cliente
-			vehiculo = new Carro(placa, dueno, marca, color, modelo, tipo, puestos);
-		} else { // Si el tipo de vehiculo es una moto...
-			// preguntar el tipo de moto al cliente y su cilindraje
-			int tipoMoto = Consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
-			TipoVehiculo tipo = TipoVehiculo.NORMAL;
-			if (tipoMoto == 1) {
-				tipo = TipoVehiculo.ALTOCC;
-			}
-			int cilindraje = Consola.pedirEntero("Ingrese el cilindraje de la moto (su valor numerico)");
-			// crear la instancia de la moto con la información suministrada por el cliente
-			vehiculo = new Moto(placa, dueno, marca, color, modelo, tipo, cilindraje);
-		}
-		// agregar el vehiculo a la base de datos
-		baseDatos.registrarVehiculo(vehiculo);
-
-		// informar al usuario que se ha completado el registro existosamente.
-		System.out.println("Vehículo registrado");
-
-		return vehiculo;
-	}
-
 	private Plaza pedirPlaza(List<Plaza> plazas) {
 		// mostrar las plazas disponibles al cliente
 		System.out.println("Plazas disponibles:");
@@ -167,7 +114,7 @@ public class IngresarVehiculo extends Funcionalidad {
 		// pedirle al cliente que elija una plaza
 		int numeroPlaza = Consola.pedirEntero("Elija una plaza");
 
-		// verificar que la plaza escogida esta en la lista de plazas disponibles, y si es asi, encontrar su instancia
+		// verificar que la plaza escogida está en la lista de plazas disponibles, y si es asi, encontrar su instancia
 		Plaza plaza = buscarPlaza(plazas, numeroPlaza);
 
 		// si no se encontró la plaza, entonces informar al usuario que escogió mal y volver a preguntarle.

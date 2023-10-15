@@ -11,19 +11,18 @@ import java.time.*;
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private HashMap<String, Integer> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
+	private HashMap<String, Long> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
 	private int numeroFactura;
 	private LocalDate fecha;
-	private double precio;
+	private long precioTotal;
 	private Cliente cliente;
-	private Empleado empleado;
+	private static int facturasCreadas; //atributo que lleva el conteo de facturas creadas, para asginar numeroFactura en las instancias
 	
-	public Factura(Cliente cliente, Empleado empleado, int numeroFactura, double precio, int cantidad) {
-		this.numeroFactura = numeroFactura;
+	public Factura(Cliente cliente) {
+		this.numeroFactura = ++Factura.facturasCreadas;
 		this.fecha = LocalDate.now();
-		this.precio = precio;
+		this.precioTotal = 0;
 		this.cliente = cliente;
-		this.empleado = empleado;
 		this.servicios = new HashMap<>();
 	}
 
@@ -40,11 +39,11 @@ public class Factura implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public double getPrecio() {
-		return precio;
+	public double getPrecioTotal() {
+		return precioTotal;
 	}
-	public void setPrecio(double precio) {
-		this.precio = precio;
+	public void setPrecioTotal(long precioTotal) {
+		this.precioTotal = precioTotal;
 	}
 	
 	public void setCliente(Cliente cliente) {
@@ -53,23 +52,32 @@ public class Factura implements Serializable {
 	public Cliente getCliente() {
 		return this.cliente;
 	}
+	public static int getFacturasCreadas() {
+		return facturasCreadas;
+	}
+	public static void setFacturasCreadas(int facturasCreadas) {
+		Factura.facturasCreadas = facturasCreadas;
+	}
 	
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
-	}
-	public Empleado getEmpleado() {
-		return this.empleado;
-	}
 	
 	//metodos para manipular el hashmap
-	
 	//metodo que agrega productos comprados y el numero de estos productos
 	public void agregarProducto(Producto producto, int cantidad) {
-		this.servicios.put(producto.getTipo(), this.servicios.getOrDefault(producto.getTipo(), 0) + cantidad);
+		this.servicios.put(cap(producto.getTipo().name()), this.servicios.getOrDefault(cap(producto.getTipo().name()), 0L) + cantidad);
 	}
 	
 	//metodo que agrega un servicio y su valor
-	public void agregarServicio(String servicio, int valor) {
-		this.servicios.put(servicio, valor);
+	public void agregarServicio(String servicio) {
+		this.servicios.put(servicio, 0L);
 	}
+	
+	public String toString() {
+		return "Cliente: " + this.cliente.getNombre() + "		" + this.fecha.toString() +"\n"
+				+ this.servicios;
+	}
+	
+	//metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
+	private static String cap(String palabra) {
+        return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();
+    }
 }

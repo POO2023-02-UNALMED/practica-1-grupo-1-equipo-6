@@ -60,7 +60,7 @@ public class IngresarVehiculo extends Funcionalidad {
 		parqueadero.ingresarVehiculo(vehiculo, plaza); // TODO: Aqui tal vez se deberia de llamar a un metodo de Parqueadero y no de Plaza
 
 		// asignar al cliente una factura con el servicio de Parqueadero en primera instancia
-		// TODO: implementar metodo en parqueadero que se encargue de instanciar y asignar la factura
+		parqueadero.generarFactura(cliente); // TODO: solucionar el tema de la hora de ingreso
 	}
 
 	private Vehiculo registrarVehiculo(String placa, Cliente dueno) {
@@ -91,7 +91,7 @@ public class IngresarVehiculo extends Funcionalidad {
 			if (tipoMoto == 1) {
 				tipo = TipoVehiculo.ALTOCC;
 			}
-			int cilindraje = Consola.pedirEntero("Ingrese el cilindraje de la moto(su valor numerico)");
+			int cilindraje = Consola.pedirEntero("Ingrese el cilindraje de la moto (su valor numerico)");
 			// crear la instancia de la moto con la información suministrada por el cliente
 			vehiculo = new Moto(placa, dueno, marca, color, modelo, tipo, cilindraje);
 		}

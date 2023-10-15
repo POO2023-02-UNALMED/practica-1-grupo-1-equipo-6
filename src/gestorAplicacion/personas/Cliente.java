@@ -15,7 +15,7 @@ public class Cliente extends Persona implements Serializable {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
     private Factura factura;
     
-	public Cliente(String nombre, long cedula, int telefono, String correo, String direccion, boolean discapacitado) {
+	public Cliente(String nombre, long cedula, long telefono, String correo, String direccion, boolean discapacitado) {
 		super(nombre, cedula, telefono, correo, direccion);
 		this.discapacitado = discapacitado;
 	}

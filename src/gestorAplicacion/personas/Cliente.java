@@ -36,5 +36,11 @@ public class Cliente extends Persona implements Serializable {
     public Factura getFactura() {
     	return this.factura;
     }
+	public ArrayList<Vehiculo> getVehiculos() {
+		return vehiculos;
+	}
+	public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
     
 }

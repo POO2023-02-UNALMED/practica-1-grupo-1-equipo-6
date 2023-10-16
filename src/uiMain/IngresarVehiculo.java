@@ -139,6 +139,6 @@ public class IngresarVehiculo extends Funcionalidad {
 	// metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero y retornar un string de la misma
 	private String generarFactura(Cliente cliente) {
 			Factura f = new Factura(cliente); f.agregarServicio("Paqueadero");
-			return "Se ha registrado el vehiculo. Bienvenido!!";
+			return "Se ha ingresado el vehículo. Bienvenido!!";
 	}
 }

@@ -40,7 +40,7 @@ public class Taller extends Funcionalidad {
 		int vehiculoEscogido = Consola.pedirEleccion("Escoja el vehículo que desea ingresar al taller", vehiculos);
 		
 		//verificar la opcion escogida y si el Vehiculo se encuentra en el parqueadero // TODO: Continuar...
-		if (vehiculoEscogido == vehiculos.size() + 1) { //si desea volver se retorna null
+		if (vehiculoEscogido == vehiculos.size() - 1) { //si desea volver se retorna null
 			return null;
 		}
 		else { //cuando se escoge un vehiculo

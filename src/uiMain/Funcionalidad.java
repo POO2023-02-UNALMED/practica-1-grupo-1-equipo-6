@@ -94,7 +94,7 @@ public abstract class Funcionalidad {
 			return registrarVehiculo(dueno);
 		}
 
-		// Pedir los datos al cliente del vehiculo por registrar.
+		// Pedir los datos al cliente del vehículo por registrar.
 		System.out.println("Registro de vehículo");
 		int tipoVehiculo = Consola.pedirEleccion("Elija el tipo de vehiculo", List.of("Carro", "Moto"));
 		String marca = Consola.pedirString("Ingrese la marca del vehículo");
@@ -103,9 +103,9 @@ public abstract class Funcionalidad {
 
 		Vehiculo vehiculo;
 
-		// crear instancias del vehiculo según el tipo escogido por el cliente
-		if (tipoVehiculo == 0) { // Si el tipo de vehiculo es un carro...
-			// preguntarle al usuario el tipo y numero de puestos del carro
+		// crear instancias del vehículo según el tipo escogido por el cliente
+		if (tipoVehiculo == 0) { // Si el tipo de vehículo es un carro...
+			// preguntarle al usuario el tipo y número de puestos del carro
 			int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
 			TipoVehiculo tipo = TipoVehiculo.MECANICO;
 			if (tipoCarro == 1) {
@@ -114,7 +114,7 @@ public abstract class Funcionalidad {
 			int puestos = Consola.pedirEntero("Ingrese el numero de puestos del Carro");
 			// crear la instancia del carro con la información suministrada por el cliente
 			vehiculo = new Carro(placa, dueno, marca, color, modelo, tipo, puestos);
-		} else { // Si el tipo de vehiculo es una moto...
+		} else { // Si el tipo de vehículo es una moto...
 			// preguntar el tipo de moto al cliente y su cilindraje
 			int tipoMoto = Consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
 			TipoVehiculo tipo = TipoVehiculo.NORMAL;
@@ -125,10 +125,13 @@ public abstract class Funcionalidad {
 			// crear la instancia de la moto con la información suministrada por el cliente
 			vehiculo = new Moto(placa, dueno, marca, color, modelo, tipo, cilindraje);
 		}
-		// agregar el vehiculo a la base de datos
+		// agregar el vehículo a la base de datos
 		baseDatos.registrarVehiculo(vehiculo);
 
-		// informar al usuario que se ha completado el registro existosamente.
+		// agregar el vehículo al cliente
+		dueno.agregarVehiculo(vehiculo);
+
+		// informar al usuario que se ha completado el registro exitosamente.
 		System.out.println("Vehículo registrado");
 
 		return vehiculo;

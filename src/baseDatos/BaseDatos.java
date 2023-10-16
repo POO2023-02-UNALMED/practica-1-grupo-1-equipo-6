@@ -102,11 +102,6 @@ public class BaseDatos implements Serializable {
 		return registrar(vehiculosRegistrados, vehiculo);
 	}
 
-	public List<Vehiculo> vehiculosRegistradosPor(Cliente cliente) {
-		long cedula = cliente.getIdentificacion();
-		return vehiculosRegistrados.values().stream().filter(vehiculo -> vehiculo.getDueno().tieneIdentificacion(cedula)).toList();
-	}
-
 	public boolean hayClientesRegistrados() {
 		return !clientesRegistrados.isEmpty();
 	}

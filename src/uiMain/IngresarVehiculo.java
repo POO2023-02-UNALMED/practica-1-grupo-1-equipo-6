@@ -57,7 +57,7 @@ public class IngresarVehiculo extends Funcionalidad {
 
 	private Vehiculo pedirEleccionVehiculoRegistrado(Cliente cliente) {
 		// se obtiene una lista de los vehículos que están registrados por el cliente
-		List<Vehiculo> vehiculosDelCliente = baseDatos.vehiculosRegistradosPor(cliente);
+		List<Vehiculo> vehiculosDelCliente = cliente.getVehiculos();
 
 		// se crea una lista de opciones para que el usuario escoja una. Incluye los vehículos del usuario (solo la placa)
 		// y opciones para registrar vehículo y para volver al menú principal.

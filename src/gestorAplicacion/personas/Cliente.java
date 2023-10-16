@@ -36,4 +36,5 @@ public class Cliente extends Persona implements Serializable {
     public Factura getFactura() {
     	return this.factura;
     }
+    
 }

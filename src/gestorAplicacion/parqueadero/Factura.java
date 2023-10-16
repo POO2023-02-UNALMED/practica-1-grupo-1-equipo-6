@@ -16,14 +16,17 @@ public class Factura implements Serializable {
 	private LocalDate fecha;
 	private long precioTotal;
 	private Cliente cliente;
+	private LocalTime horaIngreso; // hora ingreso del vehiculo al parqueadero
 	private static int facturasCreadas; //atributo que lleva el conteo de facturas creadas, para asginar numeroFactura en las instancias
 	
 	public Factura(Cliente cliente) {
 		this.numeroFactura = ++Factura.facturasCreadas;
 		this.fecha = LocalDate.now();
+		this.horaIngreso = LocalTime.now();
 		this.precioTotal = 0;
 		this.cliente = cliente;
 		this.servicios = new HashMap<>();
+		cliente.setFactura(this);
 	}
 
 	public int getNumeroFactura() {
@@ -38,14 +41,12 @@ public class Factura implements Serializable {
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-
 	public double getPrecioTotal() {
 		return precioTotal;
 	}
 	public void setPrecioTotal(long precioTotal) {
 		this.precioTotal = precioTotal;
 	}
-	
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
@@ -54,6 +55,12 @@ public class Factura implements Serializable {
 	}
 	public static int getFacturasCreadas() {
 		return facturasCreadas;
+	}
+	public LocalTime getHoraIngreso() {
+		return horaIngreso;
+	}
+	public void setHoraIngreso(LocalTime horaIngreso) {
+		this.horaIngreso = horaIngreso;
 	}
 	public static void setFacturasCreadas(int facturasCreadas) {
 		Factura.facturasCreadas = facturasCreadas;
@@ -72,10 +79,14 @@ public class Factura implements Serializable {
 	}
 	
 	public String toString() {
-		return "Cliente: " + this.cliente.getNombre() + "		" + this.fecha.toString() +"\n"
-				+ this.servicios;
+		String s = "";
+		for (HashMap.Entry<String, Long> entry : this.servicios.entrySet()) {	
+			s += entry.getKey() + ": " + entry.getValue() + "\n";
+		}
+		return "Factura N°" + this.numeroFactura + "		" + this.fecha.toString() + "\nCliente: " + this.cliente.getNombre() +"\n"
+				+ "Servicios: \n" + s;
 	}
-	
+
 	//metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
 	private static String cap(String palabra) {
         return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();

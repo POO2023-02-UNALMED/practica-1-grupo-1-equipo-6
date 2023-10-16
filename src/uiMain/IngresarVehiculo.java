@@ -3,6 +3,7 @@
 
 package uiMain;
 
+import gestorAplicacion.parqueadero.Factura;
 import gestorAplicacion.parqueadero.Plaza;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Carro;
@@ -51,7 +52,7 @@ public class IngresarVehiculo extends Funcionalidad {
 		parqueadero.ingresarVehiculo(vehiculo, plaza);
 
 		// asignar al cliente una factura con el servicio de Parqueadero en primera instancia
-		parqueadero.generarFactura(cliente); // TODO: solucionar el tema de la hora de ingreso
+		System.out.println(generarFactura(cliente));
 	}
 
 	private Vehiculo pedirEleccionVehiculoRegistrado(Cliente cliente) {
@@ -133,5 +134,11 @@ public class IngresarVehiculo extends Funcionalidad {
 			}
 		}
 		return null;
+	}
+	
+	// metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero y retornar un string de la misma
+	private String generarFactura(Cliente cliente) {
+			Factura f = new Factura(cliente); f.agregarServicio("Paqueadero");
+			return "Se ha registrado el vehiculo. Bienvenido!!";
 	}
 }

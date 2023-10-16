@@ -160,12 +160,5 @@ public class Parqueadero implements Serializable {
 			}
 		}
 	}
-	
-	// metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero
-	public void generarFactura(Cliente cliente) {
-		Factura f = new Factura(cliente);
-		f.agregarServicio("Paqueadero");
-		cliente.setFactura(f);
-	}
 }
 

@@ -58,17 +58,15 @@ public class Consola {
 	 * Imprime el mensaje con un (si/no) y espera que el usuario ingrese "si" o "no".
 	 * Retorna un boolean: true si el usuario ingresa "si", false si ingresa "no".
 	 *
-	 * Sólo verifica la primera letra de lo que ingrese el usuario, sin importar si está
-	 * en mayúsculas o minúsculas. Por ejemplo, "s", "S", "Sxyz", "sabc" son todos considerados
-	 * como un "si"; "n", "N", "N...", "nao" son todos considerados como un "no".
+	 * Acepta como respuestas: "si", "s", "no", "n", o en mayusculas.
 	 */
 	public static boolean pedirBoolean(String mensaje) {
 		imprimirMensaje(mensaje, "(si/no)");
 		// pedir al usuario que ingrese su eleccion y tomar solo la primera letra en minusculas
-		char eleccion = scanner.nextLine().toLowerCase().charAt(0);
-		if (eleccion == 's') {
+		String eleccion = scanner.nextLine().toLowerCase();
+		if (eleccion.equals("s") || eleccion.equals("si")) {
 			return true;
-		} else if (eleccion == 'n') {
+		} else if (eleccion.equals("n") || eleccion.equals("no")) {
 			return false;
 		} else { // si el usuario escribió otra cosa, entonces volver a preguntarle.
 			System.out.println("Opción inválida");
@@ -82,7 +80,12 @@ public class Consola {
 	 */
 	public static String pedirString(String mensaje) {
 		imprimirMensaje(mensaje);
-		return scanner.nextLine();
+		String s = scanner.nextLine();
+		if (s.isEmpty()) {
+			System.out.println("Por favor ingrese un valor!");
+			return pedirString(mensaje);
+		}
+		return s;
 	}
 
 	/**

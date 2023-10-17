@@ -60,7 +60,7 @@ public class Taller extends Funcionalidad {
 					"Cambio de llantas",
 					"Cambio de rines"));
 		}
-		// TODO: mirar si es viable hacerlo asi
+		// 
 	}
 	
 	// metodo que muestra los vehiculos de un cliente y retorna el escogido
@@ -79,12 +79,12 @@ public class Taller extends Funcionalidad {
 			Vehiculo vehiculo = cliente.getVehiculos().get(vehiculoEscogido);
 			if (!vehiculo.estaParqueado()) { // si el vehículo no esta parqueado se informa y se pide ingresar el vehículo 
 				boolean elec = Consola.pedirBoolean("El vehiculo no se encuentra en el parqueadero, ¿desea ingresarlo?");
-				if (elec == true) { // si se escoge no se vuelve al menu del metodo
+				if (elec == false) { // si se escoge no se vuelve al menu del metodo
 					return escogerVehiculo(cliente); 
 				}
 				else { // si se escoge si se llama la funcionalidad ingresar vehiculo y se regresa el menu del metodo
-					Funcionalidad funcionalidad = new IngresarVehiculo(); funcionalidad.setBaseDatos(baseDatos); funcionalidad.ejecutar(); // TODO: preguntar a alejandro sobre esta linea
-					return escogerVehiculo(cliente);
+					ingresarVehiculo(cliente, vehiculo);
+					return vehiculo;
 				}
 			}
 			else { // si el vehiculo se encuentra parqueado se retorna el vehiculo
@@ -92,4 +92,6 @@ public class Taller extends Funcionalidad {
 			}
 		}
 	}
+	
+	
 }

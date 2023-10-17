@@ -41,18 +41,7 @@ public class IngresarVehiculo extends Funcionalidad {
 			return;
 		}
 
-		// buscar las plazas que hay disponibles que cumplen con las características del vehículo
-		// que el cliente desea ingresar
-		List<Plaza> plazas = parqueadero.plazasDisponiblesPara(vehiculo);
-
-		// mostrar las plazas disponibles al usuario y pedirle que escoja una.
-		Plaza plaza = pedirPlaza(plazas);
-
-		// ingresar el vehículo al parqueadero
-		parqueadero.ingresarVehiculo(vehiculo, plaza);
-
-		// asignar al cliente una factura con el servicio de Parqueadero en primera instancia
-		System.out.println(generarFactura(cliente));
+		ingresarVehiculo(cliente, vehiculo);
 	}
 
 	private Vehiculo pedirEleccionVehiculoRegistrado(Cliente cliente) {
@@ -67,7 +56,7 @@ public class IngresarVehiculo extends Funcionalidad {
 
 		// se pide al usuario que elija una opción, y se verifica que si se escogió un vehículo,
 		// este no se encuentre ya adentro del parqueadero.
-		int vehiculoEleccion = Consola.pedirEleccion("Sus vehículos registrados", opcionesVehiculos, eleccion -> {
+		int vehiculoEleccion = Consola.pedirEleccion("Elección de vehículo", opcionesVehiculos, eleccion -> {
 			// las elecciones >= al tamaño de vehiculosDelCliente son las de registrar y volver. En esas no verificamos nada
 			if (eleccion >= vehiculosDelCliente.size()) {
 				return true;
@@ -97,48 +86,5 @@ public class IngresarVehiculo extends Funcionalidad {
 		} else { // cuando el usuario elige un vehículo
 			return vehiculosDelCliente.get(vehiculoEleccion);
 		}
-	}
-
-	private Plaza pedirPlaza(List<Plaza> plazas) {
-		// mostrar las plazas disponibles al cliente
-		System.out.println("Plazas disponibles:");
-		int i = 1;
-		for (Plaza plaza : plazas) {
-			System.out.printf("%d", plaza.getNumeroPlaza());
-			if (i < plazas.size()) {
-				System.out.print(" ");
-			}
-			i++;
-		}
-		System.out.println();
-
-		// pedirle al cliente que elija una plaza
-		int numeroPlaza = Consola.pedirEntero("Elija una plaza");
-
-		// verificar que la plaza escogida está en la lista de plazas disponibles, y si es asi, encontrar su instancia
-		Plaza plaza = buscarPlaza(plazas, numeroPlaza);
-
-		// si no se encontró la plaza, entonces informar al usuario que escogió mal y volver a preguntarle.
-		if (plaza == null) {
-			System.out.println("Plaza no encontrada, por favor escoja una plaza válida.");
-			return pedirPlaza(plazas);
-		}
-		return plaza;
-	}
-
-	private Plaza buscarPlaza(List<Plaza> plazas, int numeroPlaza) {
-		// buscar una plaza por su numero de plaza.
-		for (Plaza plaza : plazas) {
-			if (plaza.getNumeroPlaza() == numeroPlaza) {
-				return plaza;
-			}
-		}
-		return null;
-	}
-	
-	// metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero y retornar un string de la misma
-	private String generarFactura(Cliente cliente) {
-			Factura f = new Factura(cliente); f.agregarServicio("Paqueadero");
-			return "Se ha ingresado el vehículo. Bienvenido!!";
 	}
 }

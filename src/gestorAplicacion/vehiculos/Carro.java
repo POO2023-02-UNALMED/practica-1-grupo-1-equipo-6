@@ -5,7 +5,9 @@ package gestorAplicacion.vehiculos;
 
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.parqueadero.Producto;
+import gestorAplicacion.parqueadero.TipoEstado;
 import gestorAplicacion.parqueadero.TipoProducto;
+
 
 import java.io.Serializable;
 
@@ -122,35 +124,43 @@ public class Carro extends Vehiculo implements Serializable {
 	private void inicializarLlantas(){
 		this.llantas = new Producto[4]; // se asigna a this.llantas un array de tipo Producto con tamaño 4
 		for (int i = 0; i < 4; i++) {
-			this.llantas[i] = new Producto(TipoProducto.LLANTA, this.getMarca(), "Desgastado");
+			this.llantas[i] = new Producto(TipoProducto.LLANTA, this.getMarca(), inicializarEstado());
 		}
 	}
 	//metodo que crea cuatro Productos tipo Rin y los agrega a this.rines
 	private void inicializarRines(){
 		this.rines = new Producto[4]; // se asigna a this.rines un array de tipo Producto con tamaño 4
 		for (int i = 0; i < 4; i++) {
-			this.rines[i] = new Producto(TipoProducto.RIN, this.getMarca(), "Desgastado");
+			this.rines[i] = new Producto(TipoProducto.RIN, this.getMarca(), inicializarEstado());
 		}
 	}
 		
 	//metodo que crea los depositos y los asigna a this.depositos
 	private void inicializarDepositos() {
 		this.depositos = new Producto[3];
-		this.depositos[0] = new Producto(TipoProducto.GASOLINA, this.getMarca(), "Desgastado");
-		this.depositos[1] = new Producto(TipoProducto.ACEITE, this.getMarca(), "Desgastado");
-		this.depositos[2] = new Producto(TipoProducto.LIQUIDOS, this.getMarca(), "Desgastado");
+		this.depositos[0] = new Producto(TipoProducto.GASOLINA, this.getMarca(), inicializarEstado());
+		this.depositos[1] = new Producto(TipoProducto.ACEITE, this.getMarca(), inicializarEstado());
+		this.depositos[2] = new Producto(TipoProducto.LIQUIDOS, this.getMarca(), inicializarEstado());
 		}
 		
 	//metodo para asignar un solo producto
 	private Producto inicializarProducto(TipoProducto tipo) {
-		return new Producto(tipo, this.getMarca(), "Desgastado");
+		return new Producto(tipo, this.getMarca(), inicializarEstado());
 	}
 	
 	//metodo para crear los amortiguadores
 	private void inicializarAmortiguadores() {
 		this.amortiguadores = new Producto[4];
 		for (int i = 0; i < 4; i++) {
-			this.amortiguadores[i] = new Producto(TipoProducto.AMORTIGUADOR, this.getMarca(), "Desgastado");
+			this.amortiguadores[i] = new Producto(TipoProducto.AMORTIGUADOR, this.getMarca(), inicializarEstado());
 		}
 	}
+	
+	
+	//metodo para generar el estado de manera randomizada
+	public TipoEstado inicializarEstado() {
+		int numero = (int) (Math.random() * 3);
+		return TipoEstado.segunNumero(numero);
+	}
+	
 }

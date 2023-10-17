@@ -45,7 +45,7 @@ public class Empleado extends Persona implements Serializable{
      * Metodo que utiliza un empleado tipo mecanico para revisar un vehiculo y devolver su estado, usar para verificar en la funcionalidad venta de
      * Vehiculo
      */
-    public String revisarVehiculo(Vehiculo vehiculo) {
+    public String revisarVehiculo(Vehiculo vehiculo) { // retornar boolean y array con los productos en mal estado
     	String r = ""; //string que se va a retornar
     	
     	//comprobar que el empleado sea de tipo mecanico, sino lanzar excepcion(implementar)

@@ -8,19 +8,19 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private TipoProducto tipo;
-	private final long precio;
-	private String estado;
+	private double precio;
+	private TipoEstado estado;
 	private String marca;
 	
 	//sobrecargar el constructor para tener uno para productos de venta y otro para los productos que contienen los vehiculos
-	public Producto(TipoProducto tipo, long precio, String marca, String estado) {
+	public Producto(TipoProducto tipo, double precio, String marca, TipoEstado estado) {
 		this.tipo = tipo;
 		this.precio = precio;
 		this.marca = marca;
 		this.estado = estado;
 	}
 	//constructor para los vehiculos
-	public Producto(TipoProducto tipo, String marca, String estado) {
+	public Producto(TipoProducto tipo, String marca, TipoEstado estado) {
 		this(tipo, 0L, marca, estado);
 	}
 	
@@ -39,10 +39,10 @@ public class Producto implements Serializable {
 	public String getMarca() {
 		return this.marca;
 	}
-	public String getEstado() {
+	public TipoEstado getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(TipoEstado estado) {
 		this.estado = estado;
 	}
 

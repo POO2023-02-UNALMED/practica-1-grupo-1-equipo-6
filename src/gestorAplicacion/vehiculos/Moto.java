@@ -5,6 +5,7 @@ package gestorAplicacion.vehiculos;
 
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.parqueadero.Producto;
+import gestorAplicacion.parqueadero.TipoEstado;
 import gestorAplicacion.parqueadero.TipoProducto;
 
 import java.io.Serializable;
@@ -133,7 +134,7 @@ public class Moto extends Vehiculo implements Serializable {
 	private void inicializarLlantas(){
 		this.llantas = new Producto[2]; // se asigna a this.llantas un array de tipo Producto con tamaño 2
 		for (int i = 0; i < 2; i++) {
-			this.llantas[i] = new Producto(TipoProducto.LLANTA, this.getMarca(), "Desgastado");
+			this.llantas[i] = new Producto(TipoProducto.LLANTA, this.getMarca(), inicializarEstado());
 		}
 	}
 	
@@ -141,20 +142,25 @@ public class Moto extends Vehiculo implements Serializable {
 	private void inicializarRines(){
 		this.rines = new Producto[2]; // se asigna a this.rines un array de tipo Producto con tamaño 2
 		for (int i = 0; i < 2; i++) {
-			this.rines[i] = new Producto(TipoProducto.RIN, this.getMarca(), "Desgastado");
+			this.rines[i] = new Producto(TipoProducto.RIN, this.getMarca(), inicializarEstado());
 		}
 	}
 	
 	//metodo que crea los depositos y los asigna a this.depositos
 	private void inicializarDepositos() {
 		this.depositos = new Producto[3];
-		this.depositos[0] = new Producto(TipoProducto.GASOLINA, this.getMarca(), "Desgastado");
-		this.depositos[1] = new Producto(TipoProducto.ACEITE, this.getMarca(), "Desgastado");
-		this.depositos[2] = new Producto(TipoProducto.LIQUIDOS, this.getMarca(), "Desgastado");
+		this.depositos[0] = new Producto(TipoProducto.GASOLINA, this.getMarca(), inicializarEstado());
+		this.depositos[1] = new Producto(TipoProducto.ACEITE, this.getMarca(), inicializarEstado());
+		this.depositos[2] = new Producto(TipoProducto.LIQUIDOS, this.getMarca(), inicializarEstado());
 	}
 	
 	//metodo para asignar un solo producto
 	private Producto inicializarProducto(TipoProducto tipo) {
-		return new Producto(tipo, this.getMarca(), "Desgastado");
+		return new Producto(tipo, this.getMarca(), inicializarEstado());
+	}
+	
+	public TipoEstado inicializarEstado() {
+		int numero = (int) (Math.random() * 3);
+		return TipoEstado.segunNumero(numero);
 	}
 }

@@ -21,6 +21,7 @@ public class Parqueadero implements Serializable {
 	private double tarifaCarro;//tarifa del servicio de parqueadero por hora para carro
 	private double tarifaMoto;//tarifa del servicio de parqueadero por hora para moto
 	private ArrayList<Plaza> plazas;
+	private ArrayList<Empleado> empleados; //arraylist con todos los empleados del parqueadero(Taller, almacen, etc)
 	
 	public Parqueadero(int plazasTotales, double tarifaCarro, double tarifaMoto) {
 		this.plazasTotales = plazasTotales;
@@ -160,5 +161,6 @@ public class Parqueadero implements Serializable {
 			}
 		}
 	}
+	
 }
 

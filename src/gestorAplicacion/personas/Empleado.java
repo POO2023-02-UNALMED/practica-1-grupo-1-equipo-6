@@ -79,7 +79,7 @@ public class Empleado extends Persona implements Serializable{
     				}
     			}
     			if(c != 0) {
-    				r += c + " Depositos\n"; c = 0;
+    				r += "Depositos: " + c + "\n"; c = 0;
     			}
     			
     			for (int i = 0; i < 4; i++) {
@@ -88,7 +88,7 @@ public class Empleado extends Persona implements Serializable{
     				}
     			}
     			if (c != 0) {
-    				r += c + " Llantas\n"; c = 0;
+    				r += "Llantas: " + c + "\n"; c = 0;
     			}
     		
     			for (int i = 0; i < 4; i++) {
@@ -97,7 +97,7 @@ public class Empleado extends Persona implements Serializable{
     				}
     			}
     			if (c != 0) {
-    				r += c + " Rines\n"; c = 0;
+    				r += "Rines: " + c + "\n"; c = 0;
     			}
     		
     			for (int i = 0; i < 4; i++) {
@@ -106,7 +106,7 @@ public class Empleado extends Persona implements Serializable{
     				}
     			}
     			if (c != 0) {
-    				r += c + " Amortiguadores\n"; c = 0;
+    				r += "Amortiguadores: " + c + "\n"; c = 0;
     			}
     		}
     		
@@ -144,7 +144,7 @@ public class Empleado extends Persona implements Serializable{
     				}
     			}
     			if(c != 0) {
-    				r += c + " Depositos\n"; c = 0;
+    				r += "Depositos: " + c + "\n"; c = 0;
     			}
     			
     			for (int i = 0; i < 2; i++) {
@@ -153,7 +153,7 @@ public class Empleado extends Persona implements Serializable{
     				}
     			}
     			if(c != 0) {
-    				r += c + " Llantas\n"; c = 0;
+    				r += "Llantas: " + c + "\n"; c = 0;
     			}
     			
     			for (int i = 0; i < 2; i++) {
@@ -162,7 +162,7 @@ public class Empleado extends Persona implements Serializable{
     				}
     			}
     			if(c != 0) {
-    				r += c + " Rines\n"; c = 0;
+    				r += "Rines: " + c + "\n"; c = 0;
     			}
     		}
     		
@@ -172,7 +172,7 @@ public class Empleado extends Persona implements Serializable{
         		return "El vehiculo esta en buen estado";
         	}
         	else {
-        		return "Los siguientes componentes requieren reparacion:\n" + r;
+        		return "Los siguientes componentes requieren reparación:\n" + r;
         	}
     	}
     	else {

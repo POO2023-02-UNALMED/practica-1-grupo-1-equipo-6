@@ -21,9 +21,9 @@ public class Moto extends Vehiculo implements Serializable {
 	private Producto transmision;
 	private Producto acelerador;
 	private Producto freno;
+	private Producto bateria;
 	private Producto cadena;
 	private Producto pedales; //clutch y pedales de cambio
-	private Producto bateria;
 	private Producto amortiguador;
 	private Producto[] depositos; //array con los depositos de la moto(gasolina, liquidos, aceite)
 	private Producto[] llantas; //array que contiene las llantas del vehiculo

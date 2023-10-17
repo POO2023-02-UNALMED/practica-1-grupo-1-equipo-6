@@ -22,6 +22,7 @@ public class Parqueadero implements Serializable {
 	private double tarifaMoto;//tarifa del servicio de parqueadero por hora para moto
 	private ArrayList<Plaza> plazas;
 	private ArrayList<Empleado> empleados; //arraylist con todos los empleados del parqueadero(Taller, almacen, etc)
+	private Almacen almacen; //almacen de los productos
 	
 	public Parqueadero(int plazasTotales, double tarifaCarro, double tarifaMoto) {
 		this.plazasTotales = plazasTotales;
@@ -59,7 +60,19 @@ public class Parqueadero implements Serializable {
 	public ArrayList<Plaza> getPlazas() {
 		return this.plazas;
 	}
-	
+	public ArrayList<Empleado> getEmpleados() {
+		return empleados;
+	}
+	public void setEmpleados(ArrayList<Empleado> empleados) {
+		this.empleados = empleados;
+	}
+	public Almacen getAlmacen() {
+		return almacen;
+	}
+	public void setAlmacen(Almacen almacen) {
+		this.almacen = almacen;
+	}
+
 	//metodo para ingresar un vehiculo al parqueadero(movido desde Plaza)
 	public void ingresarVehiculo(Vehiculo vehi, Plaza plaza) {
 		// si esta plaza ya tiene un vehiculo, entonces hacer null la plaza del mismo.
@@ -162,5 +175,8 @@ public class Parqueadero implements Serializable {
 		}
 	}
 	
+	public void agregarEmpleado(Empleado empleado) {
+		this.empleados.add(empleado);
+	}
 }
 

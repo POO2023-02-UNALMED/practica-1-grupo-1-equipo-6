@@ -2,9 +2,13 @@
 
 package uiMain;
 
+import gestorAplicacion.parqueadero.Producto;
+import gestorAplicacion.parqueadero.TipoProducto;
 import gestorAplicacion.personas.Cliente;
+import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.vehiculos.*;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 public class Taller extends Funcionalidad {
@@ -92,6 +96,20 @@ public class Taller extends Funcionalidad {
 			}
 		}
 	}
-	
-	
+
+	//metodo que emula la venta de un repuesto
+	private Producto ventaRespuesto(Cliente cliente) {
+		System.out.println("Bienvenido al almacen");
+		
+		//lista de todos los empleados del parqueadero
+		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
+		//lista con los nombres de los vendedores
+		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
+		
+		
+		// se pide escoger un vendedor
+		int EmpleadoEleccion = Consola.pedirEleccion("Seleccione su vendedor de preferencia", nombresVendedores);
+		// TODO: continuar
+		return null;
+	}
 }

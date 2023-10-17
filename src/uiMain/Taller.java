@@ -78,8 +78,8 @@ public class Taller extends Funcionalidad {
 		else { //cuando se escoge un vehiculo
 			Vehiculo vehiculo = cliente.getVehiculos().get(vehiculoEscogido);
 			if (!vehiculo.estaParqueado()) { // si el vehículo no esta parqueado se informa y se pide ingresar el vehículo 
-				int elec = Consola.pedirEleccion("El vehiculo no se encuentra en el parqueadero, ¿desea ingresarlo?", List.of("SI", "NO"));
-				if (elec == 1) { // si se escoge no se vuelve al menu del metodo
+				boolean elec = Consola.pedirBoolean("El vehiculo no se encuentra en el parqueadero, ¿desea ingresarlo?");
+				if (elec == true) { // si se escoge no se vuelve al menu del metodo
 					return escogerVehiculo(cliente); 
 				}
 				else { // si se escoge si se llama la funcionalidad ingresar vehiculo y se regresa el menu del metodo

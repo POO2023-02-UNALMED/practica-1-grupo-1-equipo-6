@@ -21,7 +21,6 @@ public class Almacen implements Serializable {
 	public int getCapacidadMaxima() {
 		return this.capacidadMaxima;
 	}
-	
 	public static void setInventarioBase(List<Producto> inventarioBase) {
 		Almacen.inventarioBase = inventarioBase;
 	}

@@ -157,7 +157,7 @@ public class Carro extends Vehiculo implements Serializable {
 	}
 	
 	
-	//metodo para generar el estado de manera randomizada
+	//metodo para generar el estado de manera randomizada (retorna  1<=int<=2)
 	public TipoEstado inicializarEstado() {
 		int numero = (int) (Math.random() * 3);
 		return TipoEstado.segunNumero(numero);

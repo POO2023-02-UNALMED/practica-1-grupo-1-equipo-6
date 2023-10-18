@@ -21,7 +21,7 @@ public class Producto implements Serializable {
 	}
 	//constructor para los vehiculos
 	public Producto(TipoProducto tipo, String marca, TipoEstado estado) {
-		this(tipo, 0L, marca, estado);
+		this(tipo, (double) 0, marca, estado);
 	}
 	
 	public void setTipo(TipoProducto tipo) {

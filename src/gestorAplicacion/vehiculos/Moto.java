@@ -159,6 +159,7 @@ public class Moto extends Vehiculo implements Serializable {
 		return new Producto(tipo, this.getMarca(), inicializarEstado());
 	}
 	
+	//metodo para generar el estado de manera randomizada (retorna  1<=int<=2)
 	public TipoEstado inicializarEstado() {
 		int numero = (int) (Math.random() * 3);
 		return TipoEstado.segunNumero(numero);

@@ -35,7 +35,7 @@ public class Taller extends Funcionalidad {
 		
 		int servicioEscogido;
 		
-		if (vehiculo instanceof Carro) { // si el vehiculo es un carro mostrar las opciones disponibles para carrp
+		if (vehiculo instanceof Carro) { // si el vehículo es un carro mostrar las opciones disponibles para carro
 		// mostrar los servicios disponibles
 			servicioEscogido = Consola.pedirEleccion("Que desea realizar", List.of(
 					"Revisión general", //revision general del vehiculo
@@ -99,7 +99,7 @@ public class Taller extends Funcionalidad {
 	}
 
 	//metodo que emula la venta de un unico repuesto, como ya se sabe desde Taller que producto se debe comprar, 
-	//se procede directamente con la compra de este
+	//se procede directamente con la compra de este (no damos opcion de salir para asegurar que siempre se compre un producto)
 	private Producto ventaRespuesto(Cliente cliente, TipoProducto tipoProducto) {
 		// almacen
 		Almacen almacen = parqueadero.getAlmacen();
@@ -116,10 +116,12 @@ public class Taller extends Funcionalidad {
 		Empleado vendedor = vendedores.get(EmpleadoEleccion);
 		
 		// se verifica si hay instancias del producto en el inventario 
-		if (almacen.existeProducto(tipoProducto)) { // si si hay se procede a conseguir este producto
+		if (almacen.existeProducto(tipoProducto)) { // si si hay se procede a conseguir este producto, a actualizar informaciones y a retornarlo
 			Producto producto = almacen.conseguirProducto(tipoProducto);
+			cliente.getFactura().agregarProducto(producto, 1);
+			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
+			return producto;
 		}
-		return null;
-		//TODO: continuar..
+		return null; //si no hay se retorna null
 	}
 }

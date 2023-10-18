@@ -65,7 +65,7 @@ public class Taller extends Funcionalidad {
 					"Cambio de llantas",
 					"Cambio de rines"));
 		}
-		// 
+		// TODO: continuar..
 	}
 	
 	// metodo que muestra los vehiculos de un cliente y retorna el escogido

@@ -24,11 +24,7 @@ public class Main {
 
 		// escribir los datos actualizados al archivo luego de haber ejecutado las funcionalidades
 		// y de que el usuario haya decidido salir del programa.
-		try {
-			baseDatos.escribirDatos();
-		} catch (BaseDatosException e) {
-			Consola.imprimirError(e);
-		}
+		escribirDatos();
 	}
 
 	private static void ejecutarFuncionalidades() {
@@ -70,6 +66,10 @@ public class Main {
 				funcionalidad.setBaseDatos(baseDatos);
 				funcionalidad.ejecutar();
 			}
+
+			// persistir los datos después de cada funcionalidad.
+			escribirDatos();
+
 		// La elección en el índice 6 es salir. Si el usuario elige esta opción,
 		// entonces salir del ciclo while. Si elige una funcionalidad válida,
 		// entonces se volverá a mostrar el menú al finalizar su ejecución.
@@ -94,6 +94,14 @@ public class Main {
 			Parqueadero parqueadero = new Parqueadero(plazasTotales, tarifaCarro, tarifaMoto);
 			// Se guarda el parqueadero en la base de datos
 			baseDatos.setParqueadero(parqueadero);
+		}
+	}
+
+	private static void escribirDatos() {
+		try {
+			baseDatos.escribirDatos();
+		} catch (BaseDatosException e) {
+			Consola.imprimirError(e);
 		}
 	}
 }

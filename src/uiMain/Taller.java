@@ -2,6 +2,7 @@
 
 package uiMain;
 
+import gestorAplicacion.parqueadero.Almacen;
 import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.parqueadero.TipoProducto;
 import gestorAplicacion.personas.Cliente;
@@ -97,11 +98,14 @@ public class Taller extends Funcionalidad {
 		}
 	}
 
-	//metodo que emula la venta de un repuesto
-	private Producto ventaRespuesto(Cliente cliente) {
+	//metodo que emula la venta de un unico repuesto, como ya se sabe desde Taller que producto se debe comprar, 
+	//se procede directamente con la compra de este
+	private Producto ventaRespuesto(Cliente cliente, TipoProducto tipoProducto) {
+		// almacen
+		Almacen almacen = parqueadero.getAlmacen();
 		System.out.println("Bienvenido al almacen");
 		
-		//lista de todos los empleados del parqueadero
+		//lista de todos los vendedores del parqueadero
 		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
 		//lista con los nombres de los vendedores
 		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
@@ -109,7 +113,13 @@ public class Taller extends Funcionalidad {
 		
 		// se pide escoger un vendedor
 		int EmpleadoEleccion = Consola.pedirEleccion("Seleccione su vendedor de preferencia", nombresVendedores);
-		// TODO: continuar
+		Empleado vendedor = vendedores.get(EmpleadoEleccion);
+		
+		// se verifica si hay instancias del producto en el inventario 
+		if (almacen.existeProducto(tipoProducto)) { // si si hay se procede a conseguir este producto
+			Producto producto = almacen.conseguirProducto(tipoProducto);
+		}
 		return null;
+		//TODO: continuar..
 	}
 }

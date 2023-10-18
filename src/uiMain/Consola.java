@@ -62,8 +62,8 @@ public class Consola {
 	 */
 	public static boolean pedirBoolean(String mensaje) {
 		imprimirMensaje(mensaje, "(si/no)");
-		// pedir al usuario que ingrese su eleccion y tomar solo la primera letra en minusculas
-		String eleccion = scanner.nextLine().toLowerCase();
+		// pedir al usuario que ingrese su elección y considerarla en minúsculas
+		String eleccion = scanner.nextLine().strip().toLowerCase();
 		if (eleccion.equals("s") || eleccion.equals("si")) {
 			return true;
 		} else if (eleccion.equals("n") || eleccion.equals("no")) {
@@ -80,7 +80,7 @@ public class Consola {
 	 */
 	public static String pedirString(String mensaje) {
 		imprimirMensaje(mensaje);
-		String s = scanner.nextLine();
+		String s = scanner.nextLine().strip();
 		if (s.isEmpty()) {
 			System.out.println("Por favor ingrese un valor!");
 			return pedirString(mensaje);

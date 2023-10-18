@@ -155,6 +155,12 @@ public abstract class Funcionalidad {
 		// que el cliente desea ingresar
 		List<Plaza> plazas = parqueadero.plazasDisponiblesPara(vehiculo);
 
+		// en caso de que no hayan plazas disponibles para ese vehículo, se informa de esto al usuario
+		if (plazas.isEmpty()) {
+			System.out.println("No hay plazas disponibles. Lo sentimos.");
+			return;
+		}
+
 		// mostrar las plazas disponibles al usuario y pedirle que escoja una.
 		Plaza plaza = pedirPlaza(plazas);
 

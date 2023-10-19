@@ -66,12 +66,29 @@ public class Taller extends Funcionalidad {
 			String[] serviciosMoto = {"Cambio de cadena", "Cambio de pedales", "Cambio de amortiguador"}; serviciosTaller.addAll(Arrays.asList(serviciosMoto));
 		}
 		
-		int servicioEscogido = Consola.pedirEleccion("Que le vamos a hacer hoy a su vehiculo?", serviciosTaller);
-		//TODO: continue..
+		int servicioEscogido = Consola.pedirEleccion("¿Que le vamos a hacer hoy a su vehiculo?", serviciosTaller);
+		switch(servicioEscogido){
+			case 0 -> mecanico.revisarVehiculo(vehiculo);
+			//TODO: continuar.
+		}
+		
 	}
 	
 	// metodo que muestra los vehiculos de un cliente y retorna el escogido
 	private Vehiculo escogerVehiculo(Cliente cliente) {
+		
+		//verificar si el cliente tiene vehiculos registrados, en caso contrario pedir registrar e ingresar el vehiculo
+		if (cliente.getVehiculos().size() == 0) {
+			boolean e = Consola.pedirBoolean("Ups, usted no tiene vehiculos registrados para acceder al taller, ¿desea registrar e ingresar su vehiculo?");
+			if (e) {
+				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
+				ingresarVehiculo(cliente, vehiculoRegistrado);
+			}
+			else {
+				return null; // cuando se decide que no se retorna null
+			}
+		}
+		
 		//se crea una lista con las placas de cada vehiculo y se pide escoger una
 		List<String> vehiculos = new ArrayList<>(cliente.getVehiculos().stream().map(Vehiculo::getPlaca).toList());
 		vehiculos.add("Volver al menú principal");
@@ -114,7 +131,7 @@ public class Taller extends Funcionalidad {
 		
 		
 		// se pide escoger un vendedor
-		int vendedorEleccion = Consola.pedirEleccion("Seleccione su vendedor de preferencia", nombresVendedores);
+		int vendedorEleccion = Consola.pedirEleccion("Seleccione su) vendedor de preferencia", nombresVendedores);
 		Empleado vendedor = vendedores.get(vendedorEleccion);
 		
 		// se verifica si hay instancias del producto en el inventario 
@@ -127,5 +144,5 @@ public class Taller extends Funcionalidad {
 		return null; //si no hay se retorna null
 	}
 	
-	
+	//metodo para realizar todo el proceso de cambio
 }

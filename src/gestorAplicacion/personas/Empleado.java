@@ -60,7 +60,7 @@ public class Empleado extends Persona implements Serializable{
      * Vehiculo
      */
     public Object revisarVehiculo(Vehiculo vehiculo) { // retornar boolean y array con los productos en mal estado
-    	List<Producto> r = new ArrayList<>(); //string que se va a retornar
+    	List<Producto> r = new ArrayList<>(); //lista para guardar los productos en mal estado
     	
     	//comprobar que el empleado sea de tipo mecanico, sino lanzar excepcion(implementar)
     	if (this.getCargo().equals("Mecanico")) {

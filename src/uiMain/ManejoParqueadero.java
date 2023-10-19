@@ -33,6 +33,6 @@ public class ManejoParqueadero extends Funcionalidad {
 	}
 
 	private void administrarAlmacen() {
-		
+
 	}
 }

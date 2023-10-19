@@ -53,7 +53,7 @@ public class Deserializador {
 		try {
 			return objectInputStream.readObject();
 		} catch (IOException | ClassNotFoundException e) {
-			throw new BaseDatosException("Ha ocurrido un error leyendo el objeto", e);
+			throw new BaseDatosException("Ha ocurrido un error leyendo el objeto serializado", e);
 		}
 	}
 

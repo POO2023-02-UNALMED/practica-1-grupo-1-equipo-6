@@ -82,7 +82,11 @@ public class Taller extends Funcionalidad {
 			boolean e = Consola.pedirBoolean("Ups, usted no tiene vehiculos registrados para acceder al taller, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
-				ingresarVehiculo(cliente, vehiculoRegistrado);
+				if (vehiculoRegistrado != null) {
+					ingresarVehiculo(cliente, vehiculoRegistrado);
+				} else {
+					return null;
+				}
 			}
 			else {
 				return null; // cuando se decide que no se retorna null

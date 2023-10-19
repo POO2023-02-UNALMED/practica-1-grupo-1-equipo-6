@@ -86,6 +86,10 @@ public abstract class Funcionalidad {
 		return cliente;
 	}
 
+	/**
+	 * Hace el proceso de registro de vehículo,
+	 * puede retornar null en caso de que el usuario haya decidido no continuar con el registro.
+	 */
 	protected Vehiculo registrarVehiculo(Cliente cliente) {
 		// Se le pide al cliente que ingrese la placa del vehiculo
 		String placa = Consola.pedirString("Ingrese la placa del vehículo a registrar (o 'q' para salir)");

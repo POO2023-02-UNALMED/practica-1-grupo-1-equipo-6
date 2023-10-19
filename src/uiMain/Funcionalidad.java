@@ -70,7 +70,7 @@ public abstract class Funcionalidad {
 		// Pedir los datos al cliente.
 		System.out.println("Registro de cliente");
 		String nombre = Consola.pedirString("Ingrese nombre");
-		int telefono = Consola.pedirEntero("Ingrese teléfono");
+		long telefono = Consola.pedirLong("Ingrese teléfono");
 		String correo = Consola.pedirString("Ingrese correo");
 		String direccion = Consola.pedirString("Ingrese dirección");
 		boolean discapacitado = Consola.pedirBoolean("Usted se encuentra en condición de discapacitado?");

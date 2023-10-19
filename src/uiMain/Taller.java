@@ -11,15 +11,16 @@ import gestorAplicacion.vehiculos.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Taller extends Funcionalidad {
 	@Override
 	public void ejecutar() {
 		//funcionalidad Taller
-		System.out.println("Taller");
+		System.out.println("Bienvenido al Taller");
 		
 		//se solicita la cedula y se busca el cliente en la base de datos
-		long cedula = Consola.pedirLong("Ingrese cédula");
+		long cedula = Consola.pedirLong("Ingrese su cédula");
 		
 		Cliente cliente = buscarORegistrarCliente(cedula);
 		if (cliente == null) {
@@ -33,39 +34,40 @@ public class Taller extends Funcionalidad {
 			return; //cuando se decide volver al menú principal
 		}
 		
-		int servicioEscogido;
+		//lista con todos los mecanicos del taller
+		List<Empleado> mecanicos = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Mecanico".equals(empleado.getCargo())).collect(Collectors.toList()));
+		//lista con  los nombres de los mecanicos
+		List<String> nombresMecanicos = new ArrayList<>(mecanicos.stream().map(Empleado::getNombre).toList());
 		
-		if (vehiculo instanceof Carro) { // si el vehículo es un carro mostrar las opciones disponibles para carro
-		// mostrar los servicios disponibles
-			servicioEscogido = Consola.pedirEleccion("Que desea realizar", List.of(
-					"Revisión general", //revision general del vehiculo
-					"Cambio de motor",
-					"Cambio de transmision",
-					"Cambio de acelerador",
-					"Cambio de freno",
-					"Cambio de bateria",
-					"Cambio de pedal",
-					"Cambio de depositos",
-					"Cambio de llantas",
-					"Cambio de rines",
-					"Cambio de amortiguadores"));
+		// se pide escojer un mecanico antes de ofrecer los servicios 
+		int mecanicoEleccion  = Consola.pedirEleccion("Escoja el mecanico de su preferencia", nombresMecanicos);
+		Empleado mecanico = mecanicos.get(mecanicoEleccion);
+		
+		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", mecanico.getNombre());
+		
+		// luego de escoger el mecanico se procede a mostrar los servicios
+		List<String> serviciosTaller = new ArrayList<>();
+		serviciosTaller = List.of( // SE AGREGAN LOS SERVICIOS BASICOS Y SE COMPRUEBA EL TIPO DE VEHICULO
+				"Revisión general", 
+				"Cambio de motor",
+				"Cambio de transmision",
+				"Cambio de acelerador",
+				"Cambio de freno",
+				"Cambio de bateria",
+				"Cambio de depositos",
+				"Cambio de llantas",
+				"Cambio de rines");
+		
+		// segun el tipo de vehiculo se agregan los servicios particulares
+		if (vehiculo instanceof Carro) {
+			String[] serviciosCarro = {"Cambio de pedal", "Cambio de amortiguadores"}; serviciosTaller.addAll(Arrays.asList(serviciosCarro));
 		}
-		else if (vehiculo instanceof Moto) { // si es una moto se procede de la misma manera
-			servicioEscogido = Consola.pedirEleccion("Que desea realizar", List.of(
-					"Revisión general", //revision general del vehiculo
-					"Cambio de motor",
-					"Cambio de transmision",
-					"Cambio de acelerador",
-					"Cambio de freno",
-					"Cambio de bateria",
-					"Cambio de cadena",
-					"Cambio de pedales",
-					"Cambio de amortiguador",
-					"Cambio de depositos",
-					"Cambio de llantas",
-					"Cambio de rines"));
+		else {
+			String[] serviciosMoto = {"Cambio de cadena", "Cambio de pedales", "Cambio de amortiguador"}; serviciosTaller.addAll(Arrays.asList(serviciosMoto));
 		}
-		// TODO: continuar..
+		
+		int servicioEscogido = Consola.pedirEleccion("Que le vamos a hacer hoy a su vehiculo?", serviciosTaller);
+		//TODO: continue..
 	}
 	
 	// metodo que muestra los vehiculos de un cliente y retorna el escogido
@@ -87,7 +89,7 @@ public class Taller extends Funcionalidad {
 				if (elec == false) { // si se escoge no se vuelve al menu del metodo
 					return escogerVehiculo(cliente); 
 				}
-				else { // si se escoge si se llama la funcionalidad ingresar vehiculo y se regresa el menu del metodo
+				else { // si se escoge si se llama la funcionalidad ingresar vehiculo y se ingresa al taller
 					ingresarVehiculo(cliente, vehiculo);
 					return vehiculo;
 				}
@@ -112,8 +114,8 @@ public class Taller extends Funcionalidad {
 		
 		
 		// se pide escoger un vendedor
-		int EmpleadoEleccion = Consola.pedirEleccion("Seleccione su vendedor de preferencia", nombresVendedores);
-		Empleado vendedor = vendedores.get(EmpleadoEleccion);
+		int vendedorEleccion = Consola.pedirEleccion("Seleccione su vendedor de preferencia", nombresVendedores);
+		Empleado vendedor = vendedores.get(vendedorEleccion);
 		
 		// se verifica si hay instancias del producto en el inventario 
 		if (almacen.existeProducto(tipoProducto)) { // si si hay se procede a conseguir este producto, a actualizar informaciones y a retornarlo
@@ -124,4 +126,6 @@ public class Taller extends Funcionalidad {
 		}
 		return null; //si no hay se retorna null
 	}
+	
+	
 }

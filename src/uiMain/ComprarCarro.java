@@ -4,8 +4,10 @@ package uiMain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import gestorAplicacion.personas.Cliente;
+import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
 
@@ -38,9 +40,34 @@ public class ComprarCarro extends Funcionalidad {
 		((Carro)vehiculo).setPrecioVenta(precioVenta);
 		
 		//Se muestran las opciones de vendedor que existen 
+		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
+		//lista con  los nombres de los vendedores
+		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
+		
+		int escogerVendedor = Consola.pedirEleccion("Escoja el vendedor de su preferencia", nombresVendedores);
+		Empleado vendedor = vendedores.get(escogerVendedor);
+		
+		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", vendedor.getNombre());
+		
+		System.out.println("Su carro será revisado en el taller y se le dará una oferta de compra.");
+		
+		//Se lleva el vehículo al taller
+		//Se muestran las opciones de mecanico que existen 
+		List<Empleado> mecanicosVenta = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Mecanico".equals(empleado.getCargo())).collect(Collectors.toList()));
+		//lista con  los nombres de los mecanicos
+		List<String> nombresMecanicosVenta = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
+		
+		int escogerMecanicoVenta = Consola.pedirEleccion("Escoja el mecánico de su preferencia", nombresMecanicosVenta);
+		Empleado mecanicoVenta = mecanicosVenta.get(escogerMecanicoVenta);
+		
+		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", mecanicoVenta.getNombre());
+		
+		revisionTaller(vehiculo);
+		
 		
 	}
 	private Vehiculo escogerVehiculo(Cliente cliente) {
+		//Devuelve solo los carros
 		List<String> vehiculos = new ArrayList<>(cliente.getVehiculos().stream().map(Vehiculo::getPlaca).toList());
 		vehiculos.add("Volver al menú principal");
 		
@@ -78,7 +105,14 @@ public class ComprarCarro extends Funcionalidad {
 		} else if (precioVenta>precioMaximo) {
 			System.out.println("El precio escogido no es aceptado por el administrador");//Revisar mensaje
 			return precioCarro();
-		} else return precioVenta;
-	}
+		} else {
+			return precioVenta;
+		}
+		}
+
 	
+	private void revisionTaller(Vehiculo vehiculo) {
+		
+	}
+
 }

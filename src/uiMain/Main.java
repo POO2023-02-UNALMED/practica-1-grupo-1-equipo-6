@@ -5,6 +5,7 @@ package uiMain;
 import baseDatos.BaseDatos;
 import baseDatos.BaseDatosException;
 import gestorAplicacion.parqueadero.Parqueadero;
+import gestorAplicacion.personas.Empleado;
 
 import java.util.List;
 
@@ -92,6 +93,15 @@ public class Main {
 			double tarifaMoto = Consola.pedirEntero("Ingrese la tarifa para motos");
 			// Se crea la instancia con base en los valores escogidos por el usuario.
 			Parqueadero parqueadero = new Parqueadero(plazasTotales, tarifaCarro, tarifaMoto);
+
+			System.out.println("Registro del administrador");
+			long cedula = Consola.pedirLong("Ingrese cédula");
+			String nombre = Consola.pedirString("Ingrese nombre");
+			// TODO: El administrador necesita valores para los otros atributos?
+			Empleado administrador = new Empleado(nombre, cedula, 0, null, null, "Administrador", 0);
+			parqueadero.setAdministrador(administrador);
+			System.out.println("Administrador registrado.");
+
 			// Se guarda el parqueadero en la base de datos
 			baseDatos.setParqueadero(parqueadero);
 		}

@@ -54,7 +54,9 @@ public class Taller extends Funcionalidad {
 				"Cambio de acelerador",
 				"Cambio de freno",
 				"Cambio de bateria",
-				"Cambio de depositos",
+				"Cambio de gasolina",
+				"Cambio de aceite",
+				"Cambio de liquidos",
 				"Cambio de llantas",
 				"Cambio de rines");
 		
@@ -73,8 +75,8 @@ public class Taller extends Funcionalidad {
 		}
 		else {
 			// se coge el string del componente que se va a cambiar
-			String servicio = (serviciosTaller.get(servicioEscogido)).split(" ")[(serviciosTaller.get(servicioEscogido)).split(" ").length - 1]; 
-			cambioDe(servicio);
+			String producto = (serviciosTaller.get(servicioEscogido)).split(" ")[(serviciosTaller.get(servicioEscogido)).split(" ").length - 1]; 
+			cambioDe(producto, vehiculo, mecanico);
 		}
 		
 	}
@@ -209,8 +211,14 @@ public class Taller extends Funcionalidad {
 		System.out.println("Listo, como nuevo :)");
 	}
 	
-	private void cambioDe(String producto) {
-		//continuaar
+	private void cambioDe(String productoS, Vehiculo vehiculo, Empleado mecanico) {
+		// primero conseguimos el valor respectivo del producto en el enum TipoProducto
+		TipoProducto tipoProducto = TipoProducto.valueOf(productoS.toUpperCase());		
+		
+		//verificamos que exista este producto
+		if (parqueadero.getAlmacen().existeProducto(tipoProducto)) {
+			
+		}
 		
 	}
 }

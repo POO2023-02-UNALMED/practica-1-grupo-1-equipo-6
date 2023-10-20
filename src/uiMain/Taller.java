@@ -67,10 +67,14 @@ public class Taller extends Funcionalidad {
 		}
 		
 		int servicioEscogido = Consola.pedirEleccion("¿Que le vamos a hacer hoy a su vehiculo?", serviciosTaller);
-		switch(servicioEscogido){
-			case 0 -> revisionGeneral(vehiculo, mecanico);
-			case 1 -> cambioDe(TipoProducto.MOTOR);
-			//TODO:continuar
+		
+		if (servicioEscogido == 0) {
+			revisionGeneral(vehiculo, mecanico);
+		}
+		else {
+			// se coge el string del componente que se va a cambiar
+			String servicio = (serviciosTaller.get(servicioEscogido)).split(" ")[(serviciosTaller.get(servicioEscogido)).split(" ").length - 1]; 
+			cambioDe(servicio);
 		}
 		
 	}
@@ -89,9 +93,6 @@ public class Taller extends Funcionalidad {
 				} else {
 					return null;
 				}
-			}
-			else {
-				return null; // cuando se decide que no se retorna null
 			}
 	
 		//se crea una lista con las placas de cada vehiculo y se pide escoger una
@@ -122,7 +123,7 @@ public class Taller extends Funcionalidad {
 		}
 	}
 
-	//metodo para consefuir desde almacen los productos solicitados
+	//metodo para conseguir desde almacen los productos solicitados
 	private List<Producto> conseguirRepuestos(Cliente cliente, List<Producto> productos) {
 		// almacen
 		Almacen almacen = parqueadero.getAlmacen();
@@ -133,11 +134,13 @@ public class Taller extends Funcionalidad {
 				Producto nProducto = almacen.conseguirProducto(producto.getTipo());
 				productosVendidos.add(nProducto);
 				cliente.getFactura().agregarProducto(producto, 1);
-			} // revisar que puede pasar si no hay un producto
+			}
+			else {
+				return null; //cuando no hay un producto se retorna null
+			}
 		}
 		return productosVendidos;
-	}
-	
+	}	
 	
 	//metodo que emula la venta de un repuesto, como ya se sabe desde Taller que producto se debe comprar, 
 	//se procede directamente con la compra de este (no damos opcion de salir para asegurar que siempre se compre un producto)
@@ -168,29 +171,47 @@ public class Taller extends Funcionalidad {
 	
 	//metodo para revisar el vehiculo y arreglar todos los componentes dañados
 	private void revisionGeneral(Vehiculo vehiculo, Empleado mecanico) {
-		// como se ha comprobado que en la instancia de un Carro o Moto simpre hay almenos un componente en mal estado
-		// no se verifica esto, mirar si se debe implementar un catch
+
 		List<Producto> componentesDañados = mecanico.revisarVehiculo(vehiculo);
 		
-		// verificar que la lista no este vaciay realizar los cambios correspondientes
+		
+		// verificar que la lista no este vacia, es decir que halla al menos algo para cambiar y realizar los cambios correspondientes
 		if (!componentesDañados.isEmpty()) {
+			
+			// se guaran en un str los componentes que se arreglaran
+			String r = "";
+			for (Producto producto : componentesDañados) {
+				r += producto.getTipo().toString() + "\n";
+			} 
+			
 			List<Producto> nuevosComponentes = conseguirRepuestos(vehiculo.getDueno(), componentesDañados); // componentes para realizar el cambio
-			for (int i = 0; i < componentesDañados.size(); i++) {
-				mecanico.cambiar(componentesDañados.get(i), nuevosComponentes.get(i), vehiculo);
-				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1); //TODO: mirar que mas hacer
+			
+			if(nuevosComponentes != null) { // si se tienen todos los componentes se realizan los cambios
+				System.out.println("Los siguientes componentes se arreglaran:\n" + r);
+				for (int i = 0; i < componentesDañados.size(); i++) {
+					mecanico.cambiar(componentesDañados.get(i), nuevosComponentes.get(i), vehiculo);
+					mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1); //TODO: mirar que mas hacer
+				}
+			}
+			else {
+				System.out.println("No contamos con los repuestos suficientes para realizar el servicio :(");
+				return; //TODO: revisar
 			}
 		}
 		else {
 			System.out.println("Su vehiculo no tiene imperfecciones");
+			return;
 		}
 		
 		//añadir el servicio a la factura del cliente
 		vehiculo.getDueno().getFactura().agregarServicio("Revision general");
-		System.out.println("Listo. Como nuevo :)");
+		System.out.println("*Sonidos de mecanico*");
+		System.out.println("Listo, como nuevo :)");
 	}
 	
-	private void cambioDe(TipoProducto producto) {
-		//TODO: terminar
+	private void cambioDe(String producto) {
+		//continuaar
+		
 	}
 }
 	

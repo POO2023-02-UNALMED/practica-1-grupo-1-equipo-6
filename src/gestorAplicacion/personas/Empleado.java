@@ -10,6 +10,7 @@ import java.util.List;
 
 import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.parqueadero.TipoEstado;
+import gestorAplicacion.parqueadero.TipoProducto;
 import gestorAplicacion.vehiculos.*;
 
 public class Empleado extends Persona implements Serializable{
@@ -59,7 +60,7 @@ public class Empleado extends Persona implements Serializable{
      * Metodo que utiliza un empleado tipo mecanico para revisar un vehiculo y devolver su estado, usar para verificar en la funcionalidad venta de
      * Vehiculo
      */
-    public Object revisarVehiculo(Vehiculo vehiculo) { // retornar boolean y array con los productos en mal estado
+    public List<Producto> revisarVehiculo(Vehiculo vehiculo) { // retornar boolean y array con los productos en mal estado
     	List<Producto> r = new ArrayList<>(); //lista para guardar los productos en mal estado
     	
     	//comprobar que el empleado sea de tipo mecanico, sino lanzar excepcion(implementar)
@@ -157,16 +158,124 @@ public class Empleado extends Persona implements Serializable{
     			}
     		}
     		
-    		//despues revisar si la lista se encuentra vacia o no y proceder
-    		if (!r.isEmpty()) {
+    		//retornar la lista
         		return r;
-        	}
-        	else {
-        		return true;
-        	}
     	}
     	else {
-    		return "Empleado no autorizado para este servicio";
+    		return null; //se retorna null si el empleado no es de tipo mecanico
+    	}
+    }
+    
+    // metodo para cambiar un componente de un vehiculo por otro
+    public void cambiar(Producto productoViejo, Producto productoNuevo, Vehiculo vehiculo) {
+    	// se comprueba para carro
+    	if (vehiculo instanceof Carro) {
+    		 
+    		if (((Carro)vehiculo).getMotor().equals(productoViejo)) {
+    			((Carro) vehiculo).setMotor(productoNuevo);
+    		}
+    		if (((Carro)vehiculo).getTransmision().equals(productoViejo)) {
+    			((Carro) vehiculo).setTransmision(productoNuevo);
+    		}
+    		if (((Carro)vehiculo).getAcelerador().equals(productoViejo)) {
+    			((Carro) vehiculo).setAcelerador(productoNuevo);
+    		}
+    		if (((Carro)vehiculo).getFreno().equals(productoViejo)) {
+    			((Carro) vehiculo).setFreno(productoNuevo);
+    		}
+    		if (((Carro)vehiculo).getBateria().equals(productoViejo)) {
+    			((Carro) vehiculo).setBateria(productoNuevo);
+    		}
+    		if (((Carro)vehiculo).getPedal().equals(productoViejo)) {
+    			((Carro) vehiculo).setPedal(productoNuevo);
+    		}
+    		 
+    		int i = 0;
+    		for (Producto deposito : ((Carro) vehiculo).getDepositos()) {
+    			if (deposito.equals(productoViejo)) {
+    				((Carro) vehiculo).getDepositos()[i] = productoNuevo;
+ 					i = 0; return;
+ 				}
+ 				i++;
+ 			}
+    		 
+    		for (Producto llanta : ((Carro) vehiculo).getLlantas()) {
+  				if (llanta.equals(productoViejo)) {
+  					((Carro) vehiculo).getLlantas()[i] = productoNuevo;
+  					i = 0; return;
+  				}
+  				i++;
+  			}
+    		 
+    		for (Producto rin : ((Carro) vehiculo).getRines()) {
+  				if (rin.equals(productoViejo)) {
+  					((Carro) vehiculo).getRines()[i] = productoNuevo;
+  					i = 0; return;
+  				}
+  				i++;
+  			}
+    		 
+    		for (Producto amortiguador : ((Carro) vehiculo).getAmortiguadores()) {
+  				if (amortiguador.equals(productoViejo)) {
+  					((Carro) vehiculo).getAmortiguadores()[i] = productoNuevo;
+  					i = 0; return;
+  				}
+  				i++;
+  			}
+    	}
+    	
+    	//mismo pero para moto
+    	if (vehiculo instanceof Moto) {
+    		
+    		if (((Moto)vehiculo).getMotor().equals(productoViejo)) {
+    			((Moto) vehiculo).setMotor(productoNuevo);
+   		 	}
+    		if (((Moto)vehiculo).getTransmision().equals(productoViejo)) {
+      			((Moto) vehiculo).setTransmision(productoNuevo);
+      		}
+    		if (((Moto)vehiculo).getAcelerador().equals(productoViejo)) {
+    			((Moto) vehiculo).setAcelerador(productoNuevo);
+   		 	}
+    		if (((Moto)vehiculo).getFreno().equals(productoViejo)) {
+      			((Moto) vehiculo).setFreno(productoNuevo);
+      		}
+    		if (((Moto)vehiculo).getCadena().equals(productoViejo)) {
+    			((Moto) vehiculo).setCadena(productoNuevo);
+   		 	}
+    		if (((Moto)vehiculo).getPedales().equals(productoViejo)) {
+      			((Moto) vehiculo).setPedales(productoNuevo);
+      		}
+    		if (((Moto)vehiculo).getBateria().equals(productoViejo)) {
+    			((Moto) vehiculo).setBateria(productoNuevo);
+   		 	}
+    		if (((Moto)vehiculo).getAmortiguador().equals(productoViejo)) {
+      			((Moto) vehiculo).setAmortiguador(productoNuevo);
+      		}
+    		
+    		int i = 0;
+    		for (Producto deposito : ((Moto) vehiculo).getDepositos()) {
+    			if (deposito.equals(productoViejo)) {
+    				((Moto) vehiculo).getDepositos()[i] = productoNuevo;
+ 					i = 0; return;
+ 				}
+ 				i++;
+ 			}
+    		 
+    		for (Producto llanta : ((Moto) vehiculo).getLlantas()) {
+  				if (llanta.equals(productoViejo)) {
+  					((Moto) vehiculo).getLlantas()[i] = productoNuevo;
+  					i = 0; return;
+  				}
+  				i++;
+  			}
+    		 
+    		for (Producto rin : ((Moto) vehiculo).getRines()) {
+  				if (rin.equals(productoViejo)) {
+  					((Moto) vehiculo).getRines()[i] = productoNuevo;
+  					i = 0; return;
+  				}
+  				i++;
+  			}
     	}
     }
 }

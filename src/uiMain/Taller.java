@@ -68,8 +68,9 @@ public class Taller extends Funcionalidad {
 		
 		int servicioEscogido = Consola.pedirEleccion("¿Que le vamos a hacer hoy a su vehiculo?", serviciosTaller);
 		switch(servicioEscogido){
-			case 0 -> mecanico.revisarVehiculo(vehiculo);
-			//TODO: continuar.
+			case 0 -> revisionGeneral(vehiculo, mecanico);
+			case 1 -> cambioDe(TipoProducto.MOTOR);
+			//TODO:continuar
 		}
 		
 	}
@@ -84,6 +85,7 @@ public class Taller extends Funcionalidad {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
 				if (vehiculoRegistrado != null) {
 					ingresarVehiculo(cliente, vehiculoRegistrado);
+				}
 				} else {
 					return null;
 				}
@@ -91,8 +93,7 @@ public class Taller extends Funcionalidad {
 			else {
 				return null; // cuando se decide que no se retorna null
 			}
-		}
-		
+	
 		//se crea una lista con las placas de cada vehiculo y se pide escoger una
 		List<String> vehiculos = new ArrayList<>(cliente.getVehiculos().stream().map(Vehiculo::getPlaca).toList());
 		vehiculos.add("Volver al menú principal");
@@ -121,7 +122,24 @@ public class Taller extends Funcionalidad {
 		}
 	}
 
-	//metodo que emula la venta de un unico repuesto, como ya se sabe desde Taller que producto se debe comprar, 
+	//metodo para consefuir desde almacen los productos solicitados
+	private List<Producto> conseguirRepuestos(Cliente cliente, List<Producto> productos) {
+		// almacen
+		Almacen almacen = parqueadero.getAlmacen();
+		List<Producto> productosVendidos = new ArrayList<>();
+		
+		for (Producto producto : productos) {
+			if (almacen.existeProducto(producto.getTipo())) {
+				Producto nProducto = almacen.conseguirProducto(producto.getTipo());
+				productosVendidos.add(nProducto);
+				cliente.getFactura().agregarProducto(producto, 1);
+			} // revisar que puede pasar si no hay un producto
+		}
+		return productosVendidos;
+	}
+	
+	
+	//metodo que emula la venta de un repuesto, como ya se sabe desde Taller que producto se debe comprar, 
 	//se procede directamente con la compra de este (no damos opcion de salir para asegurar que siempre se compre un producto)
 	private Producto ventaRespuesto(Cliente cliente, TipoProducto tipoProducto) {
 		// almacen
@@ -135,7 +153,7 @@ public class Taller extends Funcionalidad {
 		
 		
 		// se pide escoger un vendedor
-		int vendedorEleccion = Consola.pedirEleccion("Seleccione su) vendedor de preferencia", nombresVendedores);
+		int vendedorEleccion = Consola.pedirEleccion("Seleccione su vendedor de preferencia", nombresVendedores);
 		Empleado vendedor = vendedores.get(vendedorEleccion);
 		
 		// se verifica si hay instancias del producto en el inventario 
@@ -148,5 +166,32 @@ public class Taller extends Funcionalidad {
 		return null; //si no hay se retorna null
 	}
 	
-	//metodo para realizar todo el proceso de cambio
+	//metodo para revisar el vehiculo y arreglar todos los componentes dañados
+	private void revisionGeneral(Vehiculo vehiculo, Empleado mecanico) {
+		// como se ha comprobado que en la instancia de un Carro o Moto simpre hay almenos un componente en mal estado
+		// no se verifica esto, mirar si se debe implementar un catch
+		List<Producto> componentesDañados = mecanico.revisarVehiculo(vehiculo);
+		
+		// verificar que la lista no este vaciay realizar los cambios correspondientes
+		if (!componentesDañados.isEmpty()) {
+			List<Producto> nuevosComponentes = conseguirRepuestos(vehiculo.getDueno(), componentesDañados); // componentes para realizar el cambio
+			for (int i = 0; i < componentesDañados.size(); i++) {
+				mecanico.cambiar(componentesDañados.get(i), nuevosComponentes.get(i), vehiculo);
+				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1); //TODO: mirar que mas hacer
+			}
+		}
+		else {
+			System.out.println("Su vehiculo no tiene imperfecciones");
+		}
+		
+		//añadir el servicio a la factura del cliente
+		vehiculo.getDueno().getFactura().agregarServicio("Revision general");
+		System.out.println("Listo. Como nuevo :)");
+	}
+	
+	private void cambioDe(TipoProducto producto) {
+		//TODO: terminar
+	}
 }
+	
+	

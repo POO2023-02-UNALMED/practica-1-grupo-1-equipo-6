@@ -168,6 +168,8 @@ public class Empleado extends Persona implements Serializable{
     
     // metodo para cambiar un componente de un vehiculo por otro
     public void cambiar(Producto productoViejo, Producto productoNuevo, Vehiculo vehiculo) {
+    	productoNuevo.setMarca(vehiculo.getMarca()); productoNuevo.setPrecio(0);
+    	
     	// se comprueba para carro
     	if (vehiculo instanceof Carro) {
     		 

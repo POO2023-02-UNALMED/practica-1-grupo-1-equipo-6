@@ -46,17 +46,16 @@ public class Taller extends Funcionalidad {
 		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", mecanico.getNombre());
 		
 		// luego de escoger el mecanico se procede a mostrar los servicios
-		List<String> serviciosTaller = new ArrayList<>();
-		serviciosTaller = List.of( // SE AGREGAN LOS SERVICIOS BASICOS Y SE COMPRUEBA EL TIPO DE VEHICULO
+		List<String> serviciosTaller = List.of( // SE AGREGAN LOS SERVICIOS BASICOS Y SE COMPRUEBA EL TIPO DE VEHICULO
 				"Revisión general", 
 				"Cambio de motor",
 				"Cambio de transmision",
 				"Cambio de acelerador",
 				"Cambio de freno",
 				"Cambio de bateria",
-				"Cambio de gasolina",
-				"Cambio de aceite",
-				"Cambio de liquidos",
+				"Cambio de deposito de gasolina",
+				"Cambio de deposito de aceite",
+				"Cambio de deposito de liquidos",
 				"Cambio de llantas",
 				"Cambio de rines");
 		
@@ -78,7 +77,7 @@ public class Taller extends Funcionalidad {
 			String producto = (serviciosTaller.get(servicioEscogido)).split(" ")[(serviciosTaller.get(servicioEscogido)).split(" ").length - 1]; 
 			cambioDe(producto, vehiculo, mecanico);
 		}
-		
+		System.out.println("Vuelva pronto");
 	}
 	
 	// metodo que muestra los vehiculos de un cliente y retorna el escogido
@@ -148,7 +147,7 @@ public class Taller extends Funcionalidad {
 	
 	//metodo que emula la venta de un repuesto, como ya se sabe desde Taller que producto se debe comprar, 
 	//se procede directamente con la compra de este (no damos opcion de salir para asegurar que siempre se compre un producto)
-	private Producto ventaRespuesto(Cliente cliente, TipoProducto tipoProducto) {
+	private Producto ventaRespuesto(Cliente cliente, TipoProducto tipoProducto) { //TODO: este metodo al parecer es innecesario
 		// almacen
 		Almacen almacen = parqueadero.getAlmacen();
 		System.out.println("Bienvenido al almacen");
@@ -182,7 +181,7 @@ public class Taller extends Funcionalidad {
 		// verificar que la lista no este vacia, es decir que halla al menos algo para cambiar y realizar los cambios correspondientes
 		if (!componentesDañados.isEmpty()) {
 			
-			// se guaran en un str los componentes que se arreglaran
+			// se guardan en un str los componentes que se arreglaran
 			String r = "";
 			for (Producto producto : componentesDañados) {
 				r += producto.getTipo().toString() + "\n";
@@ -213,15 +212,143 @@ public class Taller extends Funcionalidad {
 		System.out.println("Listo, como nuevo :)");
 	}
 	
-	private void cambioDe(String productoS, Vehiculo vehiculo, Empleado mecanico) {
-		// primero conseguimos el valor respectivo del producto en el enum TipoProducto
+	private void cambioDe(String productoS, Vehiculo vehiculo, Empleado mecanico) { //TODO: mirar que hacer en caso de nulls o false
+		
+		Almacen almacen = parqueadero.getAlmacen();
+		// para llantas, amortiguadores, rines preguntamos que numero de componente quiere cambiar
+		if(productoS.equals("llantas")) {
+			
+			if (vehiculo instanceof Carro) {
+				String[] posiciones = {"Delantera izq","Delantera der", "Trasera izq", "Trasera der"};
+				
+				int llanta = Consola.pedirEleccion("Que llanta desea cambiar", Arrays.asList(posiciones));
+				Producto llantaV = ((Carro) vehiculo).getLlantas()[llanta];
+				
+				if (almacen.existeProducto(TipoProducto.LLANTA)) {
+					Producto llantaN = almacen.conseguirProducto(TipoProducto.LLANTA);
+					vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta");
+					mecanico.cambiar(llantaV, llantaN, vehiculo);
+					mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
+					return;
+				}
+			}
+			
+			// para moto
+			String[] posiciones = {"Delantera", "Trasera"};
+			
+			int llanta = Consola.pedirEleccion("Que llanta desea cambiar", Arrays.asList(posiciones));
+			Producto llantaV = ((Moto) vehiculo).getLlantas()[llanta];
+			
+			if (almacen.existeProducto(TipoProducto.LLANTA)) {
+				Producto llantaN = almacen.conseguirProducto(TipoProducto.LLANTA);
+				vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta");
+				mecanico.cambiar(llantaV, llantaN, vehiculo);
+				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
+				return;
+			}
+		}
+		
+		//para rines
+		if(productoS.equals("rines")) {
+			
+			if (vehiculo instanceof Carro) {
+				String[] posiciones = {"Delantero izq","Delantero der", "Trasero izq", "Trasero der"};
+				
+				int rin = Consola.pedirEleccion("Que rin desea cambiar", Arrays.asList(posiciones));
+				Producto rinV = ((Carro) vehiculo).getRines()[rin];
+				
+				if (almacen.existeProducto(TipoProducto.RIN)) {
+					Producto rinN = almacen.conseguirProducto(TipoProducto.RIN);
+					vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin");
+					mecanico.cambiar(rinV, rinN, vehiculo);
+					mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
+					return;
+				}
+			}
+			
+			// para moto
+			String[] posiciones = {"Delantero", "Trasero"};
+			
+			int rin = Consola.pedirEleccion("Que rin desea cambiar", Arrays.asList(posiciones));
+			Producto rinV = ((Moto) vehiculo).getRines()[rin];
+			
+			if (almacen.existeProducto(TipoProducto.RIN)) {
+				Producto rinN = almacen.conseguirProducto(TipoProducto.RIN);
+				vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin");
+				mecanico.cambiar(rinV, rinN, vehiculo);
+				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
+				return;
+			}
+		}
+		
+		// para amortiguadores
+		if(productoS.equals("amortiguadores")) {
+			String[] posiciones = {"Delantero izq","Delantero der", "Trasero izq", "Trasero der"};
+			
+			int amortiguador = Consola.pedirEleccion("Que amortiguador desea cambiar", Arrays.asList(posiciones));
+			Producto amortiguadorV = ((Carro) vehiculo).getAmortiguadores()[amortiguador];
+			
+			if (almacen.existeProducto(TipoProducto.AMORTIGUADOR)) {
+				Producto amortiguadorN = almacen.conseguirProducto(TipoProducto.AMORTIGUADOR);
+				vehiculo.getDueno().getFactura().agregarProducto(amortiguadorN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta");
+				mecanico.cambiar(amortiguadorV, amortiguadorN, vehiculo);
+				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
+				return;
+			}
+		}
+		
+		// si el caso es un componente que es unico se prosigue asi:
 		TipoProducto tipoProducto = TipoProducto.valueOf(productoS.toUpperCase());		
+		List<TipoProducto> productos = Arrays.asList(TipoProducto.values());
 		
 		//verificamos que exista este producto
 		if (parqueadero.getAlmacen().existeProducto(tipoProducto)) {
-			
+			Producto productoV = conseguir(productos.indexOf(tipoProducto), vehiculo);
+			Producto productoN = almacen.conseguirProducto(tipoProducto); // producto para cambiar
+			vehiculo.getDueno().getFactura().agregarProducto(productoN, 1); // se agrega a la factura del cliente el producto
+			mecanico.cambiar(productoV, productoN, vehiculo);
+			mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+			System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
 		}
 		
+	}
+	
+	//metodo para conseguir un componente de un vehiculo mediante su get
+	private Producto conseguir(int i, Vehiculo vehiculo) {
+		Producto r = null;
+		if (vehiculo instanceof Carro) {
+			switch(i) {
+				case 0 -> r = ((Carro) vehiculo).getMotor();
+				case 1 -> r = ((Carro) vehiculo).getTransmision();
+				case 2 -> r = ((Carro) vehiculo).getAcelerador();
+				case 3 -> r = ((Carro) vehiculo).getFreno();
+				case 4 -> r = ((Carro) vehiculo).getBateria();
+				case 5 -> r = ((Carro) vehiculo).getDepositos()[0];
+				case 6 -> r = ((Carro) vehiculo).getDepositos()[1];
+				case 7 -> r = ((Carro) vehiculo).getDepositos()[2];
+				case 10 -> r = ((Carro) vehiculo).getPedal();
+			}
+			return r;
+		}
+		switch(i) {
+			case 0 -> r = ((Moto) vehiculo).getMotor();
+			case 1 -> r = ((Moto) vehiculo).getTransmision();
+			case 2 -> r = ((Moto) vehiculo).getAcelerador();
+			case 3 -> r = ((Moto) vehiculo).getFreno();
+			case 4 -> r = ((Moto) vehiculo).getBateria();
+			case 5 -> r = ((Moto) vehiculo).getDepositos()[0];
+			case 6 -> r = ((Moto) vehiculo).getDepositos()[1];
+			case 7 -> r = ((Moto) vehiculo).getDepositos()[2];
+			case 11 -> r = ((Moto) vehiculo).getCadena();
+			case 12 -> r = ((Moto) vehiculo).getPedales();
+			case 13 -> r = ((Moto) vehiculo).getAmortiguador();
+		}
+		return r;
 	}
 }
 	

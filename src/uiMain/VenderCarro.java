@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import gestorAplicacion.parqueadero.Almacen;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
@@ -14,17 +15,13 @@ public class VenderCarro extends Funcionalidad {
 	@Override
 	public void ejecutar() {
 		System.out.print("Vender un carro");
-	}
+		long cedula = Consola.pedirLong("Ingrese cédula");
 
-	long cedula= Consola.pedirLong("Ingrese cédula");
+		Cliente cliente= buscarORegistrarCliente(cedula);
+		if (cliente == null){
+			return;
+		}
 
-	Cliente cliente= buscarORegistrarCliente(cedula);
-	if (Cliente==null){
-		return;
-	}
-
-	Vehiculo vehiculo= escogerVehiculo(cliente);
-	if (vehiculo== null){
-		return;
+		// TODO: se debe definir donde estaran almacenados los carros para la venta, y esta funcionalidad se encarga de vender esos carros
 	}
 }

@@ -33,6 +33,9 @@ public class Producto implements Serializable {
 	public double getPrecio() {
 		return this.precio;
 	}
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}

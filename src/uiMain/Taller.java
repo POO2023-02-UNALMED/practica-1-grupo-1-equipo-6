@@ -126,7 +126,7 @@ public class Taller extends Funcionalidad {
 	}
 
 	//metodo para conseguir desde almacen los productos solicitados
-	private List<Producto> conseguirRepuestos(Cliente cliente, List<Producto> productos) {
+	private List<Producto> conseguirRepuestos(Vehiculo vehiculo, List<Producto> productos) {
 		// almacen
 		Almacen almacen = parqueadero.getAlmacen();
 		List<Producto> productosVendidos = new ArrayList<>();
@@ -134,8 +134,10 @@ public class Taller extends Funcionalidad {
 		for (Producto producto : productos) {
 			if (almacen.existeProducto(producto.getTipo())) {
 				Producto nProducto = almacen.conseguirProducto(producto.getTipo());
+				nProducto.setMarca(vehiculo.getMarca()); //hacer el producto de la misma marca del vehiculo
+			    nProducto.setPrecio(0); // este producto ya no tendra el mismo valor comercial
 				productosVendidos.add(nProducto);
-				cliente.getFactura().agregarProducto(producto, 1);
+				vehiculo.getDueno().getFactura().agregarProducto(producto, 1);
 			}
 			else {
 				return null; //cuando no hay un producto se retorna null
@@ -186,7 +188,7 @@ public class Taller extends Funcionalidad {
 				r += producto.getTipo().toString() + "\n";
 			} 
 			
-			List<Producto> nuevosComponentes = conseguirRepuestos(vehiculo.getDueno(), componentesDañados); // componentes para realizar el cambio
+			List<Producto> nuevosComponentes = conseguirRepuestos(vehiculo, componentesDañados); // componentes para realizar el cambio
 			
 			if(nuevosComponentes != null) { // si se tienen todos los componentes se realizan los cambios
 				System.out.println("Los siguientes componentes se arreglaran:\n" + r);

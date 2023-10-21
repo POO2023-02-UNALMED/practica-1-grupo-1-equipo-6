@@ -9,9 +9,9 @@ import gestorAplicacion.vehiculos.Vehiculo;
 
 import java.io.File;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,7 +20,8 @@ import java.util.Map;
 public class BaseDatos implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private static File archivo = Paths.get(".", "src", "baseDatos", "temp", "datos.txt").toFile();
+	private static final Path RUTA_ARCHIVO = Paths.get(".", "src", "baseDatos", "temp", "datos.txt");
+	private static File archivo = RUTA_ARCHIVO.toFile();
 	private Map<Long, Cliente> clientesRegistrados = new HashMap<>();
 	private Map<String, Vehiculo> vehiculosRegistrados = new HashMap<>();
 	private Parqueadero parqueadero;

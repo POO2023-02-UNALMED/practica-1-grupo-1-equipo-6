@@ -11,11 +11,12 @@ import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
 
+//Permite que el cliente venda un carro al parqueadero
 public class ComprarCarro extends Funcionalidad {
 	@Override
 	public void ejecutar() {
 		//Funcionalidad Comprar un carro
-		System.out.println("Comprar un carro");
+		System.out.println("Vender carro");
 		
 		//Se pide al cliente ingresar la cédula para verificar su registro
 		

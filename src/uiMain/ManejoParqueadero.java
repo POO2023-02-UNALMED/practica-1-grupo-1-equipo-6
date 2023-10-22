@@ -48,6 +48,12 @@ public class ManejoParqueadero extends Funcionalidad {
 	}
 
 	private void administrarParqueadero() {
+		
+		//método para agregar carros para vender
+		private void agregarCarrosVenta() {
+			String placa = Consola.pedirString(null);
+		}
+		
 
 	}
 

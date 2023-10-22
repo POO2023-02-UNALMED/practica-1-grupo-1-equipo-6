@@ -21,6 +21,7 @@ public class Empleado extends Persona implements Serializable{
     private double comision;
     private int serviciosRealizados; // dependiendo del tipo de empleado serian productos vendidos o vehiculos vendidos y/o comprados, 
     								 // componentes arreglados, revisiones, servicios mecanicos en general, etc.
+    private static ArrayList<Carro> vehiculosVenta = new ArrayList<Carro>();  //Lista de vehiculos disponibles para vender
     
     public Empleado(String nombre, long cedula, long telefono, String correo, String direccion, String cargo, double salario) {
     	super(nombre, cedula, telefono, correo, direccion);
@@ -30,6 +31,16 @@ public class Empleado extends Persona implements Serializable{
     	serviciosRealizados = 0;
     }
     
+    public void setVehiculosVenta(ArrayList<Carro> vehVenta) {
+    	Empleado.vehiculosVenta = vehVenta;
+    }
+    public ArrayList<Carro> getVehiculosVenta() {
+    	return Empleado.vehiculosVenta;
+    }
+    
+    public void agregarVehiculosVenta(Carro carroVenta) {
+    	Empleado.vehiculosVenta.add(carroVenta);
+    }
     public void setCargo(String cargo) {
     	this.cargo = cargo;
     }
@@ -279,5 +290,6 @@ public class Empleado extends Persona implements Serializable{
   				i++;
   			}
     	}
+
     }
 }

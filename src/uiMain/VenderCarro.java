@@ -10,11 +10,13 @@ import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.personas.Empleado;
 
+//Venta de carro punto de vista parqueadero
 
+//Permite al cliente comprar un carro según características específicas
 public class VenderCarro extends Funcionalidad {
 	@Override
 	public void ejecutar() {
-		System.out.println("Vender un carro");
+		System.out.println("Comprar carro");
 		
 		long cedula= Consola.pedirLong("Ingrese cédula");
 
@@ -22,6 +24,19 @@ public class VenderCarro extends Funcionalidad {
 		if (cliente==null){
 			return;
 		}
+		
+		//Se le pide al cliente escoger de los vendedores disponibles 
+		
+		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
+		//lista con  los nombres de los vendedores
+		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
+		
+		int escogerVendedor = Consola.pedirEleccion("Escoja el vendedor de su preferencia", nombresVendedores);
+		Empleado vendedor = vendedores.get(escogerVendedor);
+		
+		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", vendedor.getNombre());
+		
+		
 
 	}
 

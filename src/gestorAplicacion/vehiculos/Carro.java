@@ -26,7 +26,7 @@ public class Carro extends Vehiculo implements Serializable {
 	private Producto[] llantas;
 	private Producto[] rines;
 	private Producto[] amortiguadores;
-	private long precioVenta = 0;
+	private long precioVenta;
 	
 	
 	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos) {
@@ -43,7 +43,13 @@ public class Carro extends Vehiculo implements Serializable {
 		this.inicializarLlantas();
 		this.inicializarRines();
 		this.inicializarAmortiguadores();
+		this.precioVenta = 0;
 	}
+	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos, long precioVenta) {
+		this(placa, dueno, marca, color, modelo, tipo, puestos);
+		this.precioVenta = precioVenta;
+	}
+	
 	
 	//getters and setters
 	public long getPrecioVenta() {

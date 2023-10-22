@@ -43,10 +43,10 @@ public class Taller extends Funcionalidad {
 		int mecanicoEleccion  = Consola.pedirEleccion("Escoja el mecanico de su preferencia", nombresMecanicos);
 		Empleado mecanico = mecanicos.get(mecanicoEleccion);
 		
-		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", mecanico.getNombre());
+		System.out.printf("Hola, mi nombre es %s y voy a atenderlo%n", mecanico.getNombre());
 		
 		// luego de escoger el mecanico se procede a mostrar los servicios
-		List<String> serviciosTaller = List.of( // SE AGREGAN LOS SERVICIOS BASICOS Y SE COMPRUEBA EL TIPO DE VEHICULO
+		List<String> serviciosTaller = new ArrayList<>(List.of( // SE AGREGAN LOS SERVICIOS BASICOS Y SE COMPRUEBA EL TIPO DE VEHICULO
 				"Revisión general", 
 				"Cambio de motor",
 				"Cambio de transmision",
@@ -57,26 +57,31 @@ public class Taller extends Funcionalidad {
 				"Cambio de deposito de aceite",
 				"Cambio de deposito de liquidos",
 				"Cambio de llantas",
-				"Cambio de rines");
+				"Cambio de rines"));
 		
 		// segun el tipo de vehiculo se agregan los servicios particulares
 		if (vehiculo instanceof Carro) {
-			String[] serviciosCarro = {"Cambio de pedal", "Cambio de amortiguadores"}; serviciosTaller.addAll(Arrays.asList(serviciosCarro));
+			String[] serviciosCarro = {"Cambio de pedal", "Cambio de amortiguadores", "Regresar al menú principal"}; serviciosTaller.addAll(Arrays.asList(serviciosCarro));
 		}
 		else {
-			String[] serviciosMoto = {"Cambio de cadena", "Cambio de pedales", "Cambio de amortiguador"}; serviciosTaller.addAll(Arrays.asList(serviciosMoto));
+			String[] serviciosMoto = {"Cambio de cadena", "Cambio de pedales", "Cambio de amortiguador", "Regresar al menú principal"}; serviciosTaller.addAll(Arrays.asList(serviciosMoto));
 		}
 		
-		int servicioEscogido = Consola.pedirEleccion("¿Que le vamos a hacer hoy a su vehiculo?", serviciosTaller);
+		int servicioEscogido;
+		do {
+		servicioEscogido = Consola.pedirEleccion("¿Que le vamos a hacer a su vehiculo?", serviciosTaller);
 		
-		if (servicioEscogido == 0) {
+		if (serviciosTaller.get(servicioEscogido) != "Regresar al menú principal") {
+			if (servicioEscogido == 0) {
 			revisionGeneral(vehiculo, mecanico);
-		}
-		else {
+			}
+			else {
 			// se coge el string del componente que se va a cambiar
 			String producto = (serviciosTaller.get(servicioEscogido)).split(" ")[(serviciosTaller.get(servicioEscogido)).split(" ").length - 1]; 
 			cambioDe(producto, vehiculo, mecanico);
+			}
 		}
+		} while (serviciosTaller.get(servicioEscogido) != "Regresar al menú principal");
 		System.out.println("Vuelva pronto");
 	}
 	

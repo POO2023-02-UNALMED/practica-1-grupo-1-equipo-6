@@ -22,7 +22,7 @@ public class Parqueadero implements Serializable {
 	private double tarifaCarro;//tarifa del servicio de parqueadero por hora para carro
 	private double tarifaMoto;//tarifa del servicio de parqueadero por hora para moto
 	private ArrayList<Plaza> plazas;
-	private ArrayList<Empleado> empleados; //arraylist con todos los empleados del parqueadero(Taller, almacen, etc)
+	private ArrayList<Empleado> empleados = new ArrayList<>(); //arraylist con todos los empleados del parqueadero(Taller, almacen, etc)
 	private Almacen almacen; //almacen de los productos
 	private Empleado administrador; // el administrador del parqueadero
 	

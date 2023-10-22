@@ -14,17 +14,21 @@ public class ManejoParqueadero extends Funcionalidad {
 			return;
 		}
 
-		int eleccion = Consola.pedirEleccion("Parte del parqueadero a manejar", List.of(
+		int eleccion;
+		do {
+		eleccion = Consola.pedirEleccion("Parte del parqueadero a manejar", List.of(
 				"Taller",
 				"Parqueadero",
-				"Almacén"
+				"Almacén",
+				"Regresar al menú principal"
 		));
-
+		
 		switch (eleccion) {
 			case 0 -> administrarTaller();
 			case 1 -> administrarParqueadero();
 			case 2 -> administrarAlmacen();
 		}
+		} while (eleccion != 3);
 	}
 
 	private void administrarTaller() {
@@ -38,7 +42,7 @@ public class ManejoParqueadero extends Funcionalidad {
 			
 			switch (eleccion) {
 				case 0 -> agregarEmpleado("Mecanico");
-				case 1 -> despedirEmpleado(Consola.pedirLong("Ingrese la cédula del empleado"));
+				case 1 -> despedirEmpleado(Consola.pedirLong("Ingrese la cédula del mecánico"));
 			}
 		} while (eleccion != 2);
 	}
@@ -55,7 +59,7 @@ public class ManejoParqueadero extends Funcionalidad {
 	private void agregarEmpleado(String tipoEmpleado) {
 		String nombre = Consola.pedirString("Ingrese el nombre: ");
 		long cedula = Consola.pedirLong("Ingrese la cédula: ");
-		long telefono = Consola.pedirLong("Ingrese el numero del telefono: ");
+		long telefono = Consola.pedirLong("Ingrese el numero de telefono: ");
 		String correo = Consola.pedirString("Ingrese el correo: ");
 		String direccion = Consola.pedirString("Ingrese la dirección: ");
 		double salario = Consola.pedirDouble("Ingrese el salario: ");
@@ -67,15 +71,20 @@ public class ManejoParqueadero extends Funcionalidad {
 	private void despedirEmpleado(long cedulaEmpleado) {
 		List<Empleado> empleados = parqueadero.getEmpleados();
 		// si existe el empleado obtenemos su indice, en cazo contrario el -1
-		int empIndex =IntStream.range(0, empleados.size()).filter(i -> empleados.get(i).getCedula() == cedulaEmpleado).findFirst().orElse(-1);
+		int empIndex = IntStream.range(0, empleados.size()).filter(i -> empleados.get(i).tieneIdentificacion(cedulaEmpleado)).findFirst().orElse(-1);
 		if (empIndex != -1) {
 			Empleado empleado = empleados.get(empIndex);
 			//se pregunta por ultima vez
 			boolean decision = Consola.pedirBoolean("Esta seguro que desea despedir a " + empleado.getNombre());
 			if (decision) {
 				empleados.remove(empIndex);
+				System.out.println("Empleado despedido");
+				return;
+			}
+			else {
+				return;
 			}
 		}
-		System.out.println("Empleado despedido");
+		System.out.println("No hay ningun empleado con este numero de identificacion");
 	}
 }

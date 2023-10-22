@@ -14,7 +14,7 @@ public class Factura implements Serializable {
 	private HashMap<String, Integer> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
 	private int numeroFactura;
 	private LocalDate fecha;
-	private long precioTotal;
+	private double precioTotal;
 	private Cliente cliente;
 	private LocalTime horaIngreso; // hora ingreso del vehiculo al parqueadero
 	private static int facturasCreadas; //atributo que lleva el conteo de facturas creadas, para asginar numeroFactura en las instancias
@@ -45,7 +45,7 @@ public class Factura implements Serializable {
 	public double getPrecioTotal() {
 		return precioTotal;
 	}
-	public void setPrecioTotal(long precioTotal) {
+	public void setPrecioTotal(double precioTotal) {
 		this.precioTotal = precioTotal;
 	}
 	public void setCliente(Cliente cliente) {

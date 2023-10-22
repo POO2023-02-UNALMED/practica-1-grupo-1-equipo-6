@@ -53,6 +53,20 @@ public class Consola {
 			return pedirEntero(mensaje);
 		}
 	}
+	
+	/**
+	 * Imprime el mensaje y espera que el usuario ingrese un double, retornándolo.
+	 * Si el usuario ingresa otra cosa, volver a pedirle que ingrese un valor double.
+	 */
+	public static double pedirDouble(String mensaje) {
+		imprimirMensaje(mensaje);
+		try {
+			return Double.parseDouble(scanner.nextLine());
+		} catch (NumberFormatException e) {
+			System.out.println("Por favor ingrese un número valido");
+			return pedirEntero(mensaje);
+		}
+	}
 
 	/**
 	 * Imprime el mensaje con un (si/no) y espera que el usuario ingrese "si" o "no".

@@ -67,15 +67,17 @@ public class ComprarCarro extends Funcionalidad {
 		
 	}
 	private Vehiculo escogerVehiculo(Cliente cliente) {
-		//Devuelve solo los carros
-		List<String> vehiculos = new ArrayList<>(cliente.getVehiculos().stream().map(Vehiculo::getPlaca).toList());
-		vehiculos.add("Volver al menú principal");
+		// lista para obtener solo los carros
+		List<Vehiculo> carros = new ArrayList<>(cliente.getVehiculos().stream().filter(vehiculo -> vehiculo instanceof Carro).collect(Collectors.toList()));
+		List<String> placasCarros = new ArrayList<>(carros.stream().map(Vehiculo::getPlaca).toList());
 		
-		int opcionEscogida = Consola.pedirEleccion("Escoja el vehículo que desea vender ", vehiculos);
+		//vehiculos.add("Volver al menú principal");
+		
+		int opcionEscogida = Consola.pedirEleccion("Escoja el vehículo que desea vender ", placasCarros);
 		
 		//Se verifica si desea volver al menú principal, o si el vehiculo se encuentra enparqueadero
 		
-		if (opcionEscogida == vehiculos.size() - 1) { //si desea volver se retorna null
+		if (opcionEscogida == carros.size() - 1) { //si desea volver se retorna null
 			return null;
 		}
 		else { //cuando se escoge un vehiculo

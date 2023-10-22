@@ -11,13 +11,14 @@ import java.time.*;
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private HashMap<String, Long> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
+	private HashMap<String, Integer> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
 	private int numeroFactura;
 	private LocalDate fecha;
 	private long precioTotal;
 	private Cliente cliente;
 	private LocalTime horaIngreso; // hora ingreso del vehiculo al parqueadero
 	private static int facturasCreadas; //atributo que lleva el conteo de facturas creadas, para asginar numeroFactura en las instancias
+	private static HashMap<String, Double> valorServicios = new HashMap<>(); // hashmap que contiene los servicios y su costo
 	
 	public Factura(Cliente cliente) {
 		this.numeroFactura = ++Factura.facturasCreadas;
@@ -64,23 +65,31 @@ public class Factura implements Serializable {
 	}
 	public static void setFacturasCreadas(int facturasCreadas) {
 		Factura.facturasCreadas = facturasCreadas;
+	}	
+	public static HashMap<String, Double> getValorServicios() {
+		return valorServicios;
 	}
-	
-	
+	public static void setValorServicios(HashMap<String, Double> valorServicios) {
+		Factura.valorServicios = valorServicios;
+	}
+	public HashMap<String, Integer> getServicios() {
+		return this.servicios;
+	}
+
 	//metodos para manipular el hashmap
 	//metodo que agrega productos comprados y el numero de estos productos
 	public void agregarProducto(Producto producto, int cantidad) {
-		this.servicios.put(cap(producto.getTipo().name()), this.servicios.getOrDefault(cap(producto.getTipo().name()), 0L) + cantidad);
+		this.servicios.put("Compra de " + cap(producto.getTipo().name()), this.servicios.getOrDefault(cap(producto.getTipo().name()), 0) + cantidad);
 	}
 	
-	//metodo que agrega un servicio y su valor
-	public void agregarServicio(String servicio) {
-		this.servicios.put(servicio, 0L);
+	//metodo que agrega un servicio y su cantidad
+	public void agregarServicio(String servicio, int cantidad) {
+		this.servicios.put(servicio, this.servicios.getOrDefault(servicio, 0) + cantidad);
 	}
 	
 	public String toString() {
 		String s = "";
-		for (HashMap.Entry<String, Long> entry : this.servicios.entrySet()) {	
+		for (HashMap.Entry<String, Integer> entry : this.servicios.entrySet()) {	
 			s += entry.getKey() + ": " + entry.getValue() + "\n";
 		}
 		return "Factura N°" + this.numeroFactura + "		" + this.fecha.toString() + "\nCliente: " + this.cliente.getNombre() +"\n"

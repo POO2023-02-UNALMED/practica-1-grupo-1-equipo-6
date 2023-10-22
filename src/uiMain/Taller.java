@@ -80,10 +80,10 @@ public class Taller extends Funcionalidad {
 		System.out.println("Vuelva pronto");
 	}
 	
-	// metodo que muestra los vehiculos de un cliente y retorna el escogido
+		// metodo que muestra los vehiculos de un cliente y retorna el escogido
 	private Vehiculo escogerVehiculo(Cliente cliente) {
-		
-		//verificar si el cliente tiene vehiculos registrados, en caso contrario pedir registrar e ingresar el vehiculo
+				
+	//verificar si el cliente tiene vehiculos registrados, en caso contrario pedir registrar e ingresar el vehiculo
 		if (cliente.getVehiculos().size() == 0) {
 			boolean e = Consola.pedirBoolean("Ups, usted no tiene vehiculos registrados para acceder al taller, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
@@ -95,13 +95,12 @@ public class Taller extends Funcionalidad {
 					return null;
 				}
 			}
-	
+			
 		//se crea una lista con las placas de cada vehiculo y se pide escoger una
 		List<String> vehiculos = new ArrayList<>(cliente.getVehiculos().stream().map(Vehiculo::getPlaca).toList());
 		vehiculos.add("Volver al menú principal");
-		
+				
 		int vehiculoEscogido = Consola.pedirEleccion("Escoja el vehículo que desea ingresar al taller", vehiculos);
-		
 		//verificar la opcion escogida y si el Vehiculo se encuentra en el parqueadero 
 		if (vehiculoEscogido == vehiculos.size() - 1) { //si desea volver se retorna null
 			return null;
@@ -207,7 +206,7 @@ public class Taller extends Funcionalidad {
 		}
 		
 		//añadir el servicio a la factura del cliente
-		vehiculo.getDueno().getFactura().agregarServicio("Revision general");
+		vehiculo.getDueno().getFactura().agregarServicio("Revision general", 1);
 		System.out.println("*Sonidos de mecanico*");
 		System.out.println("Listo, como nuevo :)");
 	}
@@ -226,7 +225,7 @@ public class Taller extends Funcionalidad {
 				
 				if (almacen.existeProducto(TipoProducto.LLANTA)) {
 					Producto llantaN = almacen.conseguirProducto(TipoProducto.LLANTA);
-					vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta");
+					vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta", 1);
 					mecanico.cambiar(llantaV, llantaN, vehiculo);
 					mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
@@ -242,7 +241,7 @@ public class Taller extends Funcionalidad {
 			
 			if (almacen.existeProducto(TipoProducto.LLANTA)) {
 				Producto llantaN = almacen.conseguirProducto(TipoProducto.LLANTA);
-				vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta");
+				vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta", 1);
 				mecanico.cambiar(llantaV, llantaN, vehiculo);
 				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
@@ -261,7 +260,7 @@ public class Taller extends Funcionalidad {
 				
 				if (almacen.existeProducto(TipoProducto.RIN)) {
 					Producto rinN = almacen.conseguirProducto(TipoProducto.RIN);
-					vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin");
+					vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin", 1);
 					mecanico.cambiar(rinV, rinN, vehiculo);
 					mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
@@ -277,7 +276,7 @@ public class Taller extends Funcionalidad {
 			
 			if (almacen.existeProducto(TipoProducto.RIN)) {
 				Producto rinN = almacen.conseguirProducto(TipoProducto.RIN);
-				vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin");
+				vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin", 1);
 				mecanico.cambiar(rinV, rinN, vehiculo);
 				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
@@ -294,7 +293,7 @@ public class Taller extends Funcionalidad {
 			
 			if (almacen.existeProducto(TipoProducto.AMORTIGUADOR)) {
 				Producto amortiguadorN = almacen.conseguirProducto(TipoProducto.AMORTIGUADOR);
-				vehiculo.getDueno().getFactura().agregarProducto(amortiguadorN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta");
+				vehiculo.getDueno().getFactura().agregarProducto(amortiguadorN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de Amortiguador", 1);
 				mecanico.cambiar(amortiguadorV, amortiguadorN, vehiculo);
 				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");

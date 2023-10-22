@@ -216,7 +216,8 @@ public abstract class Funcionalidad {
 	
 	// metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero y retornar un string de la misma
 	private void generarFactura(Cliente cliente) {
-			Factura f = new Factura(cliente); f.agregarServicio("Paqueadero");
+			Factura f = new Factura(cliente); f.agregarServicio("Paqueadero", 1);
 			System.out.printf("Se ha generado la factura con hora de ingreso: %s%n", f.getHoraIngreso().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
 	}
+	
 }

@@ -46,6 +46,7 @@ public class Almacen implements Serializable {
 	public void agregarProducto(Producto producto) {
 		this.inventario.add(producto);
 	}
+	
 	//metodo que retorna la primer ocurrencia de un producto que sea del tipo del parametro pasado y lo elimina del inventario
 	public Producto conseguirProducto(TipoProducto tipoProducto) {
 		for (Producto producto : this.inventario) {

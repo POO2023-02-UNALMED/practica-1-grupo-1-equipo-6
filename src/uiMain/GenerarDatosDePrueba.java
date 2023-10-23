@@ -1,5 +1,6 @@
 package uiMain;
 
+import gestorAplicacion.parqueadero.Almacen;
 import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.parqueadero.TipoEstado;
 import gestorAplicacion.parqueadero.TipoProducto;
@@ -272,6 +273,7 @@ public class GenerarDatosDePrueba extends Funcionalidad {
         for (Producto producto : productos) {
             parqueadero.getAlmacen().agregarProducto(producto);
         }
+        Almacen.setInventarioBase(productos);
         for (Carro carro : carrosVenta) {
             Empleado.agregarVehiculosVenta(carro);
         }

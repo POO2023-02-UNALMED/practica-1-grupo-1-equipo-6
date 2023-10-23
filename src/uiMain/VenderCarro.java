@@ -3,11 +3,13 @@ package uiMain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Arrays;
 
 import gestorAplicacion.parqueadero.Almacen;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
+import gestorAplicacion.vehiculos.MarcasCarro;
 import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.parqueadero.Parqueadero;
 
@@ -44,7 +46,34 @@ public class VenderCarro extends Funcionalidad {
 		
 		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", vendedor.getNombre());
 		
-		
+		int eleccionBusqueda= Consola.pedirEleccion("Seleccione la opción por la que desea realizar la busqueda.", List.of(
+			"Marca",
+			"Color",
+			"Precio máximo"
+		));
+
+		List<Carro> filtroCarros;
+
+		if (eleccionBusqueda==0){
+			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
+			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
+			MarcasCarro atributo= MarcasCarro.valueOf(marcas.get(eleccionMarca));
+		}
+
+		else if (eleccionBusqueda==1){
+			String  atributo= Consola.pedirString("Elija un color");
+		}
+
+		else if(eleccionBusqueda==2){
+			double atributo= Consola.pedirDouble("Agregue un precio por el que desea buscar");
+		}
+
+		else if (eleccionBusqueda==3){
+			boolean atributo= Consola.pedirBoolean("Elija si necesita el carro adaptado para discapacitados");
+		}
+
+
+
 
 	}
 

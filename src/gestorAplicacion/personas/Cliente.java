@@ -18,6 +18,7 @@ public class Cliente extends Persona implements Serializable {
 	public Cliente(String nombre, long cedula, long telefono, String correo, String direccion, boolean discapacitado) {
 		super(nombre, cedula, telefono, correo, direccion);
 		this.discapacitado = discapacitado;
+		this.factura = new Factura(this);
 	}
 
     public void agregarVehiculo(Vehiculo vehiculo) {

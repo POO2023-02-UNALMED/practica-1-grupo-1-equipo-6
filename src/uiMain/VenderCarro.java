@@ -69,8 +69,8 @@ public class VenderCarro extends Funcionalidad {
 		}
 
 		else if(eleccionBusqueda==2){
-			long atributo= Consola.pedirLong("Agregue un precio por el que desea buscar");
-			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> atributo > carro.getPrecioVenta()).collect(Collectors.toList()));
+			double atributo= Consola.pedirDouble("Agregue un precio por el que desea buscar");
+			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> atributo >= carro.getPrecioVenta()).collect(Collectors.toList()));
 		}
 
 		if (cliente.isDiscapacitado()){

@@ -26,7 +26,7 @@ public class Carro extends Vehiculo implements Serializable {
 	private Producto[] llantas;
 	private Producto[] rines;
 	private Producto[] amortiguadores;
-	private long precioVenta;
+	private double precioVenta;
 	private boolean discapacitado; //Si el carro está adecuado para personas discapacitadas
 	
 	
@@ -50,6 +50,24 @@ public class Carro extends Vehiculo implements Serializable {
 	public Carro(String placa, Cliente dueno, MarcasCarro marca, String color, String modelo, TipoVehiculo tipo, int puestos, boolean discapacitado, long precioVenta) {
 		this(placa, dueno, marca, color, modelo, tipo, puestos, discapacitado);
 		this.precioVenta = precioVenta;
+		motor.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		acelerador.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		freno.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		bateria.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		pedal.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		transmision.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		for (Producto p : depositos) {
+			p.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		}
+		for (Producto p : llantas) {
+			p.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		}
+		for (Producto p : rines) {
+			p.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		}
+		for (Producto p : amortiguadores) {
+			p.setEstado(TipoEstado.EXCELENTE_ESTADO);
+		}
 	}
 	
 	
@@ -61,10 +79,10 @@ public class Carro extends Vehiculo implements Serializable {
 	public void setDiscapacitado(boolean discapacitado) {
     	this.discapacitado = discapacitado;
     }
-	public long getPrecioVenta() {
+	public double getPrecioVenta() {
 		return this.precioVenta;
 	}
-	public void setPrecioVenta(long precioVenta) {
+	public void setPrecioVenta(double precioVenta) {
 		this.precioVenta = precioVenta;
 	}
 	public String getTipo() {

@@ -67,13 +67,13 @@ public class ComprarCarro extends Funcionalidad {
 		 * pagará por una marca específica de carro. Es decir, el precio de un carro de esa
 		 * marca en excelente estado o uno nuevo.
 		 */
-		long precioMaximo = precioMaximo(vehiculo, vendedor);
+		double precioMaximo = precioMaximo(vehiculo, vendedor);
 		
 		/**
 		 * Se le pide al cliente el precio por el que desea vender el carro, y se verifica
 		 * este precio por medio del método precioCarro.
 		 */
-		long precioCliente = precioCarro(precioMaximo);
+		double precioCliente = precioCarro(precioMaximo);
 		
 		/**
 		 * Para continuar con la venta, el carro debe ser revisado en el taller por un mecánico.
@@ -103,13 +103,13 @@ public class ComprarCarro extends Funcionalidad {
 		 * anteriormente, y los productos que necesitan reparacion, 
 		 * entrega un precio por parte del parqueadero.
 		 */
-		long precioParqueadero = cotizacionParqueadero(productosMalos, mecanicoVenta, precioMaximo, cliente);
+		double precioParqueadero = cotizacionParqueadero(productosMalos, mecanicoVenta, precioMaximo, cliente);
 		
 		/**
 		 * Se comparan el precio del parqueadero con el precio del cliente mediante 
 		 * el método precioFinal, y se devuelve el precio menor como oferta final.
 		 */
-		long precioFinal = precioFinal(precioCliente, precioParqueadero);
+		double precioFinal = precioFinal(precioCliente, precioParqueadero);
 		
 		/**
 		 * Una de las opciones entregadas al cliente será cambiar el carro
@@ -119,7 +119,7 @@ public class ComprarCarro extends Funcionalidad {
 		 * Además, se crea una lista con las placas de estos carros, para enseñarlas
 		 * al usuario si lo escoge.
 		 */
-		List<Carro> carrosDisponibles = new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro -> carro.getPrecioVenta()<=precioFinal).collect(Collectors.toList()));
+		List<Carro> carrosDisponibles = new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> carro.getPrecioVenta()<=precioFinal).collect(Collectors.toList()));
 		List<String> placasCarrosDisponibles = new ArrayList<>(carrosDisponibles.stream().map(Vehiculo::getPlaca).toList());
 		
 		/**
@@ -166,8 +166,11 @@ public class ComprarCarro extends Funcionalidad {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados para vender, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
+				if (vehiculoRegistrado == null) {
+					return null;
+				}
 				MarcasCarro marca = vehiculoRegistrado.getMarca();
-				if (vehiculoRegistrado != null && (marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT)|| marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
+				if ((marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT)|| marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
 					ingresarVehiculo(cliente, vehiculoRegistrado);
 				}
 				else if (vehiculoRegistrado != null){
@@ -238,8 +241,8 @@ public class ComprarCarro extends Funcionalidad {
 	 * oferta del cliente
 	 * 
 	 */
-	private long precioCarro(long precioMaximo) { //TODO: se podria revisar el tipo del parametro
-		long precioCliente = Consola.pedirLong("Escriba el precio por el que desea vender su vehículo");
+	private double precioCarro(double precioMaximo) { //TODO: se podria revisar el tipo del parametro
+		double precioCliente = Consola.pedirDouble("Escriba el precio por el que desea vender su vehículo");
 		if (precioCliente<0) {
 			System.out.println("Ese precio no es válido");
 			return precioCarro(precioMaximo); //se vuelve a pedir el precio del carro
@@ -267,10 +270,10 @@ public class ComprarCarro extends Funcionalidad {
 	 * precioMaximo entrega el valor que retorna el vendedor por medio del método anterior.
 	 * 
 	 */
-	private long precioMaximo(Vehiculo vehiculo, Empleado vendedor) { //TODO:el atributo marca es un string, que pasa cuando este no hace match con ninguna marca del enum?
+	private double precioMaximo(Vehiculo vehiculo, Empleado vendedor) { //TODO:el atributo marca es un string, que pasa cuando este no hace match con ninguna marca del enum?
 																	//En escogerVehiculo se verifica que este cumpla con alguna de las marcas.
 		MarcasCarro marca = ((Carro)vehiculo).getMarca();
-		long precioMaximo = 0;
+		double precioMaximo = 0;
 		if (marca.equals(MarcasCarro.RENAULT)) {
 			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.RENAULT);
 		} else if (marca.equals(MarcasCarro.CHEVROLET)) {
@@ -289,7 +292,7 @@ public class ComprarCarro extends Funcionalidad {
 	 * entonces, al cliente se le asigna una factura por el servicio e igualmente por cada producto dañado y cambiado se le resta al precio Maximo del vehiculo 
 	 *el cual será la cotizacion final por parte del parqueadero 
 	 * */
-	private long cotizacionParqueadero(List<Producto> productosMalos, Empleado mecanico, long precioMaximo, Cliente cliente) {
+	private double cotizacionParqueadero(List<Producto> productosMalos, Empleado mecanico, double precioMaximo, Cliente cliente) {
 		cliente.getFactura().agregarServicio("Revision general", 1);
 		for (Producto productoMalo: productosMalos) {
 			precioMaximo -= productoMalo.getPrecio();
@@ -301,7 +304,7 @@ public class ComprarCarro extends Funcionalidad {
 	 * estos se comparan y el menor precio entre ambas opciones se retornara como el precio final del carro 
 	 *  */
 	
-	private long precioFinal(long precioCliente, long precioParqueadero) {
+	private double precioFinal(double precioCliente, double precioParqueadero) {
 		if (precioCliente<=precioParqueadero) {
 			return precioCliente;
 		} else {
@@ -315,7 +318,7 @@ public class ComprarCarro extends Funcionalidad {
 	 * y en el parqueadero guardamos Almacen con sus productos para realizar un for
 	    en el que el mecánico cambia cada uno de los productos en mal estado por un producto bueno de cada tipo */
 	
-	private void ventaPorDinero(Cliente cliente, Vehiculo vehiculo, Empleado vendedor, Empleado mecanico, long precioFinal, List<Producto> productosMalos) {
+	private void ventaPorDinero(Cliente cliente, Vehiculo vehiculo, Empleado vendedor, Empleado mecanico, double precioFinal, List<Producto> productosMalos) {
 		
 		((Carro)vehiculo).setPrecioVenta(precioFinal);
 
@@ -329,7 +332,7 @@ public class ComprarCarro extends Funcionalidad {
 		}
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 		/*igualmente cada servicio realizado se le agrega a mecánico */
-		vendedor.agregarVehiculosVenta((Carro)vehiculo);
+		Empleado.agregarVehiculosVenta((Carro)vehiculo);
 		
 		vehiculo.setDueno(null);
 		
@@ -370,9 +373,9 @@ public class ComprarCarro extends Funcionalidad {
 	 * Para finalizar, se pone null en el atributo dueno del carro que se vendió al parqueadero, y se genera la
 	 * factura para el cliente.
 	 */
-	private void cambioDeCarro(Vehiculo vehiculo, List<String> placasCarrosDisponibles, Empleado vendedor, Empleado mecanico, List<Producto> productosMalos, long precioFinal, Cliente cliente, List<Carro> carrosDisponibles) {
+	private void cambioDeCarro(Vehiculo vehiculo, List<String> placasCarrosDisponibles, Empleado vendedor, Empleado mecanico, List<Producto> productosMalos, double precioFinal, Cliente cliente, List<Carro> carrosDisponibles) {
 		placasCarrosDisponibles.add("Volver al menú anterior");
-		long excedente = 0;
+		double excedente = 0;
 		int escogerOpcion = Consola.pedirEleccion("Seleccione el carro de su preferencia: ", placasCarrosDisponibles);
 		if (escogerOpcion == placasCarrosDisponibles.size()-1) {
 			return; //Revisar
@@ -382,7 +385,7 @@ public class ComprarCarro extends Funcionalidad {
 			carroNuevo.setDueno(cliente);
 			excedente = precioFinal - carroNuevo.getPrecioVenta();
 			carroNuevo.setPrecioVenta(0);
-			vendedor.getVehiculosVenta().remove(escogerOpcion);
+			Empleado.getVehiculosVenta().remove(escogerOpcion);
 			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
 			//Se envia a reparar el carro
 			System.out.println("El vehiculo está siendo reparado en el taller");
@@ -395,7 +398,7 @@ public class ComprarCarro extends Funcionalidad {
 			}
 			mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 			vehiculo.setDueno(null);
-			vendedor.agregarVehiculosVenta((Carro)vehiculo);
+			Empleado.agregarVehiculosVenta((Carro)vehiculo);
 			System.out.println("Se ha intercambiado el carro por el vehiculo escogido, su excedente es de "+excedente+" y será añadido a su Factura."); //problema con factura para guardar los valores de los servicios
 			cliente.getFactura().agregarServicio("Intercambio de carro", 1);
 		}

@@ -20,7 +20,7 @@ public class GenerarDatosDePrueba extends Funcionalidad {
                 new Cliente("Benedict Wyatt", 13251063L, 4554518795L, "cursus.vestibulum@hotmail.edu", "P.O. Box 189, 2706 Nibh. Road", false),
                 new Cliente("Warren Watson", 28546557L, 5366791828L, "metus.vitae@icloud.com", "901-8274 Convallis Av.", false),
                 new Cliente("Rigel Cleveland", 10351169L, 6582360165L, "varius.orci@yahoo.org", "Ap #269-8928 Aliquam Ave", false),
-                new Cliente("Holly Barry", 77363835L, 3338525656L, "risus.morbi@aol.couk", "Ap #988-3255 Gravida. St.", false),
+                new Cliente("Holly Barry", 77363835L, 3338525656L, "risus.morbi@aol.couk", "Ap #988-3255 Gravida. St.", true),
                 new Cliente("Abbot English", 24694603L, 4879434732L, "morbi.tristique@icloud.net", "Ap #118-8902 Semper. Street", false)
         );
         List<Empleado> empleados = List.of(
@@ -240,10 +240,10 @@ public class GenerarDatosDePrueba extends Funcionalidad {
                 new Producto(TipoProducto.ACELERADOR, 15261, MarcasCarro.CHEVROLET, TipoEstado.EXCELENTE_ESTADO)
         );
         List<Carro> carrosVenta = List.of(
-                new Carro("ILQ380", null, MarcasCarro.TOYOTA, "Azul", "2023", TipoVehiculo.MECANICO, 5, false, 20000000L),
+                new Carro("ILQ380", null, MarcasCarro.KIA, "Azul", "2023", TipoVehiculo.MECANICO, 5, true, 20000000L),
                 new Carro("EBU624", null, MarcasCarro.TOYOTA, "Negro", "2012", TipoVehiculo.MECANICO, 5, false, 30000000L),
                 new Carro("HMK074", null, MarcasCarro.CHEVROLET, "Negro", "2020", TipoVehiculo.AUTOMATICO, 5, false, 25000000L),
-                new Carro("AWE305", null, MarcasCarro.CHEVROLET, "Verde", "2018", TipoVehiculo.MECANICO, 5, false, 40000000L)
+                new Carro("AWE305", null, MarcasCarro.MAZDA, "Verde", "2018", TipoVehiculo.MECANICO, 5, false, 40000000L)
         );
         List<Vehiculo> vehiculosClientes = List.of(
                 new Carro("LCX368", clientes.get(6), MarcasCarro.MAZDA, "Negro", "2020", TipoVehiculo.MECANICO, 5, clientes.get(6).isDiscapacitado()),

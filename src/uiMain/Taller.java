@@ -92,7 +92,8 @@ public class Taller extends Funcionalidad {
 	}
 	
 	/**
-	 * Metodo que pide al cliente escoger un vehiculo entre los que tiene registrados
+	 * Metodo que pide al cliente escoger un vehiculo entre los que tiene registrados, si no tiene vehiculos registrados se le ofrece registrarlo e ingresarlo
+	 * al parqueadero
 	 * @param cliente
 	 * @return vehiculo
 	 */

@@ -144,7 +144,7 @@ public class ComprarCarro extends Funcionalidad {
 			System.out.println("Se ha generado su factura y ha finalizado la venta de vehiculo. ¡Adios!");
 			return;
 		} else {
-			cambioDeCarro(vehiculo, placasCarrosDisponibles, vendedor, precioFinal, opcionVenta, cliente, carrosDisponibles);
+			cambioDeCarro(vehiculo, placasCarrosDisponibles, vendedor, mecanicoVenta, productosMalos, precioFinal, cliente, carrosDisponibles);
 			System.out.println("Se ha generado su factura por cambio de carro. ¡Vuelva pronto!");
 			return;
 		}
@@ -152,13 +152,16 @@ public class ComprarCarro extends Funcionalidad {
 		
 		
 	}
-	/** En este método se solicita que entregue los datos del cliente que va a hacer uso de la funcionalidad, 
-	 * se busca que efectivamente cuente con vehiculos registrados de lo contrario, se le pide que registre un vehiculo
-	 * en caso de que si tenga vehiculos registrados  se toma la lista de vehiculos registrados y se filtran las marcas aceptadas por el parqueadero para su compra continue
-	 * si el cliente no tiene ningun carro en su lista que cumpla con los requisitos que exige el parqueadero, se le pide que registre almenos un carro que lo cumpla
-	 * 
-	 * se continua mostrandole una lista de los carros del cliente disponibles para vender y se le pide que escoga uno el cual este registrado 
-	 * y verificado por el parqueadero, finalmente se retorna el vehiculo a la venta 
+	/** En este método se solicita que entregue los datos del cliente que va a hacer uso 
+	 * de la funcionalidad, se busca que efectivamente cuente con vehiculos registrados, de lo contrario, 
+	 * se le pide que registre un vehiculo. En caso de que si tenga vehiculos registrados  se toma 
+	 * la lista de vehiculos registrados y se filtran las marcas aceptadas por el parqueadero para su que
+	 * compra continúe. 
+	 * Si el cliente no tiene ningun carro en su lista que cumpla con los requisitos 
+	 * que exige el parqueadero, se le pide que registre almenos un carro que lo cumpla
+	 * se continua mostrandole una lista de los carros del cliente disponibles para vender y 
+	 * se le pide que escoga uno el cual este registrado y verificado por el parqueadero, finalmente 
+	 * se retorna el vehiculo a la venta 
 	 */
 	
 	private Vehiculo escogerVehiculo(Cliente cliente) {
@@ -223,6 +226,21 @@ public class ComprarCarro extends Funcionalidad {
 		}
 	}
 	
+	/**
+	 * En el método precio carro se pide un long, el cuál es el precio máximo que el parqueadero
+	 * está dispuesto a pagar por un carro. Se le solicita al cliente ingresar su oferta para la venta 
+	 * del carro, y se verifican tres casos:
+	 * 
+	 * En el primero el cliente ingresa un numero negativo, por lo que se informa que el precio no es
+	 * válido y se vuelve a iniciar el método.
+	 * 
+	 * En el segundo caso, el precio ingresado por el cliente supera el precio máximo, por lo que
+	 * se le solicita al cliente ingresar un precio más bajo.
+	 * 
+	 * En el tercer caso, el precio ingresado cumple con los requisitos y se devuelve como la 
+	 * oferta del cliente
+	 * 
+	 */
 	private long precioCarro(long precioMaximo) { //TODO: se podria revisar el tipo del parametro
 		long precioCliente = Consola.pedirLong("Escriba el precio por el que desea vender su vehículo");
 		if (precioCliente<0) {
@@ -235,7 +253,25 @@ public class ComprarCarro extends Funcionalidad {
 			return precioCliente;
 		}
 		}
+	
+	/**
+	 * Para el método precioMáximo se solicita el vehiculo que el cliente desea vender y el 
+	 * empleado de tipo vendedor que está atendiendo al cliente.
+	 * 
+	 * Se verifica cual es la marca del carro, comparando con los objetos de tipo enum, y
+	 * según su marca el vendedor utiliza el método precioMáximoCarro, el cual encuentra 
+	 * el precio de un carro en perfecto estado. 
+	 * 
+	 * El método precioMáximoCarro toma las partes del carro y el valor que maneja el parqueadero
+	 * para cada una, y lo multiplica por un valor asignado a cada marca según su calidad y/o 
+	 * precio normal. El método suma los resultados por cada producto en una variable 
+	 * y entrega el resultado al finalizar.
+	 * 
+	 * precioMaximo entrega el valor que retorna el vendedor por medio del método anterior.
+	 * 
+	 */
 	private long precioMaximo(Vehiculo vehiculo, Empleado vendedor) { //TODO:el atributo marca es un string, que pasa cuando este no hace match con ninguna marca del enum?
+																	//En escogerVehiculo se verifica que este cumpla con alguna de las marcas.
 		MarcasCarro marca = ((Carro)vehiculo).getMarca();
 		long precioMaximo = 0;
 		if (marca.equals(MarcasCarro.RENAULT)) {
@@ -295,7 +331,34 @@ public class ComprarCarro extends Funcionalidad {
 		vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
 	}
 	
-	private void cambioDeCarro(Vehiculo vehiculo, List<String> placasCarrosDisponibles, Empleado vendedor, long precioFinal, int opcionVenta, Cliente cliente, List<Carro> carrosDisponibles) {
+	/**
+	 * El método cambioDeCarro permite al cliente cambiar el carro que desea vender por uno
+	 * que se encuentre en la lista de carros disponibles en el parqueadero, másel excedente
+	 * por el precio acordado.
+	 * 
+	 * Para este método se piden como argumentos el vehiculo que el cliente desea vender, una lista
+	 * con las placas de los carros disponibles para la venta y la lista de los objetos de tipo Carro 
+	 * que estan disponobles, el vendedor escogido por el cliente, el precio final acordado 
+	 * anteriormente por el parqueadero, el mecanico que va a reparar el vehiculo cuando el parqueadero
+	 * lo compre, la lista de productos que se deben reparar, y el cliente que realiza la transaccion.
+	 * 
+	 * Se inicia por crear un atributo excedente, y le pide al usuario escoger el carro de su preferencia 
+	 * entre los que se encuentran disponibles en el parqueadero. Si el cliente lo desea, se regresa a la 
+	 * opcion anterior.
+	 * 
+	 * En caso de que el cliente escoja un carro de la lista, se saca el carro de la lista de disponibles, 
+	 * se ingresa el nombre de su nuevo dueño, se calcula el excedente entre el precio del carro y el precio 
+	 * acordado por el parqueadero, y se le quita su precio de venta. Se le agrega un servicio al vendedor.
+	 * 
+	 * Luego de esto, se toma el vehiculo que vendió el cliente al parqueadero y se envía al taller para que
+	 * sea reparado por el mecanico y luego vendido por el parqueadero. Por cada producto malo que el mecanico
+	 * encontróen su revision, se va a realizar un cambio con el método cambiar, por un producto bueno sacado
+	 * del almacen. Se le añadeun servicio al mecánico.
+	 * 
+	 * Para finalizar, se pone null en el atributo dueno del carro que se vendió al parqueadero, y se genera la
+	 * factura para el cliente.
+	 */
+	private void cambioDeCarro(Vehiculo vehiculo, List<String> placasCarrosDisponibles, Empleado vendedor, Empleado mecanico, List<Producto> productosMalos, long precioFinal, Cliente cliente, List<Carro> carrosDisponibles) {
 		placasCarrosDisponibles.add("Volver al menú anterior");
 		long excedente = 0;
 		int escogerOpcion = Consola.pedirEleccion("Seleccione el carro de su preferencia: ", placasCarrosDisponibles);
@@ -309,6 +372,16 @@ public class ComprarCarro extends Funcionalidad {
 			carroNuevo.setPrecioVenta(0);
 			vendedor.getVehiculosVenta().remove(escogerOpcion);
 			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
+			//Se envia a reparar el carro
+			System.out.println("El vehiculo está siendo reparado en el taller");
+			Almacen almacen = parqueadero.getAlmacen();
+			for (Producto productoMalo: productosMalos) {
+				if (almacen.existeProducto(productoMalo.getTipo())) {
+					Producto productoBueno = almacen.conseguirProducto(productoMalo.getTipo());
+					mecanico.cambiar(productoMalo, productoBueno, vehiculo);
+				}
+			}
+			mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 			vehiculo.setDueno(null);
 			vendedor.agregarVehiculosVenta((Carro)vehiculo);
 			System.out.println("Se ha intercambiado el carro por el vehiculo escogido, su excedente es de "+excedente+" y será añadido a su Factura."); //problema con factura para guardar los valores de los servicios

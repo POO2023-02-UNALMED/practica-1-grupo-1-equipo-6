@@ -65,14 +65,16 @@ public class ManejoParqueadero extends Funcionalidad {
 			eleccion = Consola.pedirEleccion("Qué desea hacer", List.of(
 					"Agregar carros para vender",
 					"Agregar plazas",
+					"Contratar vendedor",
 					"Regresar"
 			));
 
 			switch (eleccion) {
 				case 0 -> agregarCarroVenta(parqueadero.getAdministrador());
 				case 1 -> agregarPlazas();
+				case 2 -> agregarEmpleado("Vendedor");
 			}
-		} while (eleccion != 2);
+		} while (eleccion != 3);
 	}
 
 	private void administrarAlmacen() {

@@ -56,11 +56,13 @@ public class Main {
 				int otraEleccion = Consola.pedirEleccion("Funcionalidades extra", List.of(
 						"Registrar cliente",
 						"Registrar vehículo",
+						"Generar datos de prueba",
 						"Volver al menú principal"
 				));
 				switch (otraEleccion) {
 					case 0 -> funcionalidad = new RegistrarCliente();
 					case 1 -> funcionalidad = new RegistrarVehiculo();
+					case 2 -> funcionalidad = new GenerarDatosDePrueba();
 				}
 			}
 			// si el usuario eligió una funcionalidad (es decir, no salir), entonces ejecutarla.

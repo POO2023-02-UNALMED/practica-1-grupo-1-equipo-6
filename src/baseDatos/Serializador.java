@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase Serializador que se encarga de escribir los objetos en el archivo de datos.
+ Componentes del módulo: Serializador
+ Autores: Alejandro
+*/
 
 package baseDatos;
 
@@ -12,6 +16,9 @@ import java.io.*;
  * que se quiere escribir en el archivo, y éste método se encarga de todo el proceso.
  */
 public class Serializador {
+	/**
+	 * Escribe el objeto serializable en el archivo recibido por parámetro.
+	 */
 	public void escribirObjeto(File archivo, Serializable objeto) throws BaseDatosException {
 		// crear las carpetas padre de archivo si no existen
 		archivo.getParentFile().mkdirs();

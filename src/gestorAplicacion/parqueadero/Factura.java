@@ -11,7 +11,7 @@ import java.time.*;
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private HashMap<String, Integer> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
+	private HashMap<String, Double> servicios; //servicios prestados(parqueadero, taller y ventas de repuestos o carros)
 	private int numeroFactura;
 	private LocalDate fecha;
 	private double precioTotal;
@@ -72,32 +72,31 @@ public class Factura implements Serializable {
 	public static void setValorServicios(HashMap<String, Double> valorServicios) {
 		Factura.valorServicios = valorServicios;
 	}
-	public HashMap<String, Integer> getServicios() {
+	public HashMap<String, Double> getServicios() {
 		return this.servicios;
 	}
 
 	//metodos para manipular el hashmap
 	//metodo que agrega productos comprados y el numero de estos productos
-	public void agregarProducto(Producto producto, int cantidad) {
-		this.servicios.put("Compra de " + cap(producto.getTipo().name()), this.servicios.getOrDefault(cap(producto.getTipo().name()), 0) + cantidad);
+	public void agregarProducto(Producto producto, double cantidad) {
+		this.servicios.put("Compra de " + cap(producto.getTipo().name()) + "s", this.servicios.getOrDefault(cap(producto.getTipo().name()), (double) 0) + cantidad);
 	}
 	
 	//metodo que agrega un servicio y su cantidad
-	public void agregarServicio(String servicio, int cantidad) {
-		this.servicios.put(servicio, this.servicios.getOrDefault(servicio, 0) + cantidad);
+	public void agregarServicio(String servicio, double cantidad) {
+		this.servicios.put(servicio, this.servicios.getOrDefault(servicio, (double) 0) + cantidad);
 	}
 	
 	public String toString() {
 		String s = "";
-		for (HashMap.Entry<String, Integer> entry : this.servicios.entrySet()) {	
+		for (HashMap.Entry<String, Double> entry : this.servicios.entrySet()) {	
 			s += entry.getKey() + ": " + entry.getValue() + "\n";
 		}
 		return "Factura N°" + this.numeroFactura + "		" + this.fecha.toString() + "\nCliente: " + this.cliente.getNombre() +"\n"
 				+ "Servicios: \n" + s;
 	}
-
 	//metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
 	private static String cap(String palabra) {
-        return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();
-    }
+		return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();
+	}
 }

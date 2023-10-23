@@ -1,5 +1,8 @@
-// Alejandro Arias Orozco
-// Sebastián
+/*
+ Funcionalidad del módulo: contiene la implementación de la funcionalidad ingresar vehículo
+ Componentes del módulo: IngresarVehiculo
+ Autores: Alejandro, Sebastián
+*/
 
 package uiMain;
 
@@ -14,7 +17,13 @@ import gestorAplicacion.vehiculos.Vehiculo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase implementa la funcionalidad ingresar vehículo
+ */
 public class IngresarVehiculo extends Funcionalidad {
+	/**
+	 * Ejecuta la implementación de la funcionalidad ingresar vehículo.
+	 */
 	@Override
 	public void ejecutar() {
 		// Funcionalidad ingresar vehículo
@@ -44,6 +53,9 @@ public class IngresarVehiculo extends Funcionalidad {
 		ingresarVehiculo(cliente, vehiculo);
 	}
 
+	/**
+	 * Muestra al usuario una lista de sus vehículos registrados y le pide que elija uno. También le da la opción de registrar uno o regresar al menú.
+	 */
 	private Vehiculo pedirEleccionVehiculoRegistrado(Cliente cliente) {
 		// se obtiene una lista de los vehículos que están registrados por el cliente
 		List<Vehiculo> vehiculosDelCliente = cliente.getVehiculos();

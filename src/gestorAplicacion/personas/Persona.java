@@ -7,6 +7,12 @@ import gestorAplicacion.Identificable;
 
 import java.io.Serializable;
 
+/**
+ * Clase persona, se encarga de definir los atributos y sus respectivos metodos get y set para que 
+ * estos puedan ser usados por otras clases, más específicamente la clase empleado y cliente quienes heredan
+ * de esta superclase
+ */
+
 public class Persona implements Serializable, Identificable<Long> {
 	private static final long serialVersionUID = 1L;
 

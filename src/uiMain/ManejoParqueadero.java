@@ -1,19 +1,29 @@
+/*
+ Funcionalidad del módulo: contiene la implementación de la funcionalidad manejo parqueadero
+ Componentes del módulo: ManejoParqueadero
+ Autores: Alejandro, Sebastián, Sara
+*/
+
 package uiMain;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import gestorAplicacion.parqueadero.Almacen;
-import gestorAplicacion.parqueadero.Producto;
-import gestorAplicacion.parqueadero.TipoEstado;
-import gestorAplicacion.parqueadero.TipoProducto;
+import gestorAplicacion.parqueadero.*;
 import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.vehiculos.TipoVehiculo;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.vehiculos.MarcasCarro;
+import gestorAplicacion.vehiculos.Vehiculo;
 
+/**
+ * Esta clase incluye la implementación de la funcionalidad manejo parqueadero
+ */
 public class ManejoParqueadero extends Funcionalidad {
+	/**
+	 * Ejecuta la funcionalidad de manejo parqueadero
+	 */
 	@Override
 	public void ejecutar() {
 		long cedulaAdministrador = Consola.pedirLong("Ingrese la cédula del administrador");
@@ -39,6 +49,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		} while (eleccion != 3);
 	}
 
+	/**
+	 * Da opciones al usuario de administración del taller
+	 */
 	private void administrarTaller() {
 		int eleccion;
 		do {
@@ -59,6 +72,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		} while (eleccion != 4);
 	}
 
+	/**
+	 * Da opciones al usuario de administración del parqueadero
+	 */
 	private void administrarParqueadero() {
 		int eleccion;
 		do {
@@ -66,6 +82,7 @@ public class ManejoParqueadero extends Funcionalidad {
 					"Agregar carros para vender",
 					"Agregar plazas",
 					"Contratar vendedor",
+					"Retirar vehículo",
 					"Regresar"
 			));
 
@@ -73,10 +90,14 @@ public class ManejoParqueadero extends Funcionalidad {
 				case 0 -> agregarCarroVenta(parqueadero.getAdministrador());
 				case 1 -> agregarPlazas();
 				case 2 -> agregarEmpleado("Vendedor");
+				case 3 -> retirarVehiculo();
 			}
-		} while (eleccion != 3);
+		} while (eleccion != 4);
 	}
 
+	/**
+	 * Da opciones al usuario de administración del almacén
+	 */
 	private void administrarAlmacen() {
 		int eleccion;
 		do {
@@ -92,7 +113,10 @@ public class ManejoParqueadero extends Funcionalidad {
 			}
 		} while (eleccion != 2);
 	}
-	//método para agregar carros para vender
+
+	/**
+	 * método para agregar carros para vender
+	 */
 	private void agregarCarroVenta(Empleado administrador) {
 		String placa = Consola.pedirString("Ingrese la placa");
 		int marcaEscogida = Consola.pedirEleccion("Escoja la marca: ", Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList());
@@ -110,7 +134,10 @@ public class ManejoParqueadero extends Funcionalidad {
 		
 		administrador.agregarVehiculosVenta(carroVenta);
 	}
-	// metodo para "contratar un nuevo empleado"
+
+	/**
+	 * metodo para "contratar un nuevo empleado"
+	 */
 	private void agregarEmpleado(String tipoEmpleado) {
 		long cedula = Consola.pedirLong("Ingrese la cédula");
 
@@ -128,7 +155,10 @@ public class ManejoParqueadero extends Funcionalidad {
 		parqueadero.agregarEmpleado(nEmpleado);
 		System.out.println("Empleado contratado");
 	}
-	
+
+	/**
+	 * Realiza el despido del empleado con cédula `cedulaEmpleado`
+	 */
 	private void despedirEmpleado(long cedulaEmpleado) {
 		List<Empleado> empleados = parqueadero.getEmpleados();
 		// si existe el empleado obtenemos su indice, en cazo contrario el -1
@@ -149,6 +179,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		System.out.println("No hay ningun empleado con este numero de identificacion");
 	}
 
+	/**
+	 * Muestra información de los mecánicos
+	 */
 	private void estadisticasMecanicos() {
 		System.out.println("Estadísticas de los mecánicos\n");
 		for (Empleado empleado : parqueadero.getMecanicos()) {
@@ -161,6 +194,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		}
 	}
 
+	/**
+	 * Le permite al administrador darle bonificaciones a mecánicos que cumplan ciertos requisitos.
+	 */
 	private void bonificacionesMecanicos() {
 		System.out.println("Bonificaciones para los mecánicos");
 
@@ -196,6 +232,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		System.out.println("Bonificaciones realizadas");
 	}
 
+	/**
+	 * Agrega un producto al almacén
+	 */
 	private void agregarProducto() {
 		System.out.println("Agregar producto al almacén");
 
@@ -257,6 +296,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		System.out.println("Producto agregado");
 	}
 
+	/**
+	 * Muestra el inventario del almacén
+	 */
 	private void inventarioAlmacen() {
 		System.out.println("Inventario del almacén\n");
 
@@ -271,6 +313,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		}
 	}
 
+	/**
+	 * Agrega plazas al parqueadero
+	 */
 	private void agregarPlazas() {
 		System.out.println("Agregar plazas al parqueadero");
 		int nuevasPlazasCarros = Consola.pedirEntero("Ingrese el número de plazas nuevas para carros normales");
@@ -281,5 +326,23 @@ public class ManejoParqueadero extends Funcionalidad {
 		parqueadero.agregarPlazas(nuevasPlazasCarrosDiscapacitados, true, "Carro");
 		parqueadero.agregarPlazas(nuevasPlazasMotos, false, "Moto");
 		parqueadero.agregarPlazas(nuevasPlazasMotosAltoCC, false, "Moto altoCC");
+	}
+
+	/**
+	 * Retira un vehículo del parqueadero
+	 */
+	private void retirarVehiculo() {
+		String placa = Consola.pedirString("Ingrese la placa del vehículo a retirar");
+		Vehiculo vehiculo = baseDatos.buscarVehiculoRegistrado(placa);
+		if (vehiculo == null) {
+			System.out.println("El vehículo no fue encontrado");
+			return;
+		}
+
+		Factura factura = vehiculo.getDueno().getFactura();
+		System.out.println(factura);
+		vehiculo.getDueno().setFactura(null);
+		parqueadero.retirarVehiculo(vehiculo.getPlaca());
+		System.out.println("Vehiculo retirado");
 	}
 }

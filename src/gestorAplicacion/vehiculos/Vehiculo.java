@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase Vehiculo que sirve de clase padre para Moto y Carro
+ Componentes del módulo: Vehiculo
+ Autores: Alejandro
+*/
 
 package gestorAplicacion.vehiculos;
 
@@ -8,6 +12,9 @@ import gestorAplicacion.personas.Cliente;
 
 import java.io.Serializable;
 
+/**
+ * Vehiculo contiene atributos y código compartido entre Moto y Carro.
+ */
 public class Vehiculo implements Serializable, Identificable<String> {
 	private static final long serialVersionUID = 1L;
 
@@ -102,21 +109,33 @@ public class Vehiculo implements Serializable, Identificable<String> {
 		return this.plaza != null;
 	}
 
+	/**
+	 * Retorna true si el vehículo fue registrado por el cliente pasado como parámetro.
+	 */
 	public boolean registradoPor(Cliente cliente) {
 		return dueno.getCedula() == cliente.getCedula();
 	}
 
+	/**
+	 * Devuelve la placa del vehículo
+	 */
 	@Override
 	public String getIdentificacion() {
 		return placa;
 	}
 
+	/**
+	 * Devuelve true si la placa de este vehículo coincide con la placa pasada como parámetro.
+	 */
 	@Override
 	public boolean tieneIdentificacion(String identificacion) {
 		String placa = normalizarPlaca(identificacion);
 		return this.placa.equals(placa);
 	}
 
+	/**
+	 * Devuelve la placa pasada como parámetro luego de hacerla mayúsculas y quitarle los espacios extra.
+	 */
 	public static String normalizarPlaca(String placa) {
 		return placa.strip().toUpperCase();
 	}

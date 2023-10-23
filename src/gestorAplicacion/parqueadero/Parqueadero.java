@@ -101,13 +101,17 @@ public class Parqueadero implements Serializable {
 	//metodo que se encarga de retirar el vehiculo del parqueadero, es decir, de desasignar el vehiculo a la plaza donde se encuentra, se sobrecarga.
 	public void retirarVehiculo(int numPlaza) {
 		Plaza plaza = plazas.get(numPlaza-1);
+		plaza.getVehiculo().setPlaza(null);
 		plaza.setVehiculo(null);
+		plaza.setEstado("Disponible");
 	}
 	
 	public void retirarVehiculo(String placa) {
 		for (Plaza plaza : this.getPlazas()) {
 			if (plaza.getVehiculo().getPlaca().equals(placa)) {
+				plaza.getVehiculo().setPlaza(null);
 				plaza.setVehiculo(null);
+				plaza.setEstado("Disponible");
 			}
 		}
 	}

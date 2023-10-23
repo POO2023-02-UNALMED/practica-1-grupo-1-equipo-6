@@ -32,6 +32,8 @@ public class Empleado extends Persona implements Serializable{
     	serviciosRealizados = 0;
     }
     
+	//metodos getters y setters
+    public void setVehiculosVenta(ArrayList<Carro> vehVenta) {
     public static void setVehiculosVenta(ArrayList<Carro> vehVenta) {
     	Empleado.vehiculosVenta = vehVenta;
     }

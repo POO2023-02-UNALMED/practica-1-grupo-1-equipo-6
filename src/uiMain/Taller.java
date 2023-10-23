@@ -71,7 +71,7 @@ public class Taller extends Funcionalidad {
 		do {
 		servicioEscogido = Consola.pedirEleccion("¿Que le vamos a hacer a su vehiculo?", serviciosTaller);
 		
-		if (serviciosTaller.get(servicioEscogido) != "Regresar al menú principal") {
+		if (!serviciosTaller.get(servicioEscogido).equals("Regresar al menú principal")) {
 			if (servicioEscogido == 0) {
 			revisionGeneral(vehiculo, mecanico);
 			}
@@ -81,7 +81,7 @@ public class Taller extends Funcionalidad {
 			cambioDe(producto, vehiculo, mecanico);
 			}
 		}
-		} while (serviciosTaller.get(servicioEscogido) != "Regresar al menú principal");
+		} while (!serviciosTaller.get(servicioEscogido).equals("Regresar al menú principal"));
 		System.out.println("Vuelva pronto");
 	}
 	

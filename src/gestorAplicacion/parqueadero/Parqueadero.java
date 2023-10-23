@@ -25,7 +25,7 @@ public class Parqueadero implements Serializable {
 	private ArrayList<Empleado> empleados = new ArrayList<>(); //arraylist con todos los empleados del parqueadero(Taller, almacen, etc)
 	private Almacen almacen; //almacen de los productos
 	private Empleado administrador; // el administrador del parqueadero
-	
+
 	public Parqueadero(int plazasTotales, double tarifaCarro, double tarifaMoto, Almacen almacen) {
 		this.plazasTotales = plazasTotales;
 		this.plazasDisponibles = plazasTotales;
@@ -201,6 +201,14 @@ public class Parqueadero implements Serializable {
 
 	public void setAdministrador(Empleado administrador) {
 		this.administrador = administrador;
+	}
+
+	public void agregarPlazas(int cantidad, boolean discapacitado, String tipo) {
+		this.plazasTotales += cantidad;
+		int ultimoNumPlaza = plazas.get(plazas.size() - 1).getNumeroPlaza();
+		for (int i = 0; i < cantidad; i++) {
+			plazas.add(new Plaza(++ultimoNumPlaza, discapacitado, null, tipo));
+		}
 	}
 }
 

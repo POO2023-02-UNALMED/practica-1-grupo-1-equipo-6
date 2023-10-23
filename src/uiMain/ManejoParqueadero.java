@@ -26,7 +26,6 @@ public class ManejoParqueadero extends Funcionalidad {
 				"Taller",
 				"Parqueadero",
 				"Almacén",
-				"Agregar carros para vender",
 				"Regresar al menú principal"
 		));
 		
@@ -34,9 +33,8 @@ public class ManejoParqueadero extends Funcionalidad {
 			case 0 -> administrarTaller();
 			case 1 -> administrarParqueadero();
 			case 2 -> administrarAlmacen();
-			case 3 -> agregarCarroVenta(parqueadero.getAdministrador());
 		}
-		} while (eleccion != 4);
+		} while (eleccion != 3);
 	}
 
 	private void administrarTaller() {
@@ -60,7 +58,19 @@ public class ManejoParqueadero extends Funcionalidad {
 	}
 
 	private void administrarParqueadero() {
-		
+		int eleccion;
+		do {
+			eleccion = Consola.pedirEleccion("Qué desea hacer", List.of(
+					"Agregar carros para vender",
+					"Agregar plazas",
+					"Regresar"
+			));
+
+			switch (eleccion) {
+				case 0 -> agregarCarroVenta(parqueadero.getAdministrador());
+				case 1 -> agregarPlazas();
+			}
+		} while (eleccion != 2);
 	}
 
 	private void administrarAlmacen() {
@@ -80,17 +90,17 @@ public class ManejoParqueadero extends Funcionalidad {
 	}
 	//método para agregar carros para vender
 	private void agregarCarroVenta(Empleado administrador) {
-		String placa = Consola.pedirString("Ingrese la placa: ");
-		String marca = Consola.pedirString("Ingrese la marca: ");
-		String color = Consola.pedirString("Ingrese el color: ");
-		String modelo = Consola.pedirString("Ingrese el modelo: ");
+		String placa = Consola.pedirString("Ingrese la placa");
+		String marca = Consola.pedirString("Ingrese la marca");
+		String color = Consola.pedirString("Ingrese el color");
+		String modelo = Consola.pedirString("Ingrese el modelo");
 		int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
 		TipoVehiculo tipo = TipoVehiculo.MECANICO;
 		if (tipoCarro == 1) {
 			tipo = TipoVehiculo.AUTOMATICO;
 		}
-		int puestos = Consola.pedirEntero("Ingrese el numero de puestos del carro: ");
-		long precioVenta = Consola.pedirLong("Ingrese el precio del carro: ");
+		int puestos = Consola.pedirEntero("Ingrese el numero de puestos del carro");
+		long precioVenta = Consola.pedirLong("Ingrese el precio del carro");
 		Carro carroVenta = new Carro(placa, null, marca, color, modelo, tipo, puestos, false, precioVenta);
 		
 		administrador.agregarVehiculosVenta(carroVenta);
@@ -254,5 +264,17 @@ public class ManejoParqueadero extends Funcionalidad {
 			System.out.println("Precio: " + producto.getPrecio());
 			System.out.println();
 		}
+	}
+
+	private void agregarPlazas() {
+		System.out.println("Agregar plazas al parqueadero");
+		int nuevasPlazasCarros = Consola.pedirEntero("Ingrese el número de plazas nuevas para carros normales");
+		int nuevasPlazasCarrosDiscapacitados = Consola.pedirEntero("Ingrese el número de plazas nuevas para carros modificados para personas discapacitadas");
+		int nuevasPlazasMotos = Consola.pedirEntero("Ingrese el número de plazas nuevas para motos normales");
+		int nuevasPlazasMotosAltoCC = Consola.pedirEntero("Ingrese el número de plazas nuevas para motos de alto cilindraje");
+		parqueadero.agregarPlazas(nuevasPlazasCarros, false, "Carro");
+		parqueadero.agregarPlazas(nuevasPlazasCarrosDiscapacitados, true, "Carro");
+		parqueadero.agregarPlazas(nuevasPlazasMotos, false, "Moto");
+		parqueadero.agregarPlazas(nuevasPlazasMotosAltoCC, false, "Moto altoCC");
 	}
 }

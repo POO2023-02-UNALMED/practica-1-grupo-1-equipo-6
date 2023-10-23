@@ -117,6 +117,7 @@ public abstract class Funcionalidad {
 		String marca = Consola.pedirString("Ingrese la marca del vehículo");
 		String color = Consola.pedirString("Ingrese el color del vehículo");
 		String modelo = Consola.pedirString("Ingrese el modelo del vehículo");
+		boolean discapacitado = cliente.isDiscapacitado();
 
 		Vehiculo vehiculo;
 
@@ -130,7 +131,7 @@ public abstract class Funcionalidad {
 			}
 			int puestos = Consola.pedirEntero("Ingrese el numero de puestos del Carro");
 			// crear la instancia del carro con la información suministrada por el cliente
-			vehiculo = new Carro(placa, cliente, marca, color, modelo, tipo, puestos);
+			vehiculo = new Carro(placa, cliente, marca, color, modelo, tipo, puestos, discapacitado);
 		} else { // Si el tipo de vehículo es una moto...
 			// preguntar el tipo de moto al cliente y su cilindraje
 			int tipoMoto = Consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));

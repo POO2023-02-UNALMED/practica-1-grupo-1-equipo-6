@@ -8,6 +8,8 @@ import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.parqueadero.TipoEstado;
 import gestorAplicacion.parqueadero.TipoProducto;
 import gestorAplicacion.personas.Empleado;
+import gestorAplicacion.vehiculos.TipoVehiculo;
+import gestorAplicacion.vehiculos.Carro;
 
 public class ManejoParqueadero extends Funcionalidad {
 	@Override
@@ -24,6 +26,7 @@ public class ManejoParqueadero extends Funcionalidad {
 				"Taller",
 				"Parqueadero",
 				"Almacén",
+				"Agregar carros para vender",
 				"Regresar al menú principal"
 		));
 		
@@ -31,8 +34,9 @@ public class ManejoParqueadero extends Funcionalidad {
 			case 0 -> administrarTaller();
 			case 1 -> administrarParqueadero();
 			case 2 -> administrarAlmacen();
+			case 3 -> agregarCarroVenta(parqueadero.getAdministrador());
 		}
-		} while (eleccion != 3);
+		} while (eleccion != 4);
 	}
 
 	private void administrarTaller() {
@@ -57,7 +61,6 @@ public class ManejoParqueadero extends Funcionalidad {
 
 	private void administrarParqueadero() {
 		
-
 	}
 
 	private void administrarAlmacen() {
@@ -75,12 +78,23 @@ public class ManejoParqueadero extends Funcionalidad {
 			}
 		} while (eleccion != 2);
 	}
-
 	//método para agregar carros para vender
-	private void agregarCarrosVenta() {
-		String placa = Consola.pedirString(null);
+	private void agregarCarroVenta(Empleado administrador) {
+		String placa = Consola.pedirString("Ingrese la placa: ");
+		String marca = Consola.pedirString("Ingrese la marca: ");
+		String color = Consola.pedirString("Ingrese el color: ");
+		String modelo = Consola.pedirString("Ingrese el modelo: ");
+		int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
+		TipoVehiculo tipo = TipoVehiculo.MECANICO;
+		if (tipoCarro == 1) {
+			tipo = TipoVehiculo.AUTOMATICO;
+		}
+		int puestos = Consola.pedirEntero("Ingrese el numero de puestos del carro: ");
+		long precioVenta = Consola.pedirLong("Ingrese el precio del carro: ");
+		Carro carroVenta = new Carro(placa, null, marca, color, modelo, tipo, puestos, false, precioVenta);
+		
+		administrador.agregarVehiculosVenta(carroVenta);
 	}
-	
 	// metodo para "contratar un nuevo empleado"
 	private void agregarEmpleado(String tipoEmpleado) {
 		long cedula = Consola.pedirLong("Ingrese la cédula");

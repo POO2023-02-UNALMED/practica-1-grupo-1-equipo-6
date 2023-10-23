@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
-
+import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.vehiculos.MarcasCarro;
@@ -60,20 +60,20 @@ public class VenderCarro extends Funcionalidad {
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
 			MarcasCarro atributo= MarcasCarro.valueOf(marcas.get(eleccionMarca));
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getMarca())).collect(Collectors.toList()));
+			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getMarca())).collect(Collectors.toList()));
 		}
 
 		else if (eleccionBusqueda==1){
 			String  atributo= Consola.pedirString("Elija un color");
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getColor())).collect(Collectors.toList()));
+			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getColor())).collect(Collectors.toList()));
 		}
 
 		else if(eleccionBusqueda==2){
 			long atributo= Consola.pedirLong("Agregue un precio por el que desea buscar");
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo <= carro.getPrecioVenta()).collect(Collectors.toList()));
+			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro-> atributo <= carro.getPrecioVenta()).collect(Collectors.toList()));
 		}
 
-		if (Cliente.isDiscapacitado()){
+		if (cliente.isDiscapacitado()){
 			filtroCarros= filtroCarros.stream().filter(carro -> carro.isDiscapacitado()).collect(Collectors.toList());
 		}
 
@@ -82,21 +82,21 @@ public class VenderCarro extends Funcionalidad {
 
 		int eleccionCarro= Consola.pedirEleccion("Elija un carro para comprar", carrosFiltrados);
 
-		if (eleccionCarro = carrosFiltrados.size() - 1) {
+		if (eleccionCarro == carrosFiltrados.size() - 1) {
 			continue;
 		}
 
-		Carro carro= filtroCarros.get(EleccionCarro);
+		Carro carro= filtroCarros.get(eleccionCarro);
 
 		Empleado mecanico= mecanicoRandom();
 
-		List<String> revision= mecanico.revisarVehiculo(carro);
+		List<Producto> revision= mecanico.revisarVehiculo(carro);
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados()+1);
 
 		if (revision.isEmpty()){
-			int indx = mecanico.getVehiculosVenta().indexOf(carro); 
-			mecanico.getVehiculosVenta().remove(indx);
-			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.precioCarro);
+			int indx = Empleado.getVehiculosVenta().indexOf(carro); 
+			Empleado.getVehiculosVenta().remove(indx);
+			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.getPrecioVenta());
 			cliente.getVehiculos().add(carro);
 			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
 			System.out.println("Disfrute su compra :)");
@@ -109,7 +109,7 @@ public class VenderCarro extends Funcionalidad {
 	}
 
 	private Empleado mecanicoRandom(){
-			int num = (int) (Math.random * (parqueadero.getMecanicos));
-			return parqueadero.getMecanicos.get(num);
-		}
+			int num = (int) (Math.random() * (parqueadero.getMecanicos().size() + 1));
+			return parqueadero.getMecanicos().get(num);
+	}
 }

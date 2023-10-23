@@ -225,7 +225,7 @@ public abstract class Funcionalidad {
 	}
 	
 	//metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
-	private static String cap(String palabra) {
+	protected static String cap(String palabra) {
 		return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();
 	}
 	

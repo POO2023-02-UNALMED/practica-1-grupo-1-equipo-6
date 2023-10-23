@@ -296,8 +296,8 @@ public class Empleado extends Persona implements Serializable{
     }
     
     //Método que devuelve el precio de un carro en perfecto estado
-    public long precioMaximoCarro(MarcasCarro marca) {
-    	long precioTotal = 0;
+    public double precioMaximoCarro(MarcasCarro marca) {
+    	double precioTotal = 0;
     	precioTotal += Almacen.cotizarProducto(TipoProducto.MOTOR) * marca.getOrdenPrecio();
     	precioTotal += Almacen.cotizarProducto(TipoProducto.TRANSMISION) * marca.getOrdenPrecio();
     	precioTotal += Almacen.cotizarProducto(TipoProducto.ACELERADOR) * marca.getOrdenPrecio();

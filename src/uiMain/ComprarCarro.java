@@ -20,7 +20,6 @@ public class ComprarCarro extends Funcionalidad {
 	public void ejecutar() {
 		//Funcionalidad Comprar un carro
 		System.out.println("Vender carro");
-		
 		//Se pide al cliente ingresar la cédula para verificar su registro
 		
 		long cedula = Consola.pedirLong("Ingrese cédula");
@@ -61,7 +60,7 @@ public class ComprarCarro extends Funcionalidad {
 		//Se muestran las opciones de mecanico que existen 
 		List<Empleado> mecanicosVenta = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Mecanico".equals(empleado.getCargo())).collect(Collectors.toList()));
 		//lista con  los nombres de los mecanicos
-		List<String> nombresMecanicosVenta = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
+		List<String> nombresMecanicosVenta = new ArrayList<>(mecanicosVenta.stream().map(Empleado::getNombre).toList());
 		
 		int escogerMecanicoVenta = Consola.pedirEleccion("Escoja el mecánico de su preferencia", nombresMecanicosVenta);
 		Empleado mecanicoVenta = mecanicosVenta.get(escogerMecanicoVenta);
@@ -79,6 +78,7 @@ public class ComprarCarro extends Funcionalidad {
 		
 		//Se crea una lista con todos los carros que tengan menor o igual precio al precio final
 		List<Carro> carrosDisponibles = new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro -> carro.getPrecioVenta()<=precioFinal).collect(Collectors.toList()));
+		List<String> placasCarrosDisponibles = new ArrayList<>(carrosDisponibles.stream().map(Vehiculo::getPlaca).toList());
 		
 		//Se le permite al usuario escoger ente la venta del carro por dinero o intercabio por otro carro.
 		List<String> opcionesVenta = new ArrayList<>();
@@ -91,7 +91,9 @@ public class ComprarCarro extends Funcionalidad {
 			System.out.println("Se ha generado su factura y ha finalizado la venta de vehiculo. ¡Adios!");
 			return;
 		} else {
-			
+			cambioDeCarro(vehiculo, placasCarrosDisponibles, vendedor, precioFinal, opcionVenta, cliente, carrosDisponibles);
+			System.out.println("Se ha generado su factura por cambio de carro. ¡Vuelva pronto!");
+			return;
 		}
 		
 		
@@ -134,15 +136,15 @@ public class ComprarCarro extends Funcionalidad {
 		List<String> placasCarros = new ArrayList<>(carrosMarcas.stream().map(Vehiculo::getPlaca).toList());
 		placasCarros.add("Volver al menú principal");
 		
-		int opcionEscogida = Consola.pedirEleccion("Escoja el vehículo que desea vender ", placasCarros);
+		int opcionCarroVenta = Consola.pedirEleccion("Escoja el vehículo que desea vender ", placasCarros);
 		
 		//Se verifica si desea volver al menú principal, o si el vehiculo se encuentra enparqueadero
 		
-		if (opcionEscogida == carrosMarcas.size() - 1) { //si desea volver se retorna null
+		if (opcionCarroVenta == carrosMarcas.size() - 1) { //si desea volver se retorna null
 			return null;
 		}
 		else { //cuando se escoge un vehiculo
-			Vehiculo vehiculo = carrosMarcas.get(opcionEscogida);
+			Vehiculo vehiculo = carrosMarcas.get(opcionCarroVenta);
 			if (!vehiculo.estaParqueado()) { // si el vehículo no esta parqueado se informa y se pide ingresar el vehículo 
 				boolean elec = Consola.pedirBoolean("El vehiculo no se encuentra en el parqueadero, ¿desea ingresarlo?");
 				if (elec == false) { // si se escoge no se vuelve al menu del metodo
@@ -231,7 +233,25 @@ public class ComprarCarro extends Funcionalidad {
 		vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
 	}
 	
-	private void cambioDeCarro(List<Carro> carrosDisponibles) {
+	private void cambioDeCarro(Vehiculo vehiculo, List<String> placasCarrosDisponibles, Empleado vendedor, long precioFinal, int opcionVenta, Cliente cliente, List<Carro> carrosDisponibles) {
+		placasCarrosDisponibles.add("Volver al menú anterior");
+		long excedente = 0;
+		int escogerOpcion = Consola.pedirEleccion("Seleccione el carro de su preferencia: ", placasCarrosDisponibles);
+		if (escogerOpcion == placasCarrosDisponibles.size()-1) {
+			return; //Revisar
+		} else {
+			//Se selecciona el carro nuevo para el intercambio
+			Carro carroNuevo = carrosDisponibles.get(escogerOpcion);
+			carroNuevo.setDueno(cliente);
+			excedente = precioFinal - carroNuevo.getPrecioVenta();
+			carroNuevo.setPrecioVenta(0);
+			vendedor.getVehiculosVenta().remove(escogerOpcion);
+			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
+			vehiculo.setDueno(null);
+			vendedor.agregarVehiculosVenta((Carro)vehiculo);
+			System.out.println("Se ha intercambiado el carro por el vehiculo escogido, su excedente es de "+excedente+" y será añadido a su cuenta.");
+			cliente.getFactura().agregarServicio("Intercambio de carro", 1);
+		}
 		
 	}
 }

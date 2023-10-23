@@ -140,7 +140,16 @@ public class Carro extends Vehiculo implements Serializable {
 		this.amortiguadores = amortiguadores;
 	}
 
+	@Override
+	public String toString() {
+		if (this.precioVenta != 0) { // para los carros para venta se imprime su valor
+			return String.format("%s %s %s%n%s %d puestos%nPrecio: %d", cap(this.getMarca().name()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos(), this.getPrecioVenta());
+		}
+		return String.format("%s %s %s%n%s %d puestos%n", cap(this.getMarca().name()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos());
 
+	}
+	
+	
 	//metodo que crea cuatro Productos tipo llanta y los agrega al array this.llantas
 	private void inicializarLlantas(){
 		this.llantas = new Producto[4]; // se asigna a this.llantas un array de tipo Producto con tamaño 4
@@ -182,6 +191,11 @@ public class Carro extends Vehiculo implements Serializable {
 	public TipoEstado inicializarEstado() {
 		int numero = (int) (Math.random() * 3);
 		return TipoEstado.segunNumero(numero);
+	}
+	
+	//metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
+	private static String cap(String palabra) {
+		return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();
 	}
 	
 }

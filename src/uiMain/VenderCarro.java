@@ -85,7 +85,6 @@ public class VenderCarro extends Funcionalidad {
 
 
 		//si el cliente es discapacitado inmediatamente se filtran carros con caracteristicas especiales que están adaptadas para estas personas
-		if (Cliente.isDiscapacitado()){
 		if (cliente.isDiscapacitado()){
 			filtroCarros= filtroCarros.stream().filter(carro -> carro.isDiscapacitado()).collect(Collectors.toList());
 		}
@@ -109,13 +108,11 @@ public class VenderCarro extends Funcionalidad {
 			continue;
 		}
 
-		Carro carro= filtroCarros.get(EleccionCarro);
 		//Se manda un mecanico por defecto para que revise el carro elegido por el usuario antes de concretar la compra
 		Carro carro= filtroCarros.get(eleccionCarro);
 
 		Empleado mecanico= mecanicoRandom();
 		//Luego de que el mecanico termine la revision, se le agrega un servicio a su contador
-		List<String> revision= mecanico.revisarVehiculo(carro);
 
 		List<Producto> revision= mecanico.revisarVehiculo(carro);
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados()+1);
@@ -123,14 +120,11 @@ public class VenderCarro extends Funcionalidad {
 		//metodo que nos revisa si la lista de cosas dañadas informadas desde la revision del mecanico esta vacia o no
 		if (revision.isEmpty()){
 			//si esta vacia se le pide el indice de ese vehicuolo en la lista
-			int indx = mecanico.getVehiculosVenta().indexOf(carro); 
-			//Luego se elimina desde el indice dicho carro, esto para confirmar que se vendio
-			mecanico.getVehiculosVenta().remove(indx);
-			//se agrega a la factura del usuario el monto y el servicio brindado
-			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.precioCarro);
-			//Se le agrega el carro a la lista de vehiculos del cliente 
 			int indx = Empleado.getVehiculosVenta().indexOf(carro); 
+			//Luego se elimina desde el indice dicho carro, esto para confirmar que se vendio
 			Empleado.getVehiculosVenta().remove(indx);
+			//se agrega a la factura del usuario el monto y el servicio brindado
+			//Se le agrega el carro a la lista de vehiculos del cliente 
 			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.getPrecioVenta());
 			cliente.getVehiculos().add(carro);
 			//se le agrega al contador del vendedor el servicio realizado

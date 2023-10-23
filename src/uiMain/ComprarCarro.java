@@ -99,6 +99,14 @@ public class ComprarCarro extends Funcionalidad {
 		
 		
 	}
+	/** En este método se solicita que entregue los datos del cliente que va a hacer uso de la funcionalidad, 
+	 * se busca que efectivamente cuente con vehiculos registrados de lo contrario, se le pide que registre un vehiculo
+	 * en caso de que si tenga vehiculos registrados  se toma la lista de vehiculos registrados y se filtran las marcas aceptadas por el parqueadero para su compra continue
+	 * si el cliente no tiene ningun carro en su lista que cumpla con los requisitos que exige el parqueadero, se le pide que registre almenos un carro que lo cumpla
+	 * 
+	 * se continua mostrandole una lista de los carros del cliente disponibles para vender y se le pide que escoga uno el cual este registrado 
+	 * y verificado por el parqueadero, finalmente se retorna el vehiculo a la venta 
+	 */
 	private Vehiculo escogerVehiculo(Cliente cliente) {
 		if (cliente.getVehiculos().size() == 0) {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados para vender, ¿desea registrar e ingresar su vehiculo?");

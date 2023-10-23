@@ -1,5 +1,8 @@
-// sebastian
-
+/**
+ * Funcionalidad del modulo: Contiene la clase Taller que ofrece servicios de mecanica a los vehiculos del parqueadero.
+ * Componentes del modulo: Clase Taller.
+ * Autores: Sebastián. 
+ */
 package uiMain;
 
 import gestorAplicacion.parqueadero.Almacen;
@@ -13,6 +16,9 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Esta clase se encarga de ofrecer y realizar los servicios de mecanica que ofrece el parqueadero.
+ */
 public class Taller extends Funcionalidad {
 	@Override
 	public void ejecutar() {
@@ -85,7 +91,11 @@ public class Taller extends Funcionalidad {
 		System.out.println("Vuelva pronto");
 	}
 	
-		// metodo que muestra los vehiculos de un cliente y retorna el escogido
+	/**
+	 * Metodo que pide al cliente escoger un vehiculo entre los que tiene registrados
+	 * @param cliente
+	 * @return vehiculo
+	 */
 	private Vehiculo escogerVehiculo(Cliente cliente) {
 				
 	//verificar si el cliente tiene vehiculos registrados, en caso contrario pedir registrar e ingresar el vehiculo

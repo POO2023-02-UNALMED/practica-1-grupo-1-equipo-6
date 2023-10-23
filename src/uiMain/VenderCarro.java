@@ -60,23 +60,29 @@ public class VenderCarro extends Funcionalidad {
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
 			MarcasCarro atributo= MarcasCarro.valueOf(marcas.get(eleccionMarca));
-			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getMarca())).collect(Collectors.toList()));
+			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> atributo.equals(carro.getMarca())).collect(Collectors.toList()));
 		}
 
 		else if (eleccionBusqueda==1){
 			String  atributo= Consola.pedirString("Elija un color");
-			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getColor())).collect(Collectors.toList()));
+			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> atributo.equals(carro.getColor())).collect(Collectors.toList()));
 		}
 
 		else if(eleccionBusqueda==2){
 			long atributo= Consola.pedirLong("Agregue un precio por el que desea buscar");
-			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro-> atributo <= carro.getPrecioVenta()).collect(Collectors.toList()));
+			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> atributo > carro.getPrecioVenta()).collect(Collectors.toList()));
 		}
 
 		if (cliente.isDiscapacitado()){
 			filtroCarros= filtroCarros.stream().filter(carro -> carro.isDiscapacitado()).collect(Collectors.toList());
 		}
-
+		
+		if (filtroCarros.isEmpty()) {
+			System.out.println("No se encontro un carro con las caracteristicas buscadas");
+			continue;
+		}
+		
+		//si no hay color, marca o precio anotar
 		List<String> carrosFiltrados= new ArrayList<>(filtroCarros.stream().map(Carro::toString).toList());
 		carrosFiltrados.add("Volver");
 

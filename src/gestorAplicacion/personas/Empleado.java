@@ -32,10 +32,10 @@ public class Empleado extends Persona implements Serializable{
     	serviciosRealizados = 0;
     }
     
-    public void setVehiculosVenta(ArrayList<Carro> vehVenta) {
+    public static void setVehiculosVenta(ArrayList<Carro> vehVenta) {
     	Empleado.vehiculosVenta = vehVenta;
     }
-    public ArrayList<Carro> getVehiculosVenta() {
+    public static ArrayList<Carro> getVehiculosVenta() {
     	return Empleado.vehiculosVenta;
     }
     

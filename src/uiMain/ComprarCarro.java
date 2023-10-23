@@ -10,6 +10,7 @@ import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
+import gestorAplicacion.vehiculos.MarcasCarro;
 
 //Permite que el cliente venda un carro al parqueadero
 public class ComprarCarro extends Funcionalidad {
@@ -36,10 +37,6 @@ public class ComprarCarro extends Funcionalidad {
 			return;
 		}
 		
-		//Se pide el precio por el que desea venderlo
-		long precioVenta = precioCarro();
-		((Carro)vehiculo).setPrecioVenta(precioVenta);
-		
 		//Se muestran las opciones de vendedor que existen 
 		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
 		//lista con  los nombres de los vendedores
@@ -49,6 +46,9 @@ public class ComprarCarro extends Funcionalidad {
 		Empleado vendedor = vendedores.get(escogerVendedor);
 		
 		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", vendedor.getNombre());
+		
+		//Se le pide el precio por el que desea vender el carro
+		long precioCliente = precioCarro(vehiculo, vendedor);
 		
 		System.out.println("Su carro será revisado en el taller y se le dará una oferta de compra.");
 		
@@ -129,17 +129,29 @@ public class ComprarCarro extends Funcionalidad {
 		}
 	}
 	
-	private long precioCarro() {
-		long precioVenta = Consola.pedirLong("Escriba el precio por el que desea vender su vehículo");
-		long precioMaximo = 130000000;
-		if (precioVenta<0) {
+	private long precioCarro(Vehiculo vehiculo, Empleado vendedor) {
+		long precioCliente = Consola.pedirLong("Escriba el precio por el que desea vender su vehículo");
+		String marca = ((Carro)vehiculo).getMarca();
+		long precioMaximo = 0;
+		if (marca.toUpperCase() == "RENAULT") {
+			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.RENAULT);
+		} else if (marca.toUpperCase() == "CHEVROLET") {
+			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.CHEVROLET);
+		} else if (marca.toUpperCase() == "TOYOTA") {
+			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.TOYOTA);
+		} else if (marca.toUpperCase() == "KIA") {
+			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.KIA);
+		}if (marca.toUpperCase() == "MAZDA") {
+			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.MAZDA);
+		}
+		if (precioCliente<0) {
 			System.out.println("Ese precio no es válido");
-			return precioCarro(); //se vuelve a pedir el precio del carro
-		} else if (precioVenta>precioMaximo) {
+			return precioCarro(vehiculo, vendedor); //se vuelve a pedir el precio del carro
+		} else if (precioCliente>precioMaximo) {
 			System.out.println("El precio escogido no es aceptado por el administrador");//Revisar mensaje
-			return precioCarro();
+			return precioCarro(vehiculo, vendedor);
 		} else {
-			return precioVenta;
+			return precioCliente;
 		}
 		}
 

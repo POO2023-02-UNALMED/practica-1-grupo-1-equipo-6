@@ -76,6 +76,11 @@ public class VenderCarro extends Funcionalidad {
 			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.isDiscapacitado().).collect(collectors.toList()));
 		}
 
+		System.out.println("Carros encontrados con la característica seleccionada");
+		for (Carro carro : filtroCarros){
+			System.out.println(carro);
+		}
+
 
 
 

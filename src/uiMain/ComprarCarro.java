@@ -311,14 +311,14 @@ public class ComprarCarro extends Funcionalidad {
 	/** Al cliente se le entregan dos opciones para que el carro sea comprado por el parqueadero, ya sea dinero o intercamabiar el carro por uno del rango en precios
 	 *  */
 	/** En el caso del Método ventaPorDinero se le entrega los datos del cliente, el vehiculo que será comprado, el mecánico del taller y la lista de los productos malos
-	 * entonces al vehiculo se le asigna el precio final de Venta al carro
-	 * */
+	 * entonces al vehiculo se le asigna el precio final de Venta al carro , se envía a reparar el carro al taller 
+	 * y en el parqueadero guardamos Almacen con sus productos para realizar un for
+	    en el que el mecánico cambia cada uno de los productos en mal estado por un producto bueno de cada tipo */
+	
 	private void ventaPorDinero(Cliente cliente, Vehiculo vehiculo, Empleado vendedor, Empleado mecanico, long precioFinal, List<Producto> productosMalos) {
 		
 		((Carro)vehiculo).setPrecioVenta(precioFinal);
-		
-		/** Se envía a reparar el carro al taller y en el parqueadero guardamos Almacen con sus productos para realizar un for
-		 * en el que el mecánico cambia cada uno de los productos en mal estado por un producto bueno de cada tipo */
+
 		System.out.println("El vehiculo está siendo reparado en el taller");
 		Almacen almacen = parqueadero.getAlmacen();
 		for (Producto productoMalo: productosMalos) {

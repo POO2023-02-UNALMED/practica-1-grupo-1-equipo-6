@@ -31,6 +31,13 @@ public class VenderCarro extends Funcionalidad {
 		//lista con  los nombres de los vendedores
 		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
 		
+
+		//Si la lista no tiene vendedores entonces no puede continuar
+		if (nombresVendedores.isEmpty()){
+			System.out.println("No hay vendedores disponibles en el momento, intente más tarde.");
+			return;
+		}
+		
 		int escogerVendedor = Consola.pedirEleccion("Escoja el vendedor de su preferencia", nombresVendedores);
 		Empleado vendedor = vendedores.get(escogerVendedor);
 		

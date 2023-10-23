@@ -152,7 +152,7 @@ public class ComprarCarro extends Funcionalidad {
 		
 		
 	}
-	/** En este método se solicita que entregue los datos del cliente que va a hacer uso de la funcionalidad, 
+	/** En este Método se solicita que entregue los datos del cliente que va a hacer uso de la funcionalidad, 
 	 * se busca que efectivamente cuente con vehiculos registrados de lo contrario, se le pide que registre un vehiculo
 	 * en caso de que si tenga vehiculos registrados  se toma la lista de vehiculos registrados y se filtran las marcas aceptadas por el parqueadero para su compra continue
 	 * si el cliente no tiene ningun carro en su lista que cumpla con los requisitos que exige el parqueadero, se le pide que registre almenos un carro que lo cumpla
@@ -251,6 +251,11 @@ public class ComprarCarro extends Funcionalidad {
 		}
 		return precioMaximo;
 	}
+	
+	/** En este método el parqueadero la un precio de compra al cliente correspondiente a los cambios de repuestos y el servicio del mecánico, 
+	 * entonces, al cliente se le asigna una factura por el servicio e igualmente por cada producto dañado y cambiado se le resta al precio Maximo del vehiculo 
+	 *el cual será la cotizacion final por parte del parqueadero 
+	 * */
 	private long cotizacionParqueadero(List<Producto> productosMalos, Empleado mecanico, long precioMaximo, Cliente cliente) {
 		cliente.getFactura().agregarServicio("Revision general", 1);
 		for (Producto productoMalo: productosMalos) {
@@ -259,6 +264,9 @@ public class ComprarCarro extends Funcionalidad {
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 		return precioMaximo;
 	}
+	/**Finalmente en el Método precioFinal se le entrega el precio del Cliente y precio del Parqueadero, 
+	 * estos se comparan y el menor precio entre ambas opciones se retornara como el precio final del carro 
+	 *  */
 	
 	private long precioFinal(long precioCliente, long precioParqueadero) {
 		if (precioCliente<=precioParqueadero) {
@@ -267,12 +275,17 @@ public class ComprarCarro extends Funcionalidad {
 			return precioParqueadero;
 		}
 	}
-
+	/** Al cliente se le entregan dos opciones para que el carro sea comprado por el parqueadero, ya sea dinero o intercamabiar el carro por uno del rango en precios
+	 *  */
+	/** En el caso del Método ventaPorDinero se le entrega los datos del cliente, el vehiculo que será comprado, el mecánico del taller y la lista de los productos malos
+	 * entonces al vehiculo se le asigna el precio final de Venta al carro
+	 * */
 	private void ventaPorDinero(Cliente cliente, Vehiculo vehiculo, Empleado vendedor, Empleado mecanico, long precioFinal, List<Producto> productosMalos) {
-		//Se le asigna el precio de Venta al carro
+		
 		((Carro)vehiculo).setPrecioVenta(precioFinal);
 		
-		//Se envia a reparar el carro
+		/** Se envía a reparar el carro al taller y en el parqueadero guardamos Almacen con sus productos para realizar un for
+		 * en el que el mecánico cambia cada uno de los productos en mal estado por un producto bueno de cada tipo */
 		System.out.println("El vehiculo está siendo reparado en el taller");
 		Almacen almacen = parqueadero.getAlmacen();
 		for (Producto productoMalo: productosMalos) {
@@ -282,17 +295,19 @@ public class ComprarCarro extends Funcionalidad {
 			}
 		}
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
-		
-		//Se añade el carro a la lista de carros disponibles para la venta
+		/*igualmente cada servicio realizado se le agrega a mecánico */
 		vendedor.agregarVehiculosVenta((Carro)vehiculo);
 		
-		//Se cambia el dueño del vehiculo por el parqueadero
 		vehiculo.setDueno(null);
 		
-		//Se genera la factura
+		/** añadimos el carro a la lista de carros disponibles para la venta 
+		 y cambiamos el dueño de carro por el parqueadero*/
+		
+		// para finalmente generar la factura 
 		cliente.getFactura().agregarServicio("Venta de carro", 1);
 		
 		vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
+		//al vendedor tambien le agregamos cada uno de los servicios realizados
 	}
 	
 	private void cambioDeCarro(Vehiculo vehiculo, List<String> placasCarrosDisponibles, Empleado vendedor, long precioFinal, int opcionVenta, Cliente cliente, List<Carro> carrosDisponibles) {

@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 
-import gestorAplicacion.parqueadero.Almacen;
+
 import gestorAplicacion.personas.Cliente;
-import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.vehiculos.MarcasCarro;
 import gestorAplicacion.personas.Empleado;
-import gestorAplicacion.parqueadero.Parqueadero;
 
 //Venta de carro punto de vista parqueadero
 
@@ -58,22 +56,22 @@ public class VenderCarro extends Funcionalidad {
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
 			MarcasCarro atributo= MarcasCarro.valueOf(marcas.get(eleccionMarca));
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.name().equals(carro.getMarca().toUpperCase())).collect(collectors.toList()));
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.name().equals(carro.getMarca().toUpperCase())).collect(Collectors.toList()));
 		}
 
 		else if (eleccionBusqueda==1){
 			String  atributo= Consola.pedirString("Elija un color");
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getColor())).collect(collectors.toList()));
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getColor())).collect(Collectors.toList()));
 		}
 
 		else if(eleccionBusqueda==2){
 			long atributo= Consola.pedirLong("Agregue un precio por el que desea buscar");
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.getPrecioVenta()).collect(collectors.toList()));
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.getPrecioVenta()).collect(Collectors.toList()));
 		}
 
 		else if (eleccionBusqueda==3){
 			boolean atributo= Consola.pedirBoolean("Elija si necesita el carro adaptado para discapacitados");
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.isDiscapacitado().).collect(collectors.toList()));
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.isDiscapacitado()).collect(Collectors.toList()));
 		}
 
 		System.out.println("Carros encontrados con la característica seleccionada");

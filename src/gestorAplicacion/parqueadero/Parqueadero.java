@@ -25,6 +25,7 @@ public class Parqueadero implements Serializable {
 	private ArrayList<Empleado> empleados = new ArrayList<>(); //arraylist con todos los empleados del parqueadero(Taller, almacen, etc)
 	private Almacen almacen; //almacen de los productos
 	private Empleado administrador; // el administrador del parqueadero
+	private ArrayList<Vehiculo> carrosParaVender = new ArrayList<>(); //Lista de los carros que se van a usar para vender en la funcionalidad venderCarro
 	
 	public Parqueadero(int plazasTotales, double tarifaCarro, double tarifaMoto, Almacen almacen) {
 		this.plazasTotales = plazasTotales;

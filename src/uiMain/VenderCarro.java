@@ -9,6 +9,7 @@ import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.personas.Empleado;
+import gestorAplicacion.parqueadero.Parqueadero;
 
 //Venta de carro punto de vista parqueadero
 
@@ -37,7 +38,7 @@ public class VenderCarro extends Funcionalidad {
 			System.out.println("No hay vendedores disponibles en el momento, intente más tarde.");
 			return;
 		}
-		
+
 		int escogerVendedor = Consola.pedirEleccion("Escoja el vendedor de su preferencia", nombresVendedores);
 		Empleado vendedor = vendedores.get(escogerVendedor);
 		

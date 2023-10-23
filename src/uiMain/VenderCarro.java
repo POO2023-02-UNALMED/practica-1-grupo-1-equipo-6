@@ -50,13 +50,13 @@ public class VenderCarro extends Funcionalidad {
 			"Precio máximo"
 		));
 
-		List<Carro> filtroCarros;
+		List<Carro> filtroCarros = new ArrayList<>();
 
 		if (eleccionBusqueda==0){
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
 			MarcasCarro atributo= MarcasCarro.valueOf(marcas.get(eleccionMarca));
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.name().equals(carro.getMarca().toUpperCase())).collect(Collectors.toList()));
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getMarca())).collect(Collectors.toList()));
 		}
 
 		else if (eleccionBusqueda==1){

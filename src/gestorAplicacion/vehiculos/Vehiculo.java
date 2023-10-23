@@ -27,7 +27,7 @@ public class Vehiculo implements Serializable, Identificable<String> {
 	/**
 	 * La marca del vehículo
 	 */
-	private String marca;
+	private MarcasCarro marca;
 	/**
 	 * El color del vehículo
 	 */
@@ -37,7 +37,7 @@ public class Vehiculo implements Serializable, Identificable<String> {
 	 */
 	private String modelo;
 
-	public Vehiculo(String placa, Cliente dueno, String marca, String color, String modelo) {
+	public Vehiculo(String placa, Cliente dueno, MarcasCarro marca, String color, String modelo) {
 		this.placa = normalizarPlaca(placa);
 		this.dueno = dueno;
 		this.marca = marca;
@@ -69,11 +69,11 @@ public class Vehiculo implements Serializable, Identificable<String> {
 		this.plaza = plaza;
 	}
 
-	public String getMarca() {
+	public MarcasCarro getMarca() {
 		return marca;
 	}
 
-	public void setMarca(String marca) {
+	public void setMarca(MarcasCarro marca) {
 		this.marca = marca;
 	}
 

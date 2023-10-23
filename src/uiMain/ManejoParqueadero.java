@@ -1,5 +1,6 @@
 package uiMain;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -10,6 +11,7 @@ import gestorAplicacion.parqueadero.TipoProducto;
 import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.vehiculos.TipoVehiculo;
 import gestorAplicacion.vehiculos.Carro;
+import gestorAplicacion.vehiculos.MarcasCarro;
 
 public class ManejoParqueadero extends Funcionalidad {
 	@Override
@@ -81,7 +83,8 @@ public class ManejoParqueadero extends Funcionalidad {
 	//método para agregar carros para vender
 	private void agregarCarroVenta(Empleado administrador) {
 		String placa = Consola.pedirString("Ingrese la placa: ");
-		String marca = Consola.pedirString("Ingrese la marca: ");
+		int marcaEscogida = Consola.pedirEleccion("Escoja la marca: ", Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList());
+		MarcasCarro marca = MarcasCarro.values()[marcaEscogida];
 		String color = Consola.pedirString("Ingrese el color: ");
 		String modelo = Consola.pedirString("Ingrese el modelo: ");
 		int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
@@ -221,8 +224,8 @@ public class ManejoParqueadero extends Funcionalidad {
 		};
 
 		double precio = Consola.pedirDouble("Ingrese el precio del producto");
-		String marca = Consola.pedirString("Ingrese la marca del producto");
-
+		int marcaEscogida = Consola.pedirEleccion("Escoja la marca: ", Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList());
+		MarcasCarro marca = MarcasCarro.values()[marcaEscogida];
 		int tipoEstadoIdx = Consola.pedirEleccion("Elija el estado del producto", List.of(
 				"Excelente",
 				"Bueno",

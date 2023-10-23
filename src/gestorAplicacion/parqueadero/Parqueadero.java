@@ -26,11 +26,12 @@ public class Parqueadero implements Serializable {
 	private Almacen almacen; //almacen de los productos
 	private Empleado administrador; // el administrador del parqueadero
 	
-	public Parqueadero(int plazasTotales, double tarifaCarro, double tarifaMoto) {
+	public Parqueadero(int plazasTotales, double tarifaCarro, double tarifaMoto, Almacen almacen) {
 		this.plazasTotales = plazasTotales;
 		this.plazasDisponibles = plazasTotales;
 		this.tarifaCarro = tarifaCarro;
 		this.tarifaMoto = tarifaMoto;
+		this.almacen = almacen;
 		this.inicializarPlazas(plazasTotales);
 	}
 	
@@ -64,6 +65,9 @@ public class Parqueadero implements Serializable {
 	}
 	public ArrayList<Empleado> getEmpleados() {
 		return empleados;
+	}
+	public List<Empleado> getMecanicos() {
+		return empleados.stream().filter(e -> e.getCargo().equals("Mecanico")).toList();
 	}
 	public void setEmpleados(ArrayList<Empleado> empleados) {
 		this.empleados = empleados;
@@ -179,6 +183,16 @@ public class Parqueadero implements Serializable {
 	
 	public void agregarEmpleado(Empleado empleado) {
 		this.empleados.add(empleado);
+	}
+
+	// busca un empleado en la lista de empleados y si lo encuentra retorna true
+	public boolean existeEmpleado(long cedula) {
+		for (Empleado empleado : empleados) {
+			if (empleado.tieneIdentificacion(cedula)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Empleado getAdministrador() {

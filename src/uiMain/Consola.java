@@ -102,6 +102,24 @@ public class Consola {
 		return s;
 	}
 
+	// pide al usuario un porcentaje y lo devuelve como un double entre 0 y 1.
+	// siendo 1 igual a 100%
+	public static double pedirPorcentaje(String mensaje) {
+		String s = pedirString(mensaje + " (ejemplo: 10%)");
+		if (!s.endsWith("%")) {
+			System.out.println("Por favor ingrese un porcentaje");
+			return pedirPorcentaje(mensaje);
+		}
+		// s sin el '%'
+		String s2 = s.substring(0, s.length() - 1);
+		try {
+			return Double.parseDouble(s2) / 100;
+		} catch (NumberFormatException e) {
+			System.out.println("Por favor ingrese un porcentaje válido");
+			return pedirEntero(mensaje);
+		}
+	}
+
 	/**
 	 * Recibe el mensaje y una lista de opciones, devuelve el índice de la opción escogida.
 	 * Este método imprime un mensaje junto con una lista de opciones en pantalla y espera

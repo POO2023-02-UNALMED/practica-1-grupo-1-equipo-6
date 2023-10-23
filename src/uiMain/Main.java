@@ -4,6 +4,7 @@ package uiMain;
 
 import baseDatos.BaseDatos;
 import baseDatos.BaseDatosException;
+import gestorAplicacion.parqueadero.Almacen;
 import gestorAplicacion.parqueadero.Parqueadero;
 import gestorAplicacion.personas.Empleado;
 
@@ -44,9 +45,9 @@ public class Main {
 			// instanciar las clases de las funcionalidades según la eleccion del usuario.
 			Funcionalidad funcionalidad = switch (eleccion) {
 				case 0 -> new IngresarVehiculo();
-				case 1 -> new ComprarCarro();
+				case 1 -> new VenderCarro();
 				case 2 -> new Taller();
-				case 3 -> new VenderCarro();
+				case 3 -> new ComprarCarro();
 				case 4 -> new ManejoParqueadero();
 				default -> null;
 			};
@@ -89,10 +90,12 @@ public class Main {
 			// las características del mismo
 			System.out.println("Configuración inicial del parqueadero");
 			int plazasTotales = Consola.pedirEntero("Ingrese el número de plazas totales");
-			double tarifaCarro = Consola.pedirEntero("Ingrese la tarifa para carros");
-			double tarifaMoto = Consola.pedirEntero("Ingrese la tarifa para motos");
+			double tarifaCarro = Consola.pedirDouble("Ingrese la tarifa para carros");
+			double tarifaMoto = Consola.pedirDouble("Ingrese la tarifa para motos");
+			int almacenMaxCap = Consola.pedirEntero("Ingrese la capacidad máxima del almacén");
+			Almacen almacen = new Almacen(almacenMaxCap);
 			// Se crea la instancia con base en los valores escogidos por el usuario.
-			Parqueadero parqueadero = new Parqueadero(plazasTotales, tarifaCarro, tarifaMoto);
+			Parqueadero parqueadero = new Parqueadero(plazasTotales, tarifaCarro, tarifaMoto, almacen);
 
 			System.out.println("Registro del administrador");
 			long cedula = Consola.pedirLong("Ingrese cédula");
@@ -104,6 +107,9 @@ public class Main {
 
 			// Se guarda el parqueadero en la base de datos
 			baseDatos.setParqueadero(parqueadero);
+
+			// se guardan los datos iniciales
+			escribirDatos();
 		}
 	}
 

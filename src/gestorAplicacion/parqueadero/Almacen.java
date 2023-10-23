@@ -1,9 +1,18 @@
+/*
+ Funcionalidad del módulo: contiene la clase Almacen que se encarga de guardar los productos destinados para la venta
+ Componentes del módulo: Almacen
+ Autores: Sofía, Sebastián
+*/
+
 package gestorAplicacion.parqueadero;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Almacen guarda los productos y el inventario que son utilizados en los diferentes servicios del parqueadero.
+ */
 public class Almacen implements Serializable {
 	private static final long serialVersionUID = 1L;
 

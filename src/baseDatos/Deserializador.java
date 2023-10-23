@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase Deserializador que se encarga de leer los objetos guardados en el archivo de datos
+ Componentes del módulo: Deserializador
+ Autores: Alejandro
+*/
 
 package baseDatos;
 

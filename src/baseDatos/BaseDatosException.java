@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase BaseDatosException que sirve para lanzar errores en métodos de baseDatos
+ Componentes del módulo: BaseDatosException
+ Autores: Alejandro
+*/
 
 package baseDatos;
 

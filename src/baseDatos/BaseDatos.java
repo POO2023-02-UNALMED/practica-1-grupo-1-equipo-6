@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase BaseDatos que se encarga de toda la persistencia.
+ Componentes del módulo: BaseDatos
+ Autores: Alejandro
+*/
 
 package baseDatos;
 
@@ -103,14 +107,23 @@ public class BaseDatos implements Serializable {
 		return registrar(vehiculosRegistrados, vehiculo);
 	}
 
+	/**
+	 * Devuelve true si hay clientes registrados en la base de datos.
+	 */
 	public boolean hayClientesRegistrados() {
 		return !clientesRegistrados.isEmpty();
 	}
 
+	/**
+	 * Devuelve true si hay vehículos registrados en la base de datos.
+	 */
 	public boolean hayVehiculosRegistrados() {
 		return !clientesRegistrados.isEmpty();
 	}
 
+	/**
+	 * asigna el archivo que se usará para la persistencia de los datos.
+	 */
 	public static void setArchivo(File archivo) {
 		BaseDatos.archivo = archivo;
 	}

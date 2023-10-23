@@ -27,9 +27,10 @@ public class Carro extends Vehiculo implements Serializable {
 	private Producto[] rines;
 	private Producto[] amortiguadores;
 	private long precioVenta;
+	private boolean discapacitado; //Si el carro está adecuado para personas discapacitadas
 	
 	
-	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos) {
+	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos, boolean discapacitado) {
 		super(placa, dueno, marca, color, modelo);
 		this.tipo = tipo;
 		this.puestos = puestos;
@@ -44,6 +45,7 @@ public class Carro extends Vehiculo implements Serializable {
 		this.inicializarRines();
 		this.inicializarAmortiguadores();
 		this.precioVenta = 0;
+		this.discapacitado= discapacitado;
 	}
 	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos, long precioVenta) {
 		this(placa, dueno, marca, color, modelo, tipo, puestos);
@@ -52,6 +54,13 @@ public class Carro extends Vehiculo implements Serializable {
 	
 	
 	//getters and setters
+
+	public boolean isDiscapacitado(){
+		return this.discapacitado;
+	}
+	public void setDiscapacitado(boolean discapacitado) {
+    	this.discapacitado = discapacitado;
+    }
 	public long getPrecioVenta() {
 		return this.precioVenta;
 	}

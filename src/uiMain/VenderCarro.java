@@ -58,18 +58,22 @@ public class VenderCarro extends Funcionalidad {
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
 			MarcasCarro atributo= MarcasCarro.valueOf(marcas.get(eleccionMarca));
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.name().equals(carro.getMarca().toUpperCase())).collect(collectors.toList()));
 		}
 
 		else if (eleccionBusqueda==1){
 			String  atributo= Consola.pedirString("Elija un color");
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo.equals(carro.getColor())).collect(collectors.toList()));
 		}
 
 		else if(eleccionBusqueda==2){
-			double atributo= Consola.pedirDouble("Agregue un precio por el que desea buscar");
+			long atributo= Consola.pedirLong("Agregue un precio por el que desea buscar");
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.getPrecioVenta()).collect(collectors.toList()));
 		}
 
 		else if (eleccionBusqueda==3){
 			boolean atributo= Consola.pedirBoolean("Elija si necesita el carro adaptado para discapacitados");
+			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.isDiscapacitado().).collect(collectors.toList()));
 		}
 
 

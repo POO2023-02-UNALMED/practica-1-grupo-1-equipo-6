@@ -44,14 +44,18 @@ public class VenderCarro extends Funcionalidad {
 		
 		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", vendedor.getNombre());
 		
-		int eleccionBusqueda= Consola.pedirEleccion("Seleccione la opción por la que desea realizar la busqueda.", List.of(
+		int eleccionBusqueda;
+		do {
+		eleccionBusqueda= Consola.pedirEleccion("Seleccione la opción por la que desea realizar la busqueda.", List.of(
 			"Marca",
 			"Color",
-			"Precio máximo"
+			"Precio máximo",
+			"Regresar al menú principal"
 		));
 
+		if (eleccionBusqueda != 3){
 		List<Carro> filtroCarros = new ArrayList<>();
-
+		
 		if (eleccionBusqueda==0){
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
@@ -69,19 +73,43 @@ public class VenderCarro extends Funcionalidad {
 			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.getPrecioVenta()).collect(Collectors.toList()));
 		}
 
-		else if (eleccionBusqueda==3){
-			boolean atributo= Consola.pedirBoolean("Elija si necesita el carro adaptado para discapacitados");
-			filtroCarros= new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro-> atributo== carro.isDiscapacitado()).collect(Collectors.toList()));
+		if (Cliente.isDiscapacitado()){
+			filtroCarros= filtroCarros.stream().filter(carro -> carro.isDiscapacitado()).collect(Collectors.toList());
 		}
 
-		System.out.println("Carros encontrados con la característica seleccionada");
-		for (Carro carro : filtroCarros){
-			System.out.println(carro);
+		List<String> carrosFiltrados= new ArrayList<>(filtroCarros.stream().map(Carro::toString).toList());
+		carrosFiltrados.add("Volver");
+
+		int eleccionCarro= Consola.pedirEleccion("Elija un carro para comprar", carrosFiltrados);
+
+		if (eleccionCarro = carrosFiltrados.size() - 1) {
+			continue;
 		}
 
+		Carro carro= filtroCarros.get(EleccionCarro);
 
+		Empleado mecanico= mecanicoRandom();
 
+		List<String> revision= mecanico.revisarVehiculo(carro);
+		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados()+1);
 
+		if (revision.isEmpty()){
+			int indx = mecanico.getVehiculosVenta().indexOf(carro); 
+			mecanico.getVehiculosVenta().remove(indx);
+			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.precioCarro);
+			cliente.getVehiculos().add(carro);
+			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
+			System.out.println("Disfrute su compra :)");
+			return;
+		}
+
+		System.out.println("No podemos venderte este vehiculo");
+		}
+		} while (eleccionBusqueda != 3);
 	}
 
+	private Empleado mecanicoRandom(){
+			int num = (int) (Math.random * (parqueadero.getMecanicos));
+			return parqueadero.getMecanicos.get(num);
+		}
 }

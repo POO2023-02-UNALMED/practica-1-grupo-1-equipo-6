@@ -160,6 +160,7 @@ public class ComprarCarro extends Funcionalidad {
 	 * se continua mostrandole una lista de los carros del cliente disponibles para vender y se le pide que escoga uno el cual este registrado 
 	 * y verificado por el parqueadero, finalmente se retorna el vehiculo a la venta 
 	 */
+	
 	private Vehiculo escogerVehiculo(Cliente cliente) {
 		if (cliente.getVehiculos().size() == 0) {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados para vender, ¿desea registrar e ingresar su vehiculo?");

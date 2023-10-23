@@ -1,5 +1,8 @@
-// Alejandro Arias Orozco
-// Sebastian
+/*
+ Funcionalidad del módulo: contiene la clase Carro que representa un carro de la vida real
+ Componentes del módulo: Carro
+ Autores: Alejandro, Sebastián
+*/
 
 package gestorAplicacion.vehiculos;
 
@@ -11,6 +14,9 @@ import gestorAplicacion.parqueadero.TipoProducto;
 
 import java.io.Serializable;
 
+/**
+ * Carro representa la información y comportamientos de un carro en la vida real que nos interesan para el parqueadero.
+ */
 public class Carro extends Vehiculo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -28,7 +34,6 @@ public class Carro extends Vehiculo implements Serializable {
 	private Producto[] amortiguadores;
 	private long precioVenta;
 	private boolean discapacitado; //Si el carro está adecuado para personas discapacitadas
-	
 	
 	public Carro(String placa, Cliente dueno, MarcasCarro marca, String color, String modelo, TipoVehiculo tipo, int puestos, boolean discapacitado) {
 		super(placa, dueno, marca, color, modelo);

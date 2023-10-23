@@ -1,3 +1,9 @@
+/*
+ Funcionalidad del módulo: contiene la interfaz Identificable que es implementada en clases que tienen un atributo para identificar los objetos
+ Componentes del módulo: Identificable
+ Autores: Alejandro
+*/
+
 package gestorAplicacion;
 
 /**

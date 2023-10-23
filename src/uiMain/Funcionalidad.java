@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase Funcionalidad que implementan todas las funcionalidades del programa
+ Componentes del módulo: Funcionalidad
+ Autores: Alejandro, Sebastian
+*/
 
 package uiMain;
 
@@ -32,8 +36,14 @@ public abstract class Funcionalidad {
 	protected BaseDatos baseDatos;
 	protected Parqueadero parqueadero;
 
+	/**
+	 * Método donde estará implementada la funcionalidad
+	 */
 	public abstract void ejecutar();
 
+	/**
+	 * Asigna la base de datos y el parqueadero
+	 */
 	public void setBaseDatos(BaseDatos baseDatos) {
 		this.baseDatos = baseDatos;
 		parqueadero = baseDatos.getParqueadero();
@@ -157,7 +167,12 @@ public abstract class Funcionalidad {
 
 		return vehiculo;
 	}
-	
+
+	/**
+	 * Ingresa un vehículo al parqueadero
+	 * Recibe el cliente que es dueño del vehículo y la instancia del vehículo
+	 * Pregunta al usuario que elija las plazas y genera una factura de ingreso.
+	 */
 	protected void ingresarVehiculo(Cliente cliente, Vehiculo vehiculo) {
 		// buscar las plazas que hay disponibles que cumplen con las características del vehículo
 		// que el cliente desea ingresar
@@ -181,6 +196,9 @@ public abstract class Funcionalidad {
 		
 	}
 
+	/**
+	 * Imprime las plazas disponibles (pasadas como parámetro) y le pide al usuario que escoja una, verificando que la elección es válida
+	 */
 	private Plaza pedirPlaza(List<Plaza> plazas) {
 		// mostrar las plazas disponibles al cliente
 		System.out.println("Plazas disponibles:");
@@ -208,6 +226,10 @@ public abstract class Funcionalidad {
 		return plaza;
 	}
 
+	/**
+	 * Busca entre una lista de plazas pasada como parámetro una plaza por su número de plaza
+	 * Retorna la plaza encontrada o null si no hay una plaza con ese número en la lista.
+	 */
 	private Plaza buscarPlaza(List<Plaza> plazas, int numeroPlaza) {
 		// buscar una plaza por su numero de plaza.
 		for (Plaza plaza : plazas) {
@@ -218,13 +240,17 @@ public abstract class Funcionalidad {
 		return null;
 	}
 	
-	// metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero y retornar un string de la misma
+	/**
+	 * metodo para asignar una factura a un cliente cuando este ingresa un vehiculo al parqueadero y retornar un string de la misma
+	 */
 	private void generarFactura(Cliente cliente) {
 			Factura f = new Factura(cliente); f.agregarServicio("Paqueadero", 1);
 			System.out.printf("Se ha generado la factura con hora de ingreso: %s%n", f.getHoraIngreso().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)));
 	}
 	
-	//metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
+	/**
+	 * metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
+	 */
 	protected static String cap(String palabra) {
 		return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();
 	}

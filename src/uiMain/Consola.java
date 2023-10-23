@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase de utilidad Consola que sirve para interactuar con el usuario a través de la consola
+ Componentes del módulo: Consola
+ Autores: Alejandro, Sara
+*/
 
 package uiMain;
 
@@ -102,8 +106,10 @@ public class Consola {
 		return s;
 	}
 
-	// pide al usuario un porcentaje y lo devuelve como un double entre 0 y 1.
-	// siendo 1 igual a 100%
+	/**
+	 * Pide al usuario un porcentaje y lo devuelve como un double entre 0 y 1.
+	 * Siendo 1 igual a 100%
+	 */
 	public static double pedirPorcentaje(String mensaje) {
 		String s = pedirString(mensaje + " (ejemplo: 10%)");
 		if (!s.endsWith("%")) {
@@ -155,10 +161,16 @@ public class Consola {
 		return eleccion - 1;
 	}
 
+	/**
+	 * Asigna el scanner que se utilizará para cuando se requiere input del usuario.
+	 */
 	public static void setScanner(Scanner scanner) {
 		Consola.scanner = scanner;
 	}
 
+	/**
+	 * Pide al usuario que elija entre una lista de opciones y verifica que la opción escogida es válida.
+	 */
 	private static int pedirEleccion(List<String> opciones, Predicate<Integer> verificarCondiciones) {
 		int eleccion = pedirEntero("Escoja una opción");
 

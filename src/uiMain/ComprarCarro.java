@@ -14,33 +14,47 @@ import gestorAplicacion.vehiculos.MarcasCarro;
 import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.parqueadero.Almacen;
 
-//Permite que el cliente venda un carro al parqueadero
+/**
+ * Clase ComprarCarro
+ * 
+ * Permite que el cliente venda un carro al parqueadero.
+ *
+ */
 public class ComprarCarro extends Funcionalidad {
 	@Override
 	public void ejecutar() {
 		//Funcionalidad Comprar un carro
 		System.out.println("Vender carro");
 		//Se pide al cliente ingresar la cédula para verificar su registro
-		
+		/**
+		 * Se pide al cliente ingresar la cédula, con este dato se utiliza el método
+		 * buscarORegistrar que se encuentra en funcionalidad, el cual verifica si un cliente
+		 * se encuentra en base de datos, o por el contrario le solicita registrarse con los
+		 * datos necesarios. Si decide no registrarse se finaliza la funcionalidad, y se regresa 
+		 * al menú principal.
+		 * 
+		 */
 		long cedula = Consola.pedirLong("Ingrese cédula");
-		
-		//Se busca en la base de datos un cliente con la cédula ingresada, de no existir se pide al cliente registrarse
 		Cliente cliente = buscarORegistrarCliente(cedula);
-		
 		if (cliente == null) {
 			return;
 		}
-		
-		//Se muestra al usuario sus carros registrados o se permite ingresar el vehiculo que desea vender
+		/**
+		 * Se usa el método escoger vehiculo para que el cliente seleccione el 
+		 * carro que desea vender al parqueadero. En caso de que no escoja ningun
+		 * vehiculo, se finaliza la funcionalidad y regresa al menú principal.
+		 */
 		Vehiculo vehiculo = escogerVehiculo(cliente);
-		
 		if (vehiculo == null) {
 			return;
 		}
 		
-		//Se muestran las opciones de vendedor que existen 
+		/**
+		 * Para proceder con la venta, se le pide al cliente seleccionar uno de los 
+		 * vendedores disponibles del parqueadero, por medio de una lista con sus nombres.
+		 * Al escoger un vendedor, este se presentará con su nombre.
+		 */
 		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
-		//lista con  los nombres de los vendedores
 		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
 		
 		int escogerVendedor = Consola.pedirEleccion("Escoja el vendedor de su preferencia", nombresVendedores);
@@ -48,18 +62,27 @@ public class ComprarCarro extends Funcionalidad {
 		
 		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", vendedor.getNombre());
 		
-		//Se crea el precio máximo para esa marca de carro
+		/**
+		 * Se utiliza el método precioMáximo para hallar el valor máximo que el parqueadero
+		 * pagará por una marca específica de carro. Es decir, el precio de un carro de esa
+		 * marca en excelente estado o uno nuevo.
+		 */
 		long precioMaximo = precioMaximo(vehiculo, vendedor);
 		
-		//Se le pide el precio por el que desea vender el carro
+		/**
+		 * Se le pide al cliente el precio por el que desea vender el carro, y se verifica
+		 * este precio por medio del método precioCarro.
+		 */
 		long precioCliente = precioCarro(precioMaximo);
 		
+		/**
+		 * Para continuar con la venta, el carro debe ser revisado en el taller por un mecánico.
+		 * Se le permite al cliente escoger un mecánico de su preferencia, por medio de una
+		 * lista con los nombres de los empleados mecánicos disponibles.
+		 */
 		System.out.println("Su carro será revisado en el taller y se le dará una oferta de compra.");
 		
-		//Se lleva el vehículo al taller
-		//Se muestran las opciones de mecanico que existen 
 		List<Empleado> mecanicosVenta = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Mecanico".equals(empleado.getCargo())).collect(Collectors.toList()));
-		//lista con  los nombres de los mecanicos
 		List<String> nombresMecanicosVenta = new ArrayList<>(mecanicosVenta.stream().map(Empleado::getNombre).toList());
 		
 		int escogerMecanicoVenta = Consola.pedirEleccion("Escoja el mecánico de su preferencia", nombresMecanicosVenta);
@@ -67,25 +90,55 @@ public class ComprarCarro extends Funcionalidad {
 		
 		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", mecanicoVenta.getNombre());
 		
-		//Se crea la lista de productos que necesitan reparacion
+		/**
+		 * Por medio del método revisarVehiculo, que se encuentra en la clase Empleado, 
+		 * el mecánico escogido realiza una revisión general del carro, y devuelve una lista
+		 * con los productos que estan en mal estado y necesitan ser cambiados o reparados. 
+		 */
 		List<Producto> productosMalos = mecanicoVenta.revisarVehiculo(vehiculo);
 		
-		//Se crea la cotizacion del parqueadero
+		/**
+		 * El parqueadero genera una cotizacion del carro por medio del método 
+		 * cotizacionParqueadero, el cual, segun el precio máximo generado 
+		 * anteriormente, y los productos que necesitan reparacion, 
+		 * entrega un precio por parte del parqueadero.
+		 */
 		long precioParqueadero = cotizacionParqueadero(productosMalos, mecanicoVenta, precioMaximo, cliente);
 		
-		//Se comparan los precios del cliente y el parqueadero y se deja como precio final el menor
+		/**
+		 * Se comparan el precio del parqueadero con el precio del cliente mediante 
+		 * el método precioFinal, y se devuelve el precio menor como oferta final.
+		 */
 		long precioFinal = precioFinal(precioCliente, precioParqueadero);
 		
-		//Se crea una lista con todos los carros que tengan menor o igual precio al precio final
+		/**
+		 * Una de las opciones entregadas al cliente será cambiar el carro
+		 * que desea vender por uno que se encuentre disponible para la venta en 
+		 * el parqueadero. Para esto, se genera una lista de carros disponibles, 
+		 * tales que su precio sea menor o igual al precio acordado en precioFinal.
+		 * Además, se crea una lista con las placas de estos carros, para enseñarlas
+		 * al usuario si lo escoge.
+		 */
 		List<Carro> carrosDisponibles = new ArrayList<>(vendedor.getVehiculosVenta().stream().filter(carro -> carro.getPrecioVenta()<=precioFinal).collect(Collectors.toList()));
 		List<String> placasCarrosDisponibles = new ArrayList<>(carrosDisponibles.stream().map(Vehiculo::getPlaca).toList());
 		
-		//Se le permite al usuario escoger ente la venta del carro por dinero o intercabio por otro carro.
+		/**
+		 * Se le presenta al cliente tres opciones, vender el carro por el precio que acordó
+		 * el parqueadero, cambiar su carro por otro en la lista de carros disponibles, o finalizar
+		 * la funcionalidad.
+		 */
 		List<String> opcionesVenta = new ArrayList<>();
 		opcionesVenta.add("Vender el vehiculo por " + precioFinal);
 		opcionesVenta.add("Intercambiar su carro por uno disponible para la venta en el rango de precio.");
 		int opcionVenta = Consola.pedirEleccion("Su carro ha sido revisado en el taller, y podrá escoger entre las siguientes ofertas: ", opcionesVenta);
 		
+		/**
+		 * Si se escoge la primer opción, venta de vehiculo por el precio final, 
+		 * se utiliza el método ventaPorDinero, en cascontrario se utiliza el
+		 * método cambioDeCarro, y al finalizar el método se acaba la funcionalidad.
+		 * Se informa al cliente que se generó su factura y se vuelve al 
+		 * menú principal.
+		 */
 		if (opcionVenta == 1) {
 			ventaPorDinero(cliente, vehiculo, vendedor, mecanicoVenta, precioFinal, productosMalos);
 			System.out.println("Se ha generado su factura y ha finalizado la venta de vehiculo. ¡Adios!");

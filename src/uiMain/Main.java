@@ -1,4 +1,8 @@
-// Alejandro Arias Orozco
+/*
+ Funcionalidad del módulo: contiene la clase Main, donde inicia la ejecución de la aplicación
+ Componentes del módulo: Main
+ Autores: Alejandro, Sara
+*/
 
 package uiMain;
 

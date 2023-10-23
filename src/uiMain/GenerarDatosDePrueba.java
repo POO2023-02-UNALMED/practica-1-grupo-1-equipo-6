@@ -1,3 +1,10 @@
+/*
+ Funcionalidad del módulo: contiene la implementación de generar datos de prueba, que es una funcionalidad que agrega
+ clases con datos generados al azar para probar la aplicación.
+ Componentes del módulo: GenerarDatosDePrueba
+ Autores: Alejandro, Sebastián
+*/
+
 package uiMain;
 
 import gestorAplicacion.parqueadero.Almacen;
@@ -10,6 +17,10 @@ import gestorAplicacion.vehiculos.*;
 
 import java.util.List;
 
+/**
+ * En esta clase se implementa la funcionalidad generar datos de prueba que sirve para agregar
+ * objetos a la base de datos generados al azar para probar la aplicación.
+ */
 public class GenerarDatosDePrueba extends Funcionalidad {
     @Override
     public void ejecutar() {

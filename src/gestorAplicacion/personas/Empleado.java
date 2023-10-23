@@ -39,7 +39,7 @@ public class Empleado extends Persona implements Serializable{
     	return Empleado.vehiculosVenta;
     }
     
-    public void agregarVehiculosVenta(Carro carroVenta) {
+    public static void agregarVehiculosVenta(Carro carroVenta) {
     	Empleado.vehiculosVenta.add(carroVenta);
     }
     public void setCargo(String cargo) {

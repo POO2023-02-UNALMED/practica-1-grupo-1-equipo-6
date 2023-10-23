@@ -5,7 +5,7 @@ import gestorAplicacion.parqueadero.TipoEstado;
 import gestorAplicacion.parqueadero.TipoProducto;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.personas.Empleado;
-import gestorAplicacion.vehiculos.MarcasCarro;
+import gestorAplicacion.vehiculos.*;
 
 import java.util.List;
 
@@ -239,6 +239,30 @@ public class GenerarDatosDePrueba extends Funcionalidad {
                 new Producto(TipoProducto.CADENA, 39744, MarcasCarro.MAZDA, TipoEstado.EXCELENTE_ESTADO),
                 new Producto(TipoProducto.ACELERADOR, 15261, MarcasCarro.CHEVROLET, TipoEstado.EXCELENTE_ESTADO)
         );
+        List<Carro> carrosVenta = List.of(
+                new Carro("ILQ380", null, MarcasCarro.TOYOTA, "Azul", "2023", TipoVehiculo.NORMAL, 5, false),
+                new Carro("EBU624", null, MarcasCarro.TOYOTA, "Negro", "2012", TipoVehiculo.NORMAL, 5, false),
+                new Carro("HMK074", null, MarcasCarro.CHEVROLET, "Negro", "2020", TipoVehiculo.AUTOMATICO, 5, false),
+                new Carro("AWE305", null, MarcasCarro.CHEVROLET, "Verde", "2018", TipoVehiculo.ALTOCC, 5, false)
+        );
+        List<Vehiculo> vehiculosClientes = List.of(
+                new Carro("LCX368", clientes.get(6), MarcasCarro.MAZDA, "Negro", "2020", TipoVehiculo.MECANICO, 5, clientes.get(6).isDiscapacitado()),
+                new Moto("LOR31V", clientes.get(4), MarcasCarro.KIA, "Azul", "2011", TipoVehiculo.AUTOMATICO, 174),
+                new Moto("YOQ05B", clientes.get(3), MarcasCarro.KIA, "Azul", "2016", TipoVehiculo.ALTOCC, 82),
+                new Carro("YCI195", clientes.get(3), MarcasCarro.CHEVROLET, "Azul", "2023", TipoVehiculo.AUTOMATICO, 5, clientes.get(3).isDiscapacitado()),
+                new Carro("ISZ049", clientes.get(3), MarcasCarro.MAZDA, "Verde", "2022", TipoVehiculo.AUTOMATICO, 5, clientes.get(3).isDiscapacitado()),
+                new Moto("TZL87N", clientes.get(0), MarcasCarro.MAZDA, "Azul", "2015", TipoVehiculo.AUTOMATICO, 109),
+                new Moto("LCI31H", clientes.get(5), MarcasCarro.TOYOTA, "Rojo", "2017", TipoVehiculo.NORMAL, 112),
+                new Carro("WOV536", clientes.get(7), MarcasCarro.KIA, "Gris", "2014", TipoVehiculo.MECANICO, 5, clientes.get(7).isDiscapacitado()),
+                new Carro("TAU635", clientes.get(4), MarcasCarro.RENAULT, "Gris", "2011", TipoVehiculo.AUTOMATICO, 5, clientes.get(4).isDiscapacitado()),
+                new Carro("RKX138", clientes.get(4), MarcasCarro.TOYOTA, "Azul", "2011", TipoVehiculo.MECANICO, 5, clientes.get(4).isDiscapacitado()),
+                new Carro("RSF358", clientes.get(2), MarcasCarro.KIA, "Verde", "2011", TipoVehiculo.AUTOMATICO, 5, clientes.get(2).isDiscapacitado()),
+                new Carro("VUJ819", clientes.get(6), MarcasCarro.RENAULT, "Rojo", "2020", TipoVehiculo.NORMAL, 5, clientes.get(6).isDiscapacitado()),
+                new Carro("BTV358", clientes.get(2), MarcasCarro.KIA, "Gris", "2021", TipoVehiculo.AUTOMATICO, 5, clientes.get(2).isDiscapacitado()),
+                new Moto("VLC37F", clientes.get(2), MarcasCarro.KIA, "Verde", "2019", TipoVehiculo.ALTOCC, 124),
+                new Carro("FPZ394", clientes.get(6), MarcasCarro.TOYOTA, "Gris", "2022", TipoVehiculo.AUTOMATICO, 5, clientes.get(6).isDiscapacitado()),
+                new Moto("VHD89N", clientes.get(5), MarcasCarro.KIA, "Azul", "2010", TipoVehiculo.AUTOMATICO, 99)
+        );
         for (Cliente cliente : clientes) {
             baseDatos.registrarCliente(cliente);
         }
@@ -247,6 +271,13 @@ public class GenerarDatosDePrueba extends Funcionalidad {
         }
         for (Producto producto : productos) {
             parqueadero.getAlmacen().agregarProducto(producto);
+        }
+        for (Carro carro : carrosVenta) {
+            Empleado.agregarVehiculosVenta(carro);
+        }
+        for (Vehiculo vehiculo : vehiculosClientes) {
+            baseDatos.registrarVehiculo(vehiculo);
+            vehiculo.getDueno().agregarVehiculo(vehiculo);
         }
     }
 }

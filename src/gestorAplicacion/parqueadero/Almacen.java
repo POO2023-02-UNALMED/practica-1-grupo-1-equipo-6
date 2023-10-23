@@ -49,7 +49,7 @@ public class Almacen implements Serializable {
 	}
 	
 	//metodo que se encarga de regresar el valor de un producto desde el inventario base
-	public double cotizarProducto(TipoProducto producto) {
+	public static double cotizarProducto(TipoProducto producto) {
 		double r = 0;
 		for (Producto p : Almacen.inventarioBase) {
 			if (p.getTipo().equals(producto)) {

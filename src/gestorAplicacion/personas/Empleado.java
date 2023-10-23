@@ -12,6 +12,7 @@ import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.parqueadero.TipoEstado;
 import gestorAplicacion.parqueadero.TipoProducto;
 import gestorAplicacion.vehiculos.*;
+import gestorAplicacion.parqueadero.Almacen;
 
 public class Empleado extends Persona implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -291,5 +292,30 @@ public class Empleado extends Persona implements Serializable{
   			}
     	}
 
+    }
+    
+    //Método que devuelve el precio de un carro en perfecto estado
+    public long precioMaximoCarro(MarcasCarro marca) {
+    	long precioTotal = 0;
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.MOTOR) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.TRANSMISION) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.ACELERADOR) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.FRENO) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.BATERIA) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.PEDAL) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.ACEITE) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.GASOLINA) * marca.getOrdenPrecio();
+    	precioTotal += Almacen.cotizarProducto(TipoProducto.LIQUIDOS) * marca.getOrdenPrecio();
+    	for (int i=0; i<=3; i++) {
+    		precioTotal += Almacen.cotizarProducto(TipoProducto.LLANTA) * marca.getOrdenPrecio();
+    	}
+    	for (int i=0; i<=3; i++) {
+    		precioTotal += Almacen.cotizarProducto(TipoProducto.RIN) * marca.getOrdenPrecio();
+    	}
+    	for (int i=0; i<=3; i++) {
+    		precioTotal += Almacen.cotizarProducto(TipoProducto.AMORTIGUADOR) * marca.getOrdenPrecio();
+    	}
+    	return precioTotal;
+    				
     }
 }

@@ -104,8 +104,8 @@ public class ComprarCarro extends Funcionalidad {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados para vender, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
-				String marca = vehiculoRegistrado.getMarca().toUpperCase();
-				if (vehiculoRegistrado != null && (marca=="TOYOTA" || marca=="RENAULT"|| marca=="CHEVROLET" || marca=="KIA" || marca== "MAZDA")) {
+				MarcasCarro marca = vehiculoRegistrado.getMarca();
+				if (vehiculoRegistrado != null && (marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT)|| marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
 					ingresarVehiculo(cliente, vehiculoRegistrado);
 				}
 				else if (vehiculoRegistrado != null){
@@ -117,13 +117,13 @@ public class ComprarCarro extends Funcionalidad {
 		}
 		// lista para obtener solo los carros
 		List<Vehiculo> carros = new ArrayList<>(cliente.getVehiculos().stream().filter(vehiculo -> vehiculo instanceof Carro).collect(Collectors.toList()));
-		List<Vehiculo> carrosMarcas = new ArrayList<>(carros.stream().filter(vehiculo -> (((Carro)vehiculo).getMarca()=="TOYOTA" || ((Carro)vehiculo).getMarca()=="RENAULT"|| ((Carro)vehiculo).getMarca()=="CHEVROLET" || ((Carro)vehiculo).getMarca()=="KIA" || ((Carro)vehiculo).getMarca()== "MAZDA")).collect(Collectors.toList()));
+		List<Vehiculo> carrosMarcas = new ArrayList<>(carros.stream().filter(vehiculo -> (((Carro)vehiculo).getMarca().equals(MarcasCarro.TOYOTA) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.RENAULT)|| ((Carro)vehiculo).getMarca().equals(MarcasCarro.CHEVROLET) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.KIA) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.MAZDA))).collect(Collectors.toList()));
 		if (carrosMarcas.size() == 0) {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados con las marcas aceptadas por el parqueadero para venta, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
-				String marca = vehiculoRegistrado.getMarca().toUpperCase();
-				if (vehiculoRegistrado != null && (marca=="TOYOTA" || marca=="RENAULT"|| marca=="CHEVROLET" || marca=="KIA" || marca== "MAZDA")) {
+				MarcasCarro marca = vehiculoRegistrado.getMarca();
+				if (vehiculoRegistrado != null && (marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT)|| marca.equals(MarcasCarro.CHEVROLET) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
 					ingresarVehiculo(cliente, vehiculoRegistrado);
 				}
 				else if (vehiculoRegistrado != null){
@@ -140,7 +140,7 @@ public class ComprarCarro extends Funcionalidad {
 		
 		//Se verifica si desea volver al menú principal, o si el vehiculo se encuentra enparqueadero
 		
-		if (opcionCarroVenta == carrosMarcas.size() - 1) { //si desea volver se retorna null
+		if (opcionCarroVenta == carrosMarcas.size()) { //si desea volver se retorna null
 			return null;
 		}
 		else { //cuando se escoge un vehiculo
@@ -161,7 +161,7 @@ public class ComprarCarro extends Funcionalidad {
 		}
 	}
 	
-	private long precioCarro(long precioMaximo) {
+	private long precioCarro(long precioMaximo) { //TODO: se podria revisar el tipo del parametro
 		long precioCliente = Consola.pedirLong("Escriba el precio por el que desea vender su vehículo");
 		if (precioCliente<0) {
 			System.out.println("Ese precio no es válido");
@@ -173,18 +173,18 @@ public class ComprarCarro extends Funcionalidad {
 			return precioCliente;
 		}
 		}
-	private long precioMaximo(Vehiculo vehiculo, Empleado vendedor) {
-		String marca = ((Carro)vehiculo).getMarca();
+	private long precioMaximo(Vehiculo vehiculo, Empleado vendedor) { //TODO:el atributo marca es un string, que pasa cuando este no hace match con ninguna marca del enum?
+		MarcasCarro marca = ((Carro)vehiculo).getMarca();
 		long precioMaximo = 0;
-		if (marca.toUpperCase() == "RENAULT") {
+		if (marca.equals(MarcasCarro.RENAULT)) {
 			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.RENAULT);
-		} else if (marca.toUpperCase() == "CHEVROLET") {
+		} else if (marca.equals(MarcasCarro.CHEVROLET)) {
 			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.CHEVROLET);
-		} else if (marca.toUpperCase() == "TOYOTA") {
+		} else if (marca.equals(MarcasCarro.TOYOTA)) {
 			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.TOYOTA);
-		} else if (marca.toUpperCase() == "KIA") {
+		} else if (marca.equals(MarcasCarro.KIA)) {
 			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.KIA);
-		}if (marca.toUpperCase() == "MAZDA") {
+		}if (marca.equals(MarcasCarro.MAZDA)) {
 			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.MAZDA);
 		}
 		return precioMaximo;
@@ -249,7 +249,7 @@ public class ComprarCarro extends Funcionalidad {
 			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
 			vehiculo.setDueno(null);
 			vendedor.agregarVehiculosVenta((Carro)vehiculo);
-			System.out.println("Se ha intercambiado el carro por el vehiculo escogido, su excedente es de "+excedente+" y será añadido a su cuenta.");
+			System.out.println("Se ha intercambiado el carro por el vehiculo escogido, su excedente es de "+excedente+" y será añadido a su Factura."); //problema con factura para guardar los valores de los servicios
 			cliente.getFactura().agregarServicio("Intercambio de carro", 1);
 		}
 		

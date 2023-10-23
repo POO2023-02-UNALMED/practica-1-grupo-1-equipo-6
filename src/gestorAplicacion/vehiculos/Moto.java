@@ -31,7 +31,7 @@ public class Moto extends Vehiculo implements Serializable {
 	private Producto[] rines; //array que contiene los rines del vehiculo
 	
 	
-	public Moto(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int cilindraje) {
+	public Moto(String placa, Cliente dueno, MarcasCarro marca, String color, String modelo, TipoVehiculo tipo, int cilindraje) {
 		super(placa, dueno, marca, color, modelo);
 		this.tipo = tipo;
 		this.cilindraje = cilindraje;

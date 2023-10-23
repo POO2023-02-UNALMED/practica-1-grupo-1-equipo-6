@@ -8,6 +8,7 @@ import gestorAplicacion.parqueadero.Parqueadero;
 import gestorAplicacion.parqueadero.Plaza;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Carro;
+import gestorAplicacion.vehiculos.MarcasCarro;
 import gestorAplicacion.vehiculos.Moto;
 import gestorAplicacion.vehiculos.TipoVehiculo;
 import gestorAplicacion.vehiculos.Vehiculo;
@@ -15,6 +16,7 @@ import gestorAplicacion.vehiculos.Vehiculo;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -114,7 +116,8 @@ public abstract class Funcionalidad {
 		// Pedir los datos al cliente del vehículo por registrar.
 		System.out.println("Registro de vehículo");
 		int tipoVehiculo = Consola.pedirEleccion("Elija el tipo de vehiculo", tiposVehiculo);
-		String marca = Consola.pedirString("Ingrese la marca del vehículo");
+		int marcaEscogida = Consola.pedirEleccion("Escoja la marca del vehículo", Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList());
+		MarcasCarro marca = MarcasCarro.values()[marcaEscogida];
 		String color = Consola.pedirString("Ingrese el color del vehículo");
 		String modelo = Consola.pedirString("Ingrese el modelo del vehículo");
 		boolean discapacitado = cliente.isDiscapacitado();

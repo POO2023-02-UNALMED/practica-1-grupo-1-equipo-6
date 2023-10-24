@@ -65,11 +65,13 @@ public class Persona implements Serializable, Identificable<Long> {
     	return this.direccion;
     }
 
+    // metodo sobre escrito que retorna una identificacion de tipo long
 	@Override
 	public Long getIdentificacion() {
 		return cedula;
 	}
 
+    // metodo sobre escrito que verifica si dos cedulas(identificacion de la persona) son iguales
 	@Override
 	public boolean tieneIdentificacion(Long cedula) {
 		return this.cedula == cedula;

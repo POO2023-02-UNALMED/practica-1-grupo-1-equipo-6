@@ -1,5 +1,6 @@
 /**
- * Funcionalidad del módulo: Contiene la clase Empleado que es una subclase de Persona, se utiliza para crear instancias de tipo Empleado
+ * Funcionalidad del módulo: Contiene la clase Empleado que es una subclase de Persona, se utiliza para crear instancias
+ * de tipo Empleado que van a interactuar en el parqueadero
  Componentes del módulo: Empleado
  Autores: Katherine, Sofia, Sebastian
  */
@@ -33,8 +34,7 @@ public class Empleado extends Persona implements Serializable{
     	serviciosRealizados = 0;
     }
     
-	//Metodos getters y setters
-    public void setVehiculosVenta(ArrayList<Carro> vehVenta) {
+	
 	//metodos getters y setters
     public static void setVehiculosVenta(ArrayList<Carro> vehVenta) {
     	Empleado.vehiculosVenta = vehVenta;
@@ -298,15 +298,10 @@ public class Empleado extends Persona implements Serializable{
 
     }
     
-<<<<<<< HEAD
-    //Metodo que devuelve el precio de un carro en perfecto estado
-    public long precioMaximoCarro(MarcasCarro marca) {
-    	long precioTotal = 0;
-=======
+
     //Método que devuelve el precio de un carro en perfecto estado
     public double precioMaximoCarro(MarcasCarro marca) {
     	double precioTotal = 0;
->>>>>>> d00d4262f7ce85623f0cc9dfa8084343ff314387
     	precioTotal += Almacen.cotizarProducto(TipoProducto.MOTOR) * marca.getOrdenPrecio();
     	precioTotal += Almacen.cotizarProducto(TipoProducto.TRANSMISION) * marca.getOrdenPrecio();
     	precioTotal += Almacen.cotizarProducto(TipoProducto.ACELERADOR) * marca.getOrdenPrecio();

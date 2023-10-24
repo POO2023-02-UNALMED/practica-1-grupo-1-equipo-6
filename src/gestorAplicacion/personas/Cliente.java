@@ -1,5 +1,9 @@
-// Sofía
-//sara  Isabel
+/**
+ * Funcionalidad del módulo: contiene la clase Cliente que hereda de Persona e implementa la interfaz
+ * serializable, esta sirve para instanciar clientes que van a interactuar con el parqueadero
+ Componentes del módulo: Cliente
+ Autores: Sofia, Sara
+ */
 
 package gestorAplicacion.personas;
 

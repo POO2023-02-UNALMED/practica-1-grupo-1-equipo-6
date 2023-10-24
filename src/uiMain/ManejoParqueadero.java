@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import gestorAplicacion.parqueadero.*;
+import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.personas.Empleado;
 import gestorAplicacion.vehiculos.TipoVehiculo;
 import gestorAplicacion.vehiculos.Carro;
@@ -83,6 +84,7 @@ public class ManejoParqueadero extends Funcionalidad {
 					"Agregar plazas",
 					"Contratar vendedor",
 					"Retirar vehículo",
+					"Ver información de un cliente",
 					"Regresar"
 			));
 
@@ -91,8 +93,9 @@ public class ManejoParqueadero extends Funcionalidad {
 				case 1 -> agregarPlazas();
 				case 2 -> agregarEmpleado("Vendedor");
 				case 3 -> retirarVehiculo();
+				case 4 -> informacionCliente();
 			}
-		} while (eleccion != 4);
+		} while (eleccion != 5);
 	}
 
 	/**
@@ -344,5 +347,28 @@ public class ManejoParqueadero extends Funcionalidad {
 		vehiculo.getDueno().setFactura(null);
 		parqueadero.retirarVehiculo(vehiculo.getPlaca());
 		System.out.println("Vehiculo retirado");
+	}
+
+	private void informacionCliente() {
+		System.out.println("Información del cliente");
+
+		long cedula = Consola.pedirLong("Ingrese la cédula del cliente");
+		Cliente cliente = baseDatos.buscarClienteRegistrado(cedula);
+		if (cliente == null) {
+			System.out.println("Cliente no encontrado");
+			return;
+		}
+
+		System.out.println("Nombre: " + cliente.getNombre());
+		System.out.println("Cédula: " + cliente.getCedula());
+		System.out.println("Correo: " + cliente.getCorreo());
+		System.out.println("Dirección: " + cliente.getDireccion());
+		System.out.println("Teléfono: " + cliente.getTelefono());
+
+		String discapacitado = "no";
+		if (cliente.isDiscapacitado()) {
+			discapacitado = "si";
+		}
+		System.out.println("En condición de discapacitado: " + discapacitado);
 	}
 }

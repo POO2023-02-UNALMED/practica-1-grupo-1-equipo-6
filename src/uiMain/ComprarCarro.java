@@ -193,7 +193,7 @@ public class ComprarCarro extends Funcionalidad {
 		}
 		// lista para obtener solo los carros
 		List<Vehiculo> carros = new ArrayList<>(cliente.getVehiculos().stream().filter(vehiculo -> vehiculo instanceof Carro).collect(Collectors.toList()));
-		List<Vehiculo> carrosMarcas = new ArrayList<>(carros.stream().filter(vehiculo -> (((Carro)vehiculo).getMarca().equals(MarcasCarro.TOYOTA.name()) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.RENAULT.name())|| ((Carro)vehiculo).getMarca().equals(MarcasCarro.CHEVROLET.name()) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.KIA.name()) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.MAZDA.name()))).collect(Collectors.toList()));
+		List<Vehiculo> carrosMarcas = new ArrayList<>(carros.stream().filter(vehiculo -> (vehiculo.getMarca().equals(MarcasCarro.TOYOTA.name()) || vehiculo.getMarca().equals(MarcasCarro.RENAULT.name())|| vehiculo.getMarca().equals(MarcasCarro.CHEVROLET.name()) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.KIA.name()) || vehiculo.getMarca().equals(MarcasCarro.MAZDA.name()))).collect(Collectors.toList()));
 		if (carrosMarcas.isEmpty()) {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados con las marcas aceptadas por el parqueadero para venta, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {

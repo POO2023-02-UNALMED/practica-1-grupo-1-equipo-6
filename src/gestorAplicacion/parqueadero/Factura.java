@@ -1,4 +1,8 @@
-//Sara, Sofía
+/**
+ * Funcionalidad del modulo: Este modulo contiene la clase Factura y su funcion es ofrecer facturacion a los clientes del parqueadero
+ * Componentes del modulo: Clase Factura
+ * Autores: Sara, Sofia
+ */
 
 package gestorAplicacion.parqueadero;
 
@@ -8,6 +12,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.time.*;
 
+/**
+ * Clase que representa una factura y se encarga de guardar la informacion de los servicios que ha tomado el cliente
+ */
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +42,7 @@ public class Factura implements Serializable {
 		cliente.setFactura(this);
 	}
 
+	//getters and setters
 	public int getNumeroFactura() {
 		return numeroFactura;
 	}
@@ -80,18 +88,27 @@ public class Factura implements Serializable {
 	public HashMap<String, Double> getServicios() {
 		return this.servicios;
 	}
-
-	//metodos para manipular el hashmap
-	//metodo que agrega productos comprados y el numero de estos productos
+	
+	/**
+	 * Metodo que agrega un producto comprado y su precio de compra a la factura del cliente, en caso de que este producto ya se encuentre en la factura se suman sus valores de
+	 * compra
+	 * @param producto
+	 * @param cantidad
+	 */
 	public void agregarProducto(Producto producto, double cantidad) {
 		this.servicios.put("Compra de " + cap(producto.getTipo().name()) + "s", this.servicios.getOrDefault(cap(producto.getTipo().name()), (double) 0) + cantidad);
 	}
 	
-	//metodo que agrega un servicio y su cantidad
+	/**
+	 * Metodo que agrega un servicio tomado a la factura del cliente, en caso de que este servicio ya se encuentre se suman sus valores
+	 * @param servicio
+	 * @param cantidad
+	 */
 	public void agregarServicio(String servicio, double cantidad) {
 		this.servicios.put(servicio, this.servicios.getOrDefault(servicio, (double) 0) + cantidad);
 	}
 	
+	@Override
 	public String toString() {
 		String s = "";
 		for (HashMap.Entry<String, Double> entry : this.servicios.entrySet()) {	
@@ -100,7 +117,12 @@ public class Factura implements Serializable {
 		return "Factura N°" + this.numeroFactura + "		" + this.fecha.toString() + "\nCliente: " + this.cliente.getNombre() +"\n"
 				+ "Servicios: \n" + s;
 	}
-	//metodo que se encarga de capitalizar una palabra jajaj, para usarlo en los metodos para el HashMap
+	
+	/**
+	 * Metodo que se encarga de capitalizar una palabra
+	 * @param palabra
+	 * @return palabra capitalizada
+	 */
 	private static String cap(String palabra) {
 		return Character.toUpperCase(palabra.charAt(0)) + palabra.substring(1).toLowerCase();
 	}

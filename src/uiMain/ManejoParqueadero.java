@@ -6,6 +6,10 @@
 
 package uiMain;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -343,6 +347,9 @@ public class ManejoParqueadero extends Funcionalidad {
 		}
 
 		Factura factura = vehiculo.getDueno().getFactura();
+		LocalTime horaSalida = LocalTime.now();
+		long horas = ChronoUnit.HOURS.between(factura.getHoraIngreso(), horaSalida);
+		factura.agregarServicio("Parqueadero", (double)horas);
 		System.out.println(factura);
 		vehiculo.getDueno().setFactura(null);
 		parqueadero.retirarVehiculo(vehiculo.getPlaca());

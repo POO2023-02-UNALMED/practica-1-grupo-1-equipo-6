@@ -1,5 +1,9 @@
-// Sebastián
-// Alejandro
+/**
+ * Funcionalidad del modulo: Este modulo contiene la clase Parqueadero y es el corazon del proyecto, en este modulo se encuentra contenido la estructura general
+ * proyecto y todas las instancias.
+ * Componentes del modulo: Clase Parqueadero.
+ * Autores: Sebastian, Alejandro.
+ */
 
 package gestorAplicacion.parqueadero;
 
@@ -79,7 +83,11 @@ public class Parqueadero implements Serializable {
 		this.almacen = almacen;
 	}
 
-	//metodo para ingresar un vehiculo al parqueadero(movido desde Plaza)
+	/**
+	 * Metodo para ingresar un vehiculo al parqueadero
+	 * @param vehi
+	 * @param plaza
+	 */
 	public void ingresarVehiculo(Vehiculo vehi, Plaza plaza) {
 		// si esta plaza ya tiene un vehiculo, entonces hacer null la plaza del mismo.
 		if (plaza.getVehiculo() != null) {
@@ -98,7 +106,11 @@ public class Parqueadero implements Serializable {
 		}
 	}
 	
-	//metodo que se encarga de retirar el vehiculo del parqueadero, es decir, de desasignar el vehiculo a la plaza donde se encuentra, se sobrecarga.
+	/**
+	 * Metodo que se encarga de retirar el vehiculo del parqueadero, es decir, de desasignar el vehiculo a la plaza donde se encuentra, se sobrecarga.
+	 *
+	 * @param numPlaza
+	 */
 	public void retirarVehiculo(int numPlaza) {
 		Plaza plaza = plazas.get(numPlaza-1);
 		plaza.getVehiculo().setPlaza(null);
@@ -106,6 +118,10 @@ public class Parqueadero implements Serializable {
 		plaza.setEstado("Disponible");
 	}
 	
+	/**
+	 * Metodo que se encarga de retirar un vehiculo del parqueadero
+	 * @param placa
+	 */
 	public void retirarVehiculo(String placa) {
 		for (Plaza plaza : this.getPlazas()) {
 			if (plaza.getVehiculo().getPlaca().equals(placa)) {
@@ -116,9 +132,13 @@ public class Parqueadero implements Serializable {
 		}
 	}
 
-	// retorna las plazas que hay disponibles (estado == "Disponible") que tienen las características
-	// del vehículo pasado como parámetro (tipo de vehículo: Carro, Moto, Moto altoCC) y que estén
-	// disponibles para el dueño (si la plaza es para discapacitados, el dueño debe estar registrado como tal).
+	/**
+	 * Retorna las plazas que hay disponibles (estado == "Disponible") que tienen las características
+	 * del vehículo pasado como parámetro (tipo de vehículo: Carro, Moto, Moto altoCC) y que estén
+	 * disponibles para el dueño (si la plaza es para discapacitados, el dueño debe estar registrado como tal).
+	 * @param vehiculo
+	 * @return List<Plaza>
+	 */
 	public List<Plaza> plazasDisponiblesPara(Vehiculo vehiculo) {
 		List<Plaza> plazasDisponibles = new ArrayList<>();
 		String tipo;

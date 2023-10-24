@@ -16,6 +16,7 @@ import gestorAplicacion.parqueadero.Producto;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.vehiculos.MarcasCarro;
+import gestorAplicacion.vehiculos.Vehiculo;
 import gestorAplicacion.personas.Empleado;
 
 
@@ -115,7 +116,7 @@ public class VenderCarro extends Funcionalidad {
 		 */
 
 		if (cliente.isDiscapacitado()){
-			filtroCarros= filtroCarros.stream().filter(carro -> carro.isDiscapacitado()).collect(Collectors.toList());
+			filtroCarros= filtroCarros.stream().filter(carro -> (carro.isDiscapacitado())).collect(Collectors.toList());
 		}
 
 		/**

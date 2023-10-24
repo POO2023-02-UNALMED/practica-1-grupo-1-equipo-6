@@ -160,33 +160,6 @@ public class Taller extends Funcionalidad {
 		return productosVendidos;
 	}	
 	
-	//metodo que emula la venta de un repuesto, como ya se sabe desde Taller que producto se debe comprar, 
-	//se procede directamente con la compra de este (no damos opcion de salir para asegurar que siempre se compre un producto)
-	private Producto ventaRespuesto(Cliente cliente, TipoProducto tipoProducto) { //TODO: este metodo al parecer es innecesario
-		// almacen
-		Almacen almacen = parqueadero.getAlmacen();
-		System.out.println("Bienvenido al almacen");
-		
-		//lista de todos los vendedores del parqueadero
-		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
-		//lista con los nombres de los vendedores
-		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
-		
-		
-		// se pide escoger un vendedor
-		int vendedorEleccion = Consola.pedirEleccion("Seleccione su vendedor de preferencia", nombresVendedores);
-		Empleado vendedor = vendedores.get(vendedorEleccion);
-		
-		// se verifica si hay instancias del producto en el inventario 
-		if (almacen.existeProducto(tipoProducto)) { // si si hay se procede a conseguir este producto, a actualizar informaciones y a retornarlo
-			Producto producto = almacen.conseguirProducto(tipoProducto);
-			cliente.getFactura().agregarProducto(producto, 1);
-			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
-			return producto;
-		}
-		return null; //si no hay se retorna null
-	}
-	
 	//metodo para revisar el vehiculo y arreglar todos los componentes dañados
 	private void revisionGeneral(Vehiculo vehiculo, Empleado mecanico) {
 

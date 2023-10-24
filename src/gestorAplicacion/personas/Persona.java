@@ -70,7 +70,6 @@ public class Persona implements Serializable, Identificable<Long> {
 	public Long getIdentificacion() {
 		return cedula;
 	}
-
     // metodo sobre escrito que verifica si dos cedulas(identificacion de la persona) son iguales
 	@Override
 	public boolean tieneIdentificacion(Long cedula) {

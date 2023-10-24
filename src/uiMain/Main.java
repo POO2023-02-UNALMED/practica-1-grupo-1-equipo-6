@@ -20,6 +20,7 @@ public class Main {
 	public static void main(String[] args) {
 		// leer los datos del archivo src/baseDatos/temp/datos.txt y cargarlos en memoria
 		try {
+			
 			leerDatos();
 		} catch (BaseDatosException e) {
 			Consola.imprimirError(e);

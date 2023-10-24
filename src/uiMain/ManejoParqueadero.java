@@ -36,6 +36,8 @@ public class ManejoParqueadero extends Funcionalidad {
 			System.out.println("Cédula de administrador incorrecta");
 			return;
 		}
+		
+		System.out.println("Bienvenido " + parqueadero.getAdministrador().getNombre());
 
 		int eleccion;
 		do {

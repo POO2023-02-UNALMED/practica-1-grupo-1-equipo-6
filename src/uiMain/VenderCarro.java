@@ -156,14 +156,13 @@ public class VenderCarro extends Funcionalidad {
 		 * Se elige un empleado de tipo mecanico aleatorio que haga revision del vehiculo
 		 */
 		Empleado mecanico= mecanicoRandom();
-		List<String> revision= mecanico.revisarVehiculo(carro);
+		List<Producto> revision= mecanico.revisarVehiculo(carro);
 		
 
 		/**
 		 * Luego de que el mecanico termine la revision se le agregara un servicio al contador de
 		 * los servicios realizados del empleado
 		 */
-		List<Producto> revision= mecanico.revisarVehiculo(carro);
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados()+1);
 
 

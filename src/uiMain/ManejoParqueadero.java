@@ -376,5 +376,10 @@ public class ManejoParqueadero extends Funcionalidad {
 			discapacitado = "si";
 		}
 		System.out.println("En condición de discapacitado: " + discapacitado);
+		
+		if (cliente.getFactura() != null) {
+			System.out.println("Se ha ganerado la siguiente factura para el cliente:");
+			System.out.println(cliente.getFactura());
+		}
 	}
 }

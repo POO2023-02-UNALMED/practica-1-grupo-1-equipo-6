@@ -296,7 +296,7 @@ public class ManejoParqueadero extends Funcionalidad {
 			default -> TipoEstado.MAL_ESTADO; // case 2
 		};
 
-		Producto producto = new Producto(tipo, precio, marca.name(), estado);
+		Producto producto = new Producto(tipo, precio, estado);
 
 		almacen.agregarProducto(producto);
 

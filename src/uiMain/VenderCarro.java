@@ -95,7 +95,7 @@ public class VenderCarro extends Funcionalidad {
 		if (eleccionBusqueda==0){
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
-			MarcasCarro atributo= MarcasCarro.valueOf(marcas.get(eleccionMarca));
+			String atributo= marcas.get(eleccionMarca);
 			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> atributo.equals(carro.getMarca())).collect(Collectors.toList()));
 		}
 
@@ -187,7 +187,7 @@ public class VenderCarro extends Funcionalidad {
 			 */
 			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca()), carro.getPrecioVenta());
 			cliente.getVehiculos().add(carro);
-			
+			carro.setDueno(cliente);			
 			/**
 			 * Luego de que el vendedor termine la prueba se le agregara un servicio al contador de
 		 * los servicios realizados del empleado

@@ -277,7 +277,7 @@ public class Empleado extends Persona implements Serializable{
  					i = 0; return;
  				}
  				i++;
- 			}
+ 			} i = 0;
     		 
     		for (Producto llanta : ((Moto) vehiculo).getLlantas()) {
   				if (llanta.equals(productoViejo)) {
@@ -285,7 +285,7 @@ public class Empleado extends Persona implements Serializable{
   					i = 0; return;
   				}
   				i++;
-  			}
+  			} i = 0;
     		 
     		for (Producto rin : ((Moto) vehiculo).getRines()) {
   				if (rin.equals(productoViejo)) {

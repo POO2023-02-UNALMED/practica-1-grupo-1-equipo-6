@@ -177,7 +177,8 @@ public class ComprarCarro extends Funcionalidad {
 					System.out.println("La marca seleccionada no es válida para venta de carro");
 				}
 			} else {
-					return null;
+				System.out.println("Ha decidido no registrar su vehiculo");	
+				return null;
 			}
 		}
 		// lista para obtener solo los carros

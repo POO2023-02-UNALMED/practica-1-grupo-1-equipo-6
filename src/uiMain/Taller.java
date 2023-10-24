@@ -224,6 +224,7 @@ public class Taller extends Funcionalidad {
 		//añadir el servicio a la factura del cliente
 		vehiculo.getDueno().getFactura().agregarServicio("Revision general", 1);
 		System.out.println("*Sonidos de mecanico*");
+		System.out.println("Se le asignaron los valores del servicio a su factura");
 		System.out.println("Listo, como nuevo :)");
 	}
 	
@@ -247,22 +248,23 @@ public class Taller extends Funcionalidad {
 					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
 					return;
 				}
-			}
+			} else {
 			
-			// para moto
-			String[] posiciones = {"Delantera", "Trasera"};
-			
-			int llanta = Consola.pedirEleccion("Que llanta desea cambiar", Arrays.asList(posiciones));
-			Producto llantaV = ((Moto) vehiculo).getLlantas()[llanta];
-			
-			if (almacen.existeProducto(TipoProducto.LLANTA)) {
-				Producto llantaN = almacen.conseguirProducto(TipoProducto.LLANTA);
-				vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta", 1);
-				mecanico.cambiar(llantaV, llantaN, vehiculo);
-				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
-				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
-				return;
-			}
+				// para moto
+				String[] posiciones = {"Delantera", "Trasera"};
+				
+				int llanta = Consola.pedirEleccion("Que llanta desea cambiar", Arrays.asList(posiciones));
+				Producto llantaV = ((Moto) vehiculo).getLlantas()[llanta];
+				
+				if (almacen.existeProducto(TipoProducto.LLANTA)) {
+					Producto llantaN = almacen.conseguirProducto(TipoProducto.LLANTA);
+					vehiculo.getDueno().getFactura().agregarProducto(llantaN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de llanta", 1);
+					mecanico.cambiar(llantaV, llantaN, vehiculo);
+					mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
+					return;
+				}
+			 }
 		}
 		
 		//para rines
@@ -282,22 +284,23 @@ public class Taller extends Funcionalidad {
 					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
 					return;
 				}
-			}
+			} else {
 			
-			// para moto
-			String[] posiciones = {"Delantero", "Trasero"};
-			
-			int rin = Consola.pedirEleccion("Que rin desea cambiar", Arrays.asList(posiciones));
-			Producto rinV = ((Moto) vehiculo).getRines()[rin];
-			
-			if (almacen.existeProducto(TipoProducto.RIN)) {
-				Producto rinN = almacen.conseguirProducto(TipoProducto.RIN);
-				vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin", 1);
-				mecanico.cambiar(rinV, rinN, vehiculo);
-				mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
-				System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
-				return;
-			}
+				// para moto
+				String[] posiciones = {"Delantero", "Trasero"};
+				
+				int rin = Consola.pedirEleccion("Que rin desea cambiar", Arrays.asList(posiciones));
+				Producto rinV = ((Moto) vehiculo).getRines()[rin];
+				
+				if (almacen.existeProducto(TipoProducto.RIN)) {
+					Producto rinN = almacen.conseguirProducto(TipoProducto.RIN);
+					vehiculo.getDueno().getFactura().agregarProducto(rinN, 1); vehiculo.getDueno().getFactura().agregarServicio("Cambio de rin", 1);
+					mecanico.cambiar(rinV, rinN, vehiculo);
+					mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+					System.out.println("*Sonidos de mecanico*\nListo, como nuevo :)");
+					return;
+				}
+			 }
 		}
 		
 		// para amortiguadores

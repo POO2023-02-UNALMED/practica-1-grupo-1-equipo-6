@@ -165,7 +165,7 @@ public class Carro extends Vehiculo implements Serializable {
 	@Override
 	public String toString() {
 		if (this.precioVenta != 0) { // para los carros para venta se imprime su valor
-			return String.format("%s %s %s%n%s %d puestos%nPrecio: %d", cap(this.getMarca()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos(), this.getPrecioVenta());
+			return String.format("%s %s %s%n%s %d puestos%nPrecio: %d", cap(this.getMarca()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos(), Math.round(this.getPrecioVenta()));
 		}
 		return String.format("%s %s %s%n%s %d puestos%n", cap(this.getMarca()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos());
 

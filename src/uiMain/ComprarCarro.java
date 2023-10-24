@@ -128,7 +128,7 @@ public class ComprarCarro extends Funcionalidad {
 		 * la funcionalidad.
 		 */
 		List<String> opcionesVenta = new ArrayList<>();
-		opcionesVenta.add("Vender el vehiculo por " + precioFinal);
+		opcionesVenta.add("Vender el vehiculo por " + Math.round(precioFinal));
 		opcionesVenta.add("Intercambiar su carro por uno disponible para la venta en el rango de precio.");
 		int opcionVenta = Consola.pedirEleccion("Su carro ha sido revisado en el taller, y podrá escoger entre las siguientes ofertas: ", opcionesVenta);
 		
@@ -139,7 +139,7 @@ public class ComprarCarro extends Funcionalidad {
 		 * Se informa al cliente que se generó su factura y se vuelve al 
 		 * menú principal.
 		 */
-		if (opcionVenta == 1) {
+		if (opcionVenta == 0) {
 			ventaPorDinero(cliente, vehiculo, vendedor, mecanicoVenta, precioFinal, productosMalos);
 			System.out.println("Se ha generado su factura y ha finalizado la venta de vehiculo. ¡Adios!");
 			return;
@@ -162,7 +162,7 @@ public class ComprarCarro extends Funcionalidad {
 	 */
 	
 	private Vehiculo escogerVehiculo(Cliente cliente) {
-		if (cliente.getVehiculos().size() == 0) {
+		if (cliente.getVehiculos().isEmpty()) {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados para vender, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
@@ -170,7 +170,7 @@ public class ComprarCarro extends Funcionalidad {
 					return null;
 				}
 				MarcasCarro marca = MarcasCarro.valueOf(vehiculoRegistrado.getMarca());
-				if ((marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT)|| marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
+				if ((marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
 					ingresarVehiculo(cliente, vehiculoRegistrado);
 				}
 				else if (vehiculoRegistrado != null){
@@ -183,8 +183,8 @@ public class ComprarCarro extends Funcionalidad {
 		}
 		// lista para obtener solo los carros
 		List<Vehiculo> carros = new ArrayList<>(cliente.getVehiculos().stream().filter(vehiculo -> vehiculo instanceof Carro).collect(Collectors.toList()));
-		List<Vehiculo> carrosMarcas = new ArrayList<>(carros.stream().filter(vehiculo -> (((Carro)vehiculo).getMarca().equals(MarcasCarro.TOYOTA) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.RENAULT)|| ((Carro)vehiculo).getMarca().equals(MarcasCarro.CHEVROLET) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.KIA) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.MAZDA))).collect(Collectors.toList()));
-		if (carrosMarcas.size() == 0) {
+		List<Vehiculo> carrosMarcas = new ArrayList<>(carros.stream().filter(vehiculo -> (((Carro)vehiculo).getMarca().equals(MarcasCarro.TOYOTA.name()) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.RENAULT.name())|| ((Carro)vehiculo).getMarca().equals(MarcasCarro.CHEVROLET.name()) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.KIA.name()) || ((Carro)vehiculo).getMarca().equals(MarcasCarro.MAZDA.name()))).collect(Collectors.toList()));
+		if (carrosMarcas.isEmpty()) {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados con las marcas aceptadas por el parqueadero para venta, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
@@ -202,7 +202,7 @@ public class ComprarCarro extends Funcionalidad {
 		List<String> placasCarros = new ArrayList<>(carrosMarcas.stream().map(Vehiculo::getPlaca).toList());
 		placasCarros.add("Volver al menú principal");
 		
-		int opcionCarroVenta = Consola.pedirEleccion("Escoja el vehículo que desea vender ", placasCarros);
+		int opcionCarroVenta = Consola.pedirEleccion("Escoja el carro que desea vender ", placasCarros);
 		
 		//Se verifica si desea volver al menú principal, o si el vehiculo se encuentra enparqueadero
 		

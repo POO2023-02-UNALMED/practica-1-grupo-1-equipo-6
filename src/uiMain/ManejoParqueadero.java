@@ -281,7 +281,6 @@ public class ManejoParqueadero extends Funcionalidad {
 			default -> TipoProducto.AMORTIGUADOR; // case 13
 		};
 
-		double precio = Consola.pedirDouble("Ingrese el precio del producto");
 		int marcaEscogida = Consola.pedirEleccion("Escoja la marca: ", Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList());
 		MarcasCarro marca = MarcasCarro.values()[marcaEscogida];
 		int tipoEstadoIdx = Consola.pedirEleccion("Elija el estado del producto", List.of(
@@ -296,7 +295,7 @@ public class ManejoParqueadero extends Funcionalidad {
 			default -> TipoEstado.MAL_ESTADO; // case 2
 		};
 
-		Producto producto = new Producto(tipo, precio, estado);
+		Producto producto = new Producto(tipo, estado);
 
 		almacen.agregarProducto(producto);
 

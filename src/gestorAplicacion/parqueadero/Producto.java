@@ -15,15 +15,14 @@ public class Producto implements Serializable {
 	private String marca;
 	
 	//sobrecargar el constructor para tener uno para productos de venta y otro para los productos que contienen los vehiculos
-	public Producto(TipoProducto tipo, double precio, TipoEstado estado) {
+	public Producto(TipoProducto tipo, TipoEstado estado) {
 		this.tipo = tipo;
-		this.precio = precio;
 		this.marca = null;
 		this.estado = estado;
 	}
 	//constructor para los vehiculos
 	public Producto(TipoProducto tipo, String marca, TipoEstado estado) {
-		this(tipo, (double) 0, estado);
+		this(tipo, estado);
 		this.marca = marca;
 	}
 	

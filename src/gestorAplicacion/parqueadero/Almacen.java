@@ -8,6 +8,7 @@ package gestorAplicacion.parqueadero;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,8 +18,12 @@ public class Almacen implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int capacidadMaxima;
-	private static List<Producto> inventarioBase = new ArrayList<Producto>(); // lista con todos los tipos de productos, se comparte entre todos los objetos
+	private static HashMap<TipoProducto, Double> inventarioBase = new HashMap<>(); // lista con todos los tipos de productos, se comparte entre todos los objetos
 	private List<Producto> inventario = new ArrayList<Producto>(); // lista con los productos alojados en cada almacen
+	
+	static {
+		Almacen.inicializarInventarioBase();
+	}
 	
 	public Almacen(int capMax) {
 		this.capacidadMaxima = capMax;
@@ -30,10 +35,10 @@ public class Almacen implements Serializable {
 	public int getCapacidadMaxima() {
 		return this.capacidadMaxima;
 	}
-	public static void setInventarioBase(List<Producto> inventarioBase) {
+	public static void setInventarioBase(HashMap<TipoProducto, Double> inventarioBase) {
 		Almacen.inventarioBase = inventarioBase;
 	}
-	public static List<Producto> getInventarioBase() {
+	public static HashMap<TipoProducto, Double> getInventarioBase() {
 		return Almacen.inventarioBase;
 	}
 	public void setInventario(List<Producto> inventario) {
@@ -47,7 +52,11 @@ public class Almacen implements Serializable {
 		this.inventario.add(producto);
 	}
 	
-	//metodo que retorna la primer ocurrencia de un producto que sea del tipo del parametro pasado y lo elimina del inventario
+	/**
+	 * 
+	 * @param tipoProducto
+	 * @return
+	 */
 	public Producto conseguirProducto(TipoProducto tipoProducto) {
 		for (Producto producto : this.inventario) {
 			if (producto.getTipo().equals(tipoProducto)) {
@@ -61,12 +70,7 @@ public class Almacen implements Serializable {
 	//metodo que se encarga de regresar el valor de un producto desde el inventario base
 	public static double cotizarProducto(TipoProducto producto) {
 		double r = 0;
-		for (Producto p : Almacen.getInventarioBase()) {
-			if (p.getTipo().equals(producto)) {
-				r = p.getPrecio();
-				break;
-			}
-		}
+		r = Almacen.inventarioBase.get(producto);
 		return r;
 	}
 	
@@ -78,6 +82,23 @@ public class Almacen implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	private static void inicializarInventarioBase() {
+		Almacen.inventarioBase.put(TipoProducto.TRANSMISION, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.AMORTIGUADOR, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.LLANTA, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.BATERIA, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.ACELERADOR, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.RIN, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.PEDAL, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.ACEITE, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.CADENA, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.GASOLINA, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.MOTOR, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.FRENO, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.PEDALES, 400000.0);
+		Almacen.inventarioBase.put(TipoProducto.LIQUIDOS, 400000.0);
 	}
 
 }

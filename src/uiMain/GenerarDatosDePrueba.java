@@ -257,13 +257,13 @@ public class GenerarDatosDePrueba extends Funcionalidad {
         );
         List<Carro> carrosVenta = List.of(
                 new Carro("ILQ380", null, MarcasCarro.KIA.name(), "Azul", "2023", TipoVehiculo.MECANICO, 5, true, 20000000),
-                new Carro("EBU624", null, MarcasCarro.TOYOTA.name(), "Rojo", "2012", TipoVehiculo.MECANICO, 5, false, 30000000),
-                new Carro("HMK074", null, MarcasCarro.CHEVROLET.name(), "Negro", "2010", TipoVehiculo.AUTOMATICO, 5, false, 25000000),
-                new Carro("ILQ380", null, MarcasCarro.KIA.name(), "Azul", "2003", TipoVehiculo.MECANICO, 5, true, 50000000),
-                new Carro("JVV624", null, MarcasCarro.RENAULT.name(), "Amarillo", "2012", TipoVehiculo.MECANICO, 5, false, 33000000),
+                new Carro("EBU624", null, MarcasCarro.TOYOTA.name(), "Rojo", "2012", TipoVehiculo.MECANICO, 5, true, 30000000),
+                new Carro("HMK074", null, MarcasCarro.CHEVROLET.name(), "Negro", "2010", TipoVehiculo.AUTOMATICO, 5, true, 25000000),
+                new Carro("ILQ380", null, MarcasCarro.KIA.name(), "Azul", "2003", TipoVehiculo.MECANICO, 5, false, 50000000),
+                new Carro("JVV624", null, MarcasCarro.RENAULT.name(), "Amarillo", "2012", TipoVehiculo.MECANICO, 5, true, 33000000),
                 new Carro("AGDK074", null, MarcasCarro.RENAULT.name(), "Gris", "2020", TipoVehiculo.AUTOMATICO, 5, false, 45000000),
                 new Carro("BVC480", null, MarcasCarro.KIA.name(), "Azul", "2023", TipoVehiculo.MECANICO, 5, true, 60000000),
-                new Carro("EVU724", null, MarcasCarro.MAZDA.name(), "Negro", "2022", TipoVehiculo.MECANICO, 5, false, 70000000),
+                new Carro("EVU724", null, MarcasCarro.MAZDA.name(), "Negro", "2022", TipoVehiculo.MECANICO, 5, true, 70000000),
                 new Carro("HAK054", null, MarcasCarro.CHEVROLET.name(), "Negro", "2020", TipoVehiculo.AUTOMATICO, 5, false, 65000000),
                 new Carro("AQE335", null, MarcasCarro.MAZDA.name(), "Verde", "2018", TipoVehiculo.MECANICO, 5, false, 70000000)
         );

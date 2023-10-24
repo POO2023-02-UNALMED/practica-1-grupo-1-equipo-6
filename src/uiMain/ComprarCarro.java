@@ -286,15 +286,15 @@ public class ComprarCarro extends Funcionalidad {
 		MarcasCarro marca = MarcasCarro.valueOf(((Carro)vehiculo).getMarca());
 		double precioMaximo = 0;
 		if (marca.equals(MarcasCarro.RENAULT)) {
-			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.RENAULT);
+			precioMaximo = MarcasCarro.RENAULT.getPrecioMaximo();
 		} else if (marca.equals(MarcasCarro.CHEVROLET)) {
-			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.CHEVROLET);
+			precioMaximo = MarcasCarro.RENAULT.getPrecioMaximo();
 		} else if (marca.equals(MarcasCarro.TOYOTA)) {
-			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.TOYOTA);
+			precioMaximo = MarcasCarro.RENAULT.getPrecioMaximo();
 		} else if (marca.equals(MarcasCarro.KIA)) {
-			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.KIA);
-		}if (marca.equals(MarcasCarro.MAZDA)) {
-			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.MAZDA);
+			precioMaximo = MarcasCarro.RENAULT.getPrecioMaximo();
+		} else if (marca.equals(MarcasCarro.MAZDA)) {
+			precioMaximo = MarcasCarro.RENAULT.getPrecioMaximo();
 		}
 		return precioMaximo;
 	}
@@ -351,8 +351,7 @@ public class ComprarCarro extends Funcionalidad {
 		/** añadimos el carro a la lista de carros disponibles para la venta 
 		 y cambiamos el dueño de carro por el parqueadero*/
 		
-		// para finalmente generar la factura 
-		cliente.getFactura().agregarServicio("Venta de carro", 1);
+		// para finalmente generar la factura
 		
 		vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
 		//al vendedor tambien le agregamos cada uno de los servicios realizados
@@ -414,7 +413,6 @@ public class ComprarCarro extends Funcionalidad {
 			vehiculo.setDueno(null);
 			Empleado.agregarVehiculosVenta((Carro)vehiculo);
 			System.out.println("Se ha intercambiado el carro por el vehiculo escogido, su excedente es de "+excedente+" y será añadido a su Factura."); //problema con factura para guardar los valores de los servicios
-			cliente.getFactura().agregarServicio("Intercambio de carro", 1);
 		}
 		
 	}

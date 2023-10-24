@@ -7,14 +7,14 @@
 package gestorAplicacion.vehiculos;
 
 public enum MarcasCarro {
-	TOYOTA(5), MAZDA(4), CHEVROLET(3), KIA(2), RENAULT(1);
+	TOYOTA(50000000.0), MAZDA(50000000.0), CHEVROLET(50000000.0), KIA(50000000.0), RENAULT(50000000.0);
 	
-	private int ordenPrecio;
-	private MarcasCarro(int ordenPrecio) {
-		this.ordenPrecio = ordenPrecio;
+	private double precioMaximo;
+	private MarcasCarro(double precioMaximo) {
+		this.precioMaximo = precioMaximo;
 	}
 	
-	public int getOrdenPrecio() {
-		return this.ordenPrecio;
+	public double getPrecioMaximo() {
+		return this.precioMaximo;
 	}
 }

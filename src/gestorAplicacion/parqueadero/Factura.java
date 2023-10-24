@@ -20,6 +20,11 @@ public class Factura implements Serializable {
 	private static int facturasCreadas; //atributo que lleva el conteo de facturas creadas, para asginar numeroFactura en las instancias
 	private static HashMap<String, Double> valorServicios = new HashMap<>(); // hashmap que contiene los servicios y su costo
 	
+	static {
+		Factura.valorServicios.put("Revision general", 100000.0);
+		Factura.valorServicios.put("Cambio repuesto", 50000.0);
+	}
+	
 	public Factura(Cliente cliente) {
 		this.numeroFactura = ++Factura.facturasCreadas;
 		this.fecha = LocalDate.now();

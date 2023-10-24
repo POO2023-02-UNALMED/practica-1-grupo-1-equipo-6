@@ -252,10 +252,10 @@ public class GenerarDatosDePrueba extends Funcionalidad {
                 new Producto(TipoProducto.ACELERADOR, 15261, MarcasCarro.CHEVROLET.name(), TipoEstado.EXCELENTE_ESTADO)
         );
         List<Carro> carrosVenta = List.of(
-                new Carro("ILQ380", null, MarcasCarro.KIA.name(), "Azul", "2023", TipoVehiculo.MECANICO, 5, true, 20000000L),
-                new Carro("EBU624", null, MarcasCarro.TOYOTA.name(), "Negro", "2012", TipoVehiculo.MECANICO, 5, false, 30000000L),
-                new Carro("HMK074", null, MarcasCarro.CHEVROLET.name(), "Negro", "2020", TipoVehiculo.AUTOMATICO, 5, false, 25000000L),
-                new Carro("AWE305", null, MarcasCarro.MAZDA.name(), "Verde", "2018", TipoVehiculo.MECANICO, 5, false, 40000000L)
+                new Carro("ILQ380", null, MarcasCarro.KIA.name(), "Azul", "2023", TipoVehiculo.MECANICO, 5, true, 20000000),
+                new Carro("EBU624", null, MarcasCarro.TOYOTA.name(), "Negro", "2012", TipoVehiculo.MECANICO, 5, false, 30000000),
+                new Carro("HMK074", null, MarcasCarro.CHEVROLET.name(), "Negro", "2020", TipoVehiculo.AUTOMATICO, 5, false, 25000000),
+                new Carro("AWE305", null, MarcasCarro.MAZDA.name(), "Verde", "2018", TipoVehiculo.MECANICO, 5, false, 40000000)
         );
         List<Vehiculo> vehiculosClientes = List.of(
                 new Carro("LCX368", clientes.get(6), MarcasCarro.MAZDA.name(), "Negro", "2020", TipoVehiculo.MECANICO, 5, clientes.get(6).isDiscapacitado()),

@@ -297,30 +297,4 @@ public class Empleado extends Persona implements Serializable{
     	}
 
     }
-      
-    
-    //Método que devuelve el precio de un carro en perfecto estado
-    public double precioMaximoCarro(MarcasCarro marca) {
-    	double precioTotal = 0;
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.MOTOR) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.TRANSMISION) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.ACELERADOR) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.FRENO) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.BATERIA) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.PEDAL) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.ACEITE) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.GASOLINA) * marca.getOrdenPrecio();
-    	precioTotal += Almacen.cotizarProducto(TipoProducto.LIQUIDOS) * marca.getOrdenPrecio();
-    	for (int i=0; i<=3; i++) {
-    		precioTotal += Almacen.cotizarProducto(TipoProducto.LLANTA) * marca.getOrdenPrecio();
-    	}
-    	for (int i=0; i<=3; i++) {
-    		precioTotal += Almacen.cotizarProducto(TipoProducto.RIN) * marca.getOrdenPrecio();
-    	}
-    	for (int i=0; i<=3; i++) {
-    		precioTotal += Almacen.cotizarProducto(TipoProducto.AMORTIGUADOR) * marca.getOrdenPrecio();
-    	}
-    	return precioTotal;
-    				
-    }
 }

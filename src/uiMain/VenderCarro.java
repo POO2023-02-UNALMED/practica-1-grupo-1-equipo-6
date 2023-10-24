@@ -1,3 +1,10 @@
+/**
+ * * Funcionalidad del módulo: Contiene la clase venderCarro que se encarga de vender un carro desde la vista
+ * del administrador, pero que al momento de ejecutar la funcionalidad por el usuario este tendrá la vista de comprar un carro
+ Componentes del módulo: VenderCarro
+ Autores: Katherine, Sebastian
+ */
+
 package uiMain;
 
 import java.util.ArrayList;
@@ -12,47 +19,58 @@ import gestorAplicacion.vehiculos.MarcasCarro;
 import gestorAplicacion.personas.Empleado;
 
 
-/**
- * FUNCIONALIDAD VENDER CARRO
- * Esta funcionalidad desde la vista del administrador vende un carro desde la clase venderCarro, desde la vista de un cliente se estaría realizando una compra.
- * 
- * 
- */
-
 public class VenderCarro extends Funcionalidad {
 
 	@Override
 	public void ejecutar() {
 		System.out.println("Comprar carro");
 		
-		//Se le pide al cliente ingresar la cedula
+		/**
+		 *Se le pide al cliente ingresar la cedula
+		 */ 
 		long cedula= Consola.pedirLong("Ingrese cédula");
 
-		//Si el cliente no está registrado se le da la opcion de registrarse o no
+		/**
+		 * Si el cliente no está registrado se le da la opcion de registrarse o no registrarse.
+		 * Si elige no entonces se devuelve al menu principal
+		 */
 		Cliente cliente= buscarORegistrarCliente(cedula);
 		if (cliente==null){
 			return;
 		}
 		
-		//Se le pide al cliente escoger de los vendedores disponibles 
+		/**
+		 * Luego de que el usuario se registra se le pide al cliente escoger
+		 * de los vendedores disponibles 
+		 */
 		List<Empleado> vendedores = new ArrayList<>(parqueadero.getEmpleados().stream().filter(empleado -> "Vendedor".equals(empleado.getCargo())).collect(Collectors.toList()));
-		//lista con  los nombres de los vendedores
 		List<String> nombresVendedores = new ArrayList<>(vendedores.stream().map(Empleado::getNombre).toList());
 		
-
-		//Si la lista no tiene vendedores entonces se imprime un mensaje y se vuelve al menú principal
+		/**
+		 * En caso de que la lista no tuviera vendedores entonces se imprime un mensaje y se vuelve al menú principal
+		 */
 		if (nombresVendedores.isEmpty()){
 			System.out.println("No hay vendedores disponibles en el momento, intente más tarde.");
 			return;
 		}
 
-		//En caso de que la lista si tenga empleados disponibles entonces se le pide al usuario escoger uno
+		/**
+		 * En caso de que la lista si tenga empleados disponibles entonces se le pide al usuario escoger uno
+		 */
 		int escogerVendedor = Consola.pedirEleccion("Escoja el vendedor de su preferencia", nombresVendedores);
 		Empleado vendedor = vendedores.get(escogerVendedor);
 		
 		System.out.printf("Hola, mi nombre es %s y voy a atenderlo.%n", vendedor.getNombre());
 		
-		//Aquí se usa un método de consola para pedirle opciones al usuario para realizar un filtro de busqueda de carros
+
+
+		/**
+		 * Creamos un metodo que va a filtrar la busqueda de los carros para vender, esto para facilitar al cliente
+		 * la lista de opciones de carros de su preferencia. Empezaremos entonces pidiendo por consola un entero que será
+		 * equivalente a la opcion elegida por el usuario. Las opciones de busqueda que estarán disponible serán busqueda por
+		 * marca, color, precio maximo y en caso de que el cliente sea discapacitado entonces se le dará una lista de
+		 * carros que estarán previamente adaptados para especialmente personas discapacitadas
+		 */
 		int eleccionBusqueda;
 		do {
 		eleccionBusqueda= Consola.pedirEleccion("Seleccione la opción por la que desea realizar la busqueda.", List.of(
@@ -63,9 +81,17 @@ public class VenderCarro extends Funcionalidad {
 		));
 
 		if (eleccionBusqueda != 3){
+		
+		/**
+		 * Se crea una lista que va a contener elementos de tipo carro, estos elementos serán los carros que pasarán
+		 * por los filtros y cumplan con la especificacion pedida, luego de que el carro pase el filtro este será
+		 * agregado a dicha lista, en caso contrario no se agregará
+		 */
 		List<Carro> filtroCarros = new ArrayList<>();
 		
-		//Se implementan los filtros en cada una de las opciones por las que se desea realizar la busqueda
+		/**
+		 * A continuacion las lineas de codigo que hacen el respectivo filtro de cada tipo de busqueda
+		 */
 		if (eleccionBusqueda==0){
 			List<String> marcas= Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList();
 			int eleccionMarca= Consola.pedirEleccion("Seleccione una marca", marcas);
@@ -83,42 +109,76 @@ public class VenderCarro extends Funcionalidad {
 			filtroCarros= new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> atributo >= carro.getPrecioVenta()).collect(Collectors.toList()));
 		}
 
+		/**
+		 * Si el cliente es discapacitado inmediatamente se filtran carros con caracteristicas especiales
+		 * que están adaptadas para estas personas
+		 */
 
 		//si el cliente es discapacitado inmediatamente se filtran carros con caracteristicas especiales que están adaptadas para estas personas
 		if (cliente.isDiscapacitado()){
 			filtroCarros= filtroCarros.stream().filter(carro -> carro.isDiscapacitado()).collect(Collectors.toList());
 		}
 
-
-		//Se agrega volver a la lista para cuando al usuario se le muestren los vehiculos disponibles pero este no quiera comprar y quiera volver al menu
-		
+		/**
+		 * Si la lista está vacía se le muestra al usuario un mensaje que dice que no hay carros que cumplan
+		 * los filtros seleccionados
+		 */
 		if (filtroCarros.isEmpty()) {
 			System.out.println("No se encontro un carro con las caracteristicas buscadas");
 			continue;
 		}
 		
-		//si no hay color, marca o precio anotar
+		/**
+		 * Se modifica la lista de los carros filtrados con toString para que se agreguen a la lista como la informacion del
+		 * objeto y no como la referencia por defecto. Se agrega "volver" a la lista como una opcion a elegir para cuando
+		 * al usuario se le muestren los vehiculos disponibles pero este no quiera comprar y quiera volver al menu
+		 */
 		List<String> carrosFiltrados= new ArrayList<>(filtroCarros.stream().map(Carro::toString).toList());
 		carrosFiltrados.add("Volver");
 
-		//Si el usuario esta dispuesto a comprar debe elegir una opcion que contiene las caracteristicas del cual fue su carro de preferencia
+
+		/**
+		 * Si el usuario esta dispuesto a comprar debe elegir una opcion que contiene las caracteristicas del cual fue su carro de preferencia
+		 * y eso se hace mediante consola
+		 */
 		int eleccionCarro= Consola.pedirEleccion("Elija un carro para comprar", carrosFiltrados);
 
 		if (eleccionCarro == carrosFiltrados.size() - 1) {
 			continue;
 		}
 
+		/**
+		 * Se pide el carro seleccionado por el usuario para llevarlo a revision con un mecanico y ver
+		 * en que estado se encuentra dicho vehiculo
+		 */
 		//Se manda un mecanico por defecto para que revise el carro elegido por el usuario antes de concretar la compra
 		Carro carro= filtroCarros.get(eleccionCarro);
 
+		/**
+		 * Se elige un empleado de tipo mecanico aleatorio que haga revision del vehiculo
+		 */
 		Empleado mecanico= mecanicoRandom();
+		List<String> revision= mecanico.revisarVehiculo(carro);
 		//Luego de que el mecanico termine la revision, se le agrega un servicio a su contador
 
+		/**
+		 * Luego de que el mecanico termine la revision se le agregara un servicio al contador de
+		 * los servicios realizados
+		 */
 		List<Producto> revision= mecanico.revisarVehiculo(carro);
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados()+1);
 
-		//metodo que nos revisa si la lista de cosas dañadas informadas desde la revision del mecanico esta vacia o no
+
+		/**
+		 * Se revisa si la lista de la revision esta vacia o hay inconvenientes con el carro
+		 */
 		if (revision.isEmpty()){
+			/**
+			 * Si esta vacia significa que el carro esta en buenas condiciones entonces se procede a pedir
+			 * el indice de la lista de ese vehiculo para proceder a venderlo. Entonces para saber que se vendio
+			 * se elimina el carro de la lista con el indice previamente pedido
+			 */
+			int indx = mecanico.getVehiculosVenta().indexOf(carro); 
 			//si esta vacia se le pide el indice de ese vehicuolo en la lista
 			int indx = Empleado.getVehiculosVenta().indexOf(carro); 
 			//Luego se elimina desde el indice dicho carro, esto para confirmar que se vendio

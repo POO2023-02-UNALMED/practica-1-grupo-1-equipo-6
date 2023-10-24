@@ -1,17 +1,15 @@
-// Katherine
-//Sofía
-
+/**
+ * Funcionalidad del módulo: Contiene la clase persona que se encarga de definir los atributos y sus respectivos metodos get y set para que 
+ * estos puedan ser usados por otras clases, más específicamente la clase empleado y cliente quienes heredan
+ * de esta superclase
+ Componentes del módulo: Persona
+ Autores: Katherine, Sofia
+ */
 package gestorAplicacion.personas;
 
 import gestorAplicacion.Identificable;
 
 import java.io.Serializable;
-
-/**
- * Clase persona, se encarga de definir los atributos y sus respectivos metodos get y set para que 
- * estos puedan ser usados por otras clases, más específicamente la clase empleado y cliente quienes heredan
- * de esta superclase
- */
 
 public class Persona implements Serializable, Identificable<Long> {
 	private static final long serialVersionUID = 1L;
@@ -29,6 +27,8 @@ public class Persona implements Serializable, Identificable<Long> {
         this.correo= correo;
         this.direccion= direccion;
     }
+    
+    //Metodos getters y setters
     
     public void setNombre(String nombre) {
     	this.nombre = nombre;

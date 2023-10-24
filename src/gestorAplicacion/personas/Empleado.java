@@ -1,6 +1,8 @@
-//Sofía
-//sebas
-// Katherine
+/**
+ * Funcionalidad del módulo: Contiene la clase Empleado que es una subclase de Persona, se utiliza para crear instancias de tipo Empleado
+ Componentes del módulo: Empleado
+ Autores: Katherine, Sofia, Sebastian
+ */
 
 package gestorAplicacion.personas;
 
@@ -20,8 +22,7 @@ public class Empleado extends Persona implements Serializable{
 	private String cargo;
     private double salario;
     private double comision;
-    private int serviciosRealizados; // dependiendo del tipo de empleado serian productos vendidos o vehiculos vendidos y/o comprados, 
-    								 // componentes arreglados, revisiones, servicios mecanicos en general, etc.
+    private int serviciosRealizados; // Dependiendo del tipo de empleado serian productos vendidos o vehiculos vendidos y/o comprados, componentes arreglados, revisiones, servicios mecanicos en general, etc.
     private static ArrayList<Carro> vehiculosVenta = new ArrayList<Carro>();  //Lista de vehiculos disponibles para vender
     
     public Empleado(String nombre, long cedula, long telefono, String correo, String direccion, String cargo, double salario) {
@@ -32,6 +33,8 @@ public class Empleado extends Persona implements Serializable{
     	serviciosRealizados = 0;
     }
     
+	//Metodos getters y setters
+    public void setVehiculosVenta(ArrayList<Carro> vehVenta) {
 	//metodos getters y setters
     public static void setVehiculosVenta(ArrayList<Carro> vehVenta) {
     	Empleado.vehiculosVenta = vehVenta;
@@ -73,13 +76,13 @@ public class Empleado extends Persona implements Serializable{
      * Metodo que utiliza un empleado tipo mecanico para revisar un vehiculo y devolver su estado, usar para verificar en la funcionalidad venta de
      * Vehiculo
      */
-    public List<Producto> revisarVehiculo(Vehiculo vehiculo) { // retornar boolean y array con los productos en mal estado
+    public List<Producto> revisarVehiculo(Vehiculo vehiculo) { // Retornar boolean y array con los productos en mal estado
     	List<Producto> r = new ArrayList<>(); //lista para guardar los productos en mal estado
     	
-    	//comprobar que el empleado sea de tipo mecanico, sino lanzar excepcion(implementar)
+    	//Comprobar que el empleado sea de tipo mecanico, sino lanzar excepcion(implementar)
     	if (this.getCargo().equals("Mecanico")) {
     	
-    		//verificar si el vehiculo es de tipo carro e ir buscando componente a componente si hay alguno en mal estado o dañado
+    		//Verificar si el vehiculo es de tipo carro e ir buscando componente a componente si hay alguno en mal estado o dañado
     		if (vehiculo instanceof Carro) {
     			if (((Carro) vehiculo).getMotor().getEstado().equals(TipoEstado.MAL_ESTADO)) {
     				r.add(((Carro) vehiculo).getMotor());
@@ -125,7 +128,7 @@ public class Empleado extends Persona implements Serializable{
     			}
     		}
     		
-    		//mismo proceso pero con un vehiculo de tipo moto
+    		//Mismo proceso pero con un vehiculo de tipo moto
     		if (vehiculo instanceof Moto) {
     			if (((Moto) vehiculo).getMotor().getEstado().equals(TipoEstado.MAL_ESTADO)) {
     				r.add(((Moto) vehiculo).getMotor());
@@ -171,19 +174,19 @@ public class Empleado extends Persona implements Serializable{
     			}
     		}
     		
-    		//retornar la lista
+    		//Retornar la lista
         		return r;
     	}
     	else {
-    		return null; //se retorna null si el empleado no es de tipo mecanico
+    		return null; //Se retorna null si el empleado no es de tipo mecanico
     	}
     }
     
-    // metodo para cambiar un componente de un vehiculo por otro
+    // Metodo para cambiar un componente de un vehiculo por otro
     public void cambiar(Producto productoViejo, Producto productoNuevo, Vehiculo vehiculo) {
     	productoNuevo.setMarca(vehiculo.getMarca()); productoNuevo.setPrecio(0);
     	
-    	// se comprueba para carro
+    	// Se comprueba para carro
     	if (vehiculo instanceof Carro) {
     		 
     		if (((Carro)vehiculo).getMotor().equals(productoViejo)) {
@@ -239,7 +242,7 @@ public class Empleado extends Persona implements Serializable{
   			}
     	}
     	
-    	//mismo pero para moto
+    	//Mismo pero para moto
     	if (vehiculo instanceof Moto) {
     		
     		if (((Moto)vehiculo).getMotor().equals(productoViejo)) {
@@ -295,9 +298,15 @@ public class Empleado extends Persona implements Serializable{
 
     }
     
+<<<<<<< HEAD
+    //Metodo que devuelve el precio de un carro en perfecto estado
+    public long precioMaximoCarro(MarcasCarro marca) {
+    	long precioTotal = 0;
+=======
     //Método que devuelve el precio de un carro en perfecto estado
     public double precioMaximoCarro(MarcasCarro marca) {
     	double precioTotal = 0;
+>>>>>>> d00d4262f7ce85623f0cc9dfa8084343ff314387
     	precioTotal += Almacen.cotizarProducto(TipoProducto.MOTOR) * marca.getOrdenPrecio();
     	precioTotal += Almacen.cotizarProducto(TipoProducto.TRANSMISION) * marca.getOrdenPrecio();
     	precioTotal += Almacen.cotizarProducto(TipoProducto.ACELERADOR) * marca.getOrdenPrecio();

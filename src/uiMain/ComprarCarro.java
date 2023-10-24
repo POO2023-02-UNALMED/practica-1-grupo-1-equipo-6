@@ -127,10 +127,28 @@ public class ComprarCarro extends Funcionalidad {
 		 * el parqueadero, cambiar su carro por otro en la lista de carros disponibles, o finalizar
 		 * la funcionalidad.
 		 */
-		List<String> opcionesVenta = new ArrayList<>();
-		opcionesVenta.add("Vender el vehiculo por " + Math.round(precioFinal));
-		opcionesVenta.add("Intercambiar su carro por uno disponible para la venta en el rango de precio.");
-		int opcionVenta = Consola.pedirEleccion("Su carro ha sido revisado en el taller, y podrá escoger entre las siguientes ofertas: ", opcionesVenta);
+		if (placasCarrosDisponibles.size()==0) {
+			List<String> opcionesVenta = new ArrayList<>();
+			opcionesVenta.add("Vender el vehiculo por " + Math.round(precioFinal));
+			int opcionVenta = Consola.pedirEleccion("Su carro ha sido revisado en el taller, y el parqueadero le presenta la siguiente oferta: ", opcionesVenta);
+			ventaPorDinero(cliente, vehiculo, vendedor, mecanicoVenta, precioFinal, productosMalos);
+			System.out.println("Se ha generado su factura y ha finalizado la venta de vehiculo. ¡Adios!");
+			return;
+		} else {
+			List<String> opcionesVenta = new ArrayList<>();
+			opcionesVenta.add("Vender el vehiculo por " + Math.round(precioFinal));
+			opcionesVenta.add("Intercambiar su carro por uno disponible para la venta en el rango de precio.");
+			int opcionVenta = Consola.pedirEleccion("Su carro ha sido revisado en el taller, y podrá escoger entre las siguientes ofertas: ", opcionesVenta);
+			if (opcionVenta == 0) {
+				ventaPorDinero(cliente, vehiculo, vendedor, mecanicoVenta, precioFinal, productosMalos);
+				System.out.println("Se ha generado su factura y ha finalizado la venta de vehiculo. ¡Adios!");
+				return;
+			} else {
+				cambioDeCarro(vehiculo, placasCarrosDisponibles, vendedor, mecanicoVenta, productosMalos, precioFinal, cliente, carrosDisponibles);
+				System.out.println("Se ha generado su factura por cambio de carro. ¡Vuelva pronto!");
+				return;
+			}
+		}
 		
 		/**
 		 * Si se escoge la primer opción, venta de vehiculo por el precio final, 
@@ -139,15 +157,7 @@ public class ComprarCarro extends Funcionalidad {
 		 * Se informa al cliente que se generó su factura y se vuelve al 
 		 * menú principal.
 		 */
-		if (opcionVenta == 0) {
-			ventaPorDinero(cliente, vehiculo, vendedor, mecanicoVenta, precioFinal, productosMalos);
-			System.out.println("Se ha generado su factura y ha finalizado la venta de vehiculo. ¡Adios!");
-			return;
-		} else {
-			cambioDeCarro(vehiculo, placasCarrosDisponibles, vendedor, mecanicoVenta, productosMalos, precioFinal, cliente, carrosDisponibles);
-			System.out.println("Se ha generado su factura por cambio de carro. ¡Vuelva pronto!");
-			return;
-		}
+	
 		
 		
 		
@@ -334,7 +344,8 @@ public class ComprarCarro extends Funcionalidad {
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 		/*igualmente cada servicio realizado se le agrega a mecánico */
 		Empleado.agregarVehiculosVenta((Carro)vehiculo);
-		
+		int indiceVehiculo = cliente.getVehiculos().indexOf(vehiculo);
+		cliente.getVehiculos().remove(indiceVehiculo);
 		vehiculo.setDueno(null);
 		
 		/** añadimos el carro a la lista de carros disponibles para la venta 
@@ -398,6 +409,8 @@ public class ComprarCarro extends Funcionalidad {
 				}
 			}
 			mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
+			int indiceVehiculo = cliente.getVehiculos().indexOf(vehiculo);
+			cliente.getVehiculos().remove(indiceVehiculo);
 			vehiculo.setDueno(null);
 			Empleado.agregarVehiculosVenta((Carro)vehiculo);
 			System.out.println("Se ha intercambiado el carro por el vehiculo escogido, su excedente es de "+excedente+" y será añadido a su Factura."); //problema con factura para guardar los valores de los servicios

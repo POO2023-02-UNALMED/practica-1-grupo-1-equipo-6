@@ -1,3 +1,9 @@
+/**
+ *  Funcionalidad del módulo: contiene la clase RegistrarVehiculo, es una clase que tiene un metodo
+ * ejecutar que se utiliza para registrar a un nuevo vehiculo en la base de datos
+ Componentes del módulo: RegistrarVehiculo
+ */
+
 package uiMain;
 
 import gestorAplicacion.personas.Cliente;

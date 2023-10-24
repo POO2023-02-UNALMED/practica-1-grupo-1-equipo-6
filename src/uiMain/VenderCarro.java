@@ -114,7 +114,6 @@ public class VenderCarro extends Funcionalidad {
 		 * que están adaptadas para estas personas
 		 */
 
-		//si el cliente es discapacitado inmediatamente se filtran carros con caracteristicas especiales que están adaptadas para estas personas
 		if (cliente.isDiscapacitado()){
 			filtroCarros= filtroCarros.stream().filter(carro -> carro.isDiscapacitado()).collect(Collectors.toList());
 		}
@@ -151,7 +150,6 @@ public class VenderCarro extends Funcionalidad {
 		 * Se pide el carro seleccionado por el usuario para llevarlo a revision con un mecanico y ver
 		 * en que estado se encuentra dicho vehiculo
 		 */
-		//Se manda un mecanico por defecto para que revise el carro elegido por el usuario antes de concretar la compra
 		Carro carro= filtroCarros.get(eleccionCarro);
 
 		/**
@@ -159,11 +157,11 @@ public class VenderCarro extends Funcionalidad {
 		 */
 		Empleado mecanico= mecanicoRandom();
 		List<String> revision= mecanico.revisarVehiculo(carro);
-		//Luego de que el mecanico termine la revision, se le agrega un servicio a su contador
+		
 
 		/**
 		 * Luego de que el mecanico termine la revision se le agregara un servicio al contador de
-		 * los servicios realizados
+		 * los servicios realizados del empleado
 		 */
 		List<Producto> revision= mecanico.revisarVehiculo(carro);
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados()+1);
@@ -178,30 +176,47 @@ public class VenderCarro extends Funcionalidad {
 			 * el indice de la lista de ese vehiculo para proceder a venderlo. Entonces para saber que se vendio
 			 * se elimina el carro de la lista con el indice previamente pedido
 			 */
-			int indx = mecanico.getVehiculosVenta().indexOf(carro); 
-			//si esta vacia se le pide el indice de ese vehicuolo en la lista
+
 			int indx = Empleado.getVehiculosVenta().indexOf(carro); 
-			//Luego se elimina desde el indice dicho carro, esto para confirmar que se vendio
 			Empleado.getVehiculosVenta().remove(indx);
-			//se agrega a la factura del usuario el monto y el servicio brindado
-			//Se le agrega el carro a la lista de vehiculos del cliente 
+			
+			/**
+			 * A la factura del usuario procedemos a agregarle el monto del vehiculo comprado y el nombre de dicho servicio.
+			 * También se agrega el carro comprado a vehiculos del cliente
+			 */
 			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.getPrecioVenta());
 			cliente.getVehiculos().add(carro);
-			//se le agrega al contador del vendedor el servicio realizado
+			
+			/**
+			 * Luego de que el vendedor termine la prueba se le agregara un servicio al contador de
+		 * los servicios realizados del empleado
+			 */
 			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);
-			//se imprime un mensaje final luego de que el usuario finaliza su compra
+			
+			
+			/**
+			 * Se imprime un mensaje final luego de que el usuario finaliza su compra
+			 */
 			System.out.println("¡Carro comprado exitosamente! Disfrute su compra :)");
 			return;
 		}
 
 
-		//Si se presenta alguna falla en el carro después de su revision, entonces le decimos al usuario que no le podemos vender el carro porque no esta en condiciones aptas
+		/**
+		 * Si se presenta alguna falla en el carro después de su revision, entonces le decimos al usuario que no le podemos vender
+		 * el carro porque no esta en condiciones aptas
+		 */
 		System.out.println("No podemos venderte este vehiculo");
 		}
 		} while (eleccionBusqueda != 3);
 	}
 
-	//metodo que le asigna un mecanico aleatorio de una lista a el usuario para su revision
+	
+	/**
+	 * 
+	 * Este es el metodo que con respecto a la lista de vendedores utiliza Math.random
+	 * para escoger un/a al azar y asignarselo a el usuario
+	 */
 	private Empleado mecanicoRandom(){
 			int num = (int) (Math.random() * (parqueadero.getMecanicos().size() + 1));
 			return parqueadero.getMecanicos().get(num);

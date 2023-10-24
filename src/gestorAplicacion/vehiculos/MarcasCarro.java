@@ -2,7 +2,6 @@
  * Funcionalidad del módulo: contiene un enum con las marcas de carros aceptadas en el parqueadero,
  * ya sea para ingresar un vehiculo, comprar o venderlo, entre otras funciones
  Componentes del módulo: MarcasCarro
- Autores: Alejandro
  */
 
 package gestorAplicacion.vehiculos;

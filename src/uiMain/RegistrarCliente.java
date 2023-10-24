@@ -1,3 +1,9 @@
+/**
+ *  Funcionalidad del módulo: contiene la clase RegistrarCliente, es una clase que tiene un metodo
+ * ejecutar que se utiliza para registrar a un nuevo cliente en la base de datos
+ Componentes del módulo: RegistrarCliente
+ */
+
 package uiMain;
 
 public class RegistrarCliente extends Funcionalidad {

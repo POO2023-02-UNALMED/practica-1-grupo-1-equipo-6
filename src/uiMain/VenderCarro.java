@@ -185,7 +185,7 @@ public class VenderCarro extends Funcionalidad {
 			 * A la factura del usuario procedemos a agregarle el monto del vehiculo comprado y el nombre de dicho servicio.
 			 * También se agrega el carro comprado a vehiculos del cliente
 			 */
-			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.getPrecioVenta());
+			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca()), carro.getPrecioVenta());
 			cliente.getVehiculos().add(carro);
 			
 			/**

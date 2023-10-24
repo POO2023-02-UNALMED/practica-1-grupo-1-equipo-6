@@ -1,3 +1,9 @@
+/**
+ *  Funcionalidad del módulo: contiene un enum de con constantes del estado en que se encuentra un
+ * vehiculo luego de haber sido revisado por un mecanico
+ Componentes del módulo: TipoEstado
+ */
+
 package gestorAplicacion.parqueadero;
 
 public enum TipoEstado {

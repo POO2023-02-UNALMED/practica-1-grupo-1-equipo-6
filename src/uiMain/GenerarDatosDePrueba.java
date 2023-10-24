@@ -24,6 +24,10 @@ import java.util.List;
 public class GenerarDatosDePrueba extends Funcionalidad {
     @Override
     public void ejecutar() {
+    	if (baseDatos.datosDePruebaGenerados) {
+    		System.out.println("Los datos ya han sido generados");
+    	}
+    	baseDatos.datosDePruebaGenerados = true;
         // datos generados con https://generatedata.com/generator
         List<Cliente> clientes = List.of(
                 new Cliente("Georgia Hodges", 88282864L, 8822435588L, "odio.tristique@protonmail.ca", "P.O. Box 837, 1931 Faucibus Road", false),
@@ -298,5 +302,6 @@ public class GenerarDatosDePrueba extends Funcionalidad {
             baseDatos.registrarVehiculo(vehiculo);
             vehiculo.getDueno().agregarVehiculo(vehiculo);
         }
+    	System.out.println("Los datos de prueba han sido agregados");
     }
 }

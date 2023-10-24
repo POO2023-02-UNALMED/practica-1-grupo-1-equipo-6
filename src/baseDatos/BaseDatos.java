@@ -29,6 +29,7 @@ public class BaseDatos implements Serializable {
 	private Map<Long, Cliente> clientesRegistrados = new HashMap<>();
 	private Map<String, Vehiculo> vehiculosRegistrados = new HashMap<>();
 	private Parqueadero parqueadero;
+	public boolean datosDePruebaGenerados = false;
 
 	/**
 	 * Lee y carga los datos guardados en el archivo src/baseDatos/temp/datos.txt

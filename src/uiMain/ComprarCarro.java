@@ -120,7 +120,7 @@ public class ComprarCarro extends Funcionalidad {
 		 * al usuario si lo escoge.
 		 */
 		List<Carro> carrosDisponibles = new ArrayList<>(Empleado.getVehiculosVenta().stream().filter(carro -> carro.getPrecioVenta()<=precioFinal).collect(Collectors.toList()));
-		List<String> placasCarrosDisponibles = new ArrayList<>(carrosDisponibles.stream().map(Vehiculo::getPlaca).toList());
+		List<String> placasCarrosDisponibles = new ArrayList<>(carrosDisponibles.stream().map(Carro::toString).toList());
 		
 		/**
 		 * Se le presenta al cliente tres opciones, vender el carro por el precio que acordó
@@ -306,7 +306,7 @@ public class ComprarCarro extends Funcionalidad {
 	private double cotizacionParqueadero(List<Producto> productosMalos, Empleado mecanico, double precioMaximo, Cliente cliente) {
 		cliente.getFactura().agregarServicio("Revision general", 1);
 		for (Producto productoMalo: productosMalos) {
-			precioMaximo -= productoMalo.getPrecio();
+			precioMaximo -= Almacen.cotizarProducto(productoMalo.getTipo());
 		}
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados() + 1);
 		return precioMaximo;

@@ -13,6 +13,7 @@ import gestorAplicacion.parqueadero.Plaza;
 import gestorAplicacion.personas.Cliente;
 import gestorAplicacion.vehiculos.Carro;
 import gestorAplicacion.vehiculos.MarcasCarro;
+import gestorAplicacion.vehiculos.MarcasMoto;
 import gestorAplicacion.vehiculos.Moto;
 import gestorAplicacion.vehiculos.TipoVehiculo;
 import gestorAplicacion.vehiculos.Vehiculo;
@@ -126,8 +127,6 @@ public abstract class Funcionalidad {
 		// Pedir los datos al cliente del vehículo por registrar.
 		System.out.println("Registro de vehículo");
 		int tipoVehiculo = Consola.pedirEleccion("Elija el tipo de vehiculo", tiposVehiculo);
-		int marcaEscogida = Consola.pedirEleccion("Escoja la marca del vehículo", Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList());
-		MarcasCarro marca = MarcasCarro.values()[marcaEscogida];
 		String color = Consola.pedirString("Ingrese el color del vehículo");
 		String modelo = Consola.pedirString("Ingrese el modelo del vehículo");
 		boolean discapacitado = cliente.isDiscapacitado();
@@ -136,7 +135,9 @@ public abstract class Funcionalidad {
 
 		// crear instancias del vehículo según el tipo escogido por el cliente
 		if (tipoVehiculo == 0) { // Si el tipo de vehículo es un carro...
-			// preguntarle al usuario el tipo y número de puestos del carro
+			// preguntarle al usuario la marca, el tipo y número de puestos del carro
+			int marcaEscogida = Consola.pedirEleccion("Escoja la marca del carro", Arrays.asList(MarcasCarro.values()).stream().map(MarcasCarro::name).toList());			
+			String marca = MarcasCarro.values()[marcaEscogida].name();			
 			int tipoCarro = Consola.pedirEleccion("Elija el tipo de carro", List.of("Mecanico", "Automatico"));
 			TipoVehiculo tipo = TipoVehiculo.MECANICO;
 			if (tipoCarro == 1) {
@@ -146,7 +147,9 @@ public abstract class Funcionalidad {
 			// crear la instancia del carro con la información suministrada por el cliente
 			vehiculo = new Carro(placa, cliente, marca, color, modelo, tipo, puestos, discapacitado);
 		} else { // Si el tipo de vehículo es una moto...
-			// preguntar el tipo de moto al cliente y su cilindraje
+			// preguntar la marca, el tipo de moto al cliente y su cilindraje
+			int marcaEscogida = Consola.pedirEleccion("Escoja la marca de la moto", Arrays.asList(MarcasMoto.values()).stream().map(MarcasMoto::name).toList());			
+			String marca = MarcasMoto.values()[marcaEscogida].name();			
 			int tipoMoto = Consola.pedirEleccion("Elija el tipo de moto", List.of("Normal", "Alto cilindraje"));
 			TipoVehiculo tipo = TipoVehiculo.NORMAL;
 			if (tipoMoto == 1) {

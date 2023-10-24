@@ -31,7 +31,7 @@ public class Moto extends Vehiculo implements Serializable {
 	private Producto[] rines; //array que contiene los rines del vehiculo
 	
 	
-	public Moto(String placa, Cliente dueno, MarcasCarro marca, String color, String modelo, TipoVehiculo tipo, int cilindraje) {
+	public Moto(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int cilindraje) {
 		super(placa, dueno, marca, color, modelo);
 		this.tipo = tipo;
 		this.cilindraje = cilindraje;
@@ -50,8 +50,8 @@ public class Moto extends Vehiculo implements Serializable {
 	
 	
 	//getters and setters
-	public String getTipo() {
-		return this.tipo.name();
+	public TipoVehiculo getTipo() {
+		return this.tipo;
 	}
 	public void setTipo(TipoVehiculo tipo) {
 		this.tipo = tipo;
@@ -128,7 +128,6 @@ public class Moto extends Vehiculo implements Serializable {
 	public void setAmortiguador(Producto amortiguador) {
 		this.amortiguador = amortiguador;
 	}
-
 
 	//metodo que crea dos Productos tipo llanta y los agrega al array this.llantas
 	private void inicializarLlantas(){

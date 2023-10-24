@@ -133,7 +133,7 @@ public class ManejoParqueadero extends Funcionalidad {
 		}
 		int puestos = Consola.pedirEntero("Ingrese el numero de puestos del carro");
 		long precioVenta = Consola.pedirLong("Ingrese el precio del carro");
-		Carro carroVenta = new Carro(placa, null, marca, color, modelo, tipo, puestos, false, precioVenta);
+		Carro carroVenta = new Carro(placa, null, marca.name(), color, modelo, tipo, puestos, false, precioVenta);
 		
 		administrador.agregarVehiculosVenta(carroVenta);
 	}
@@ -292,7 +292,7 @@ public class ManejoParqueadero extends Funcionalidad {
 			default -> TipoEstado.MAL_ESTADO; // case 2
 		};
 
-		Producto producto = new Producto(tipo, precio, marca, estado);
+		Producto producto = new Producto(tipo, precio, marca.name(), estado);
 
 		almacen.agregarProducto(producto);
 

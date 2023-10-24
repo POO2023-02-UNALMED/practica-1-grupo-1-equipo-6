@@ -1,8 +1,8 @@
 /**
- * * Funcionalidad del módulo: Contiene la clase venderCarro que se encarga de vender un carro desde la vista
+ * Funcionalidad del módulo: Contiene la clase venderCarro que se encarga de vender un carro desde la vista
  * del administrador, pero que al momento de ejecutar la funcionalidad por el usuario este tendrá la vista de comprar un carro
- Componentes del módulo: VenderCarro
- Autores: Katherine, Sebastian
+ * Componentes del módulo: VenderCarro
+ * Autores: Katherine, Sebastian
  */
 
 package uiMain;
@@ -157,15 +157,14 @@ public class VenderCarro extends Funcionalidad {
 		/**
 		 * Se elige un empleado de tipo mecanico aleatorio que haga revision del vehiculo
 		 */
-		Empleado mecanico= mecanicoRandom();
-		List<String> revision= mecanico.revisarVehiculo(carro);
+		Empleado mecanico = mecanicoRandom();
 		//Luego de que el mecanico termine la revision, se le agrega un servicio a su contador
 
 		/**
 		 * Luego de que el mecanico termine la revision se le agregara un servicio al contador de
 		 * los servicios realizados
 		 */
-		List<Producto> revision= mecanico.revisarVehiculo(carro);
+		List<Producto> revision = mecanico.revisarVehiculo(carro);
 		mecanico.setServiciosRealizados(mecanico.getServiciosRealizados()+1);
 
 
@@ -178,14 +177,13 @@ public class VenderCarro extends Funcionalidad {
 			 * el indice de la lista de ese vehiculo para proceder a venderlo. Entonces para saber que se vendio
 			 * se elimina el carro de la lista con el indice previamente pedido
 			 */
-			int indx = mecanico.getVehiculosVenta().indexOf(carro); 
 			//si esta vacia se le pide el indice de ese vehicuolo en la lista
 			int indx = Empleado.getVehiculosVenta().indexOf(carro); 
 			//Luego se elimina desde el indice dicho carro, esto para confirmar que se vendio
 			Empleado.getVehiculosVenta().remove(indx);
 			//se agrega a la factura del usuario el monto y el servicio brindado
 			//Se le agrega el carro a la lista de vehiculos del cliente 
-			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca().name()), carro.getPrecioVenta());
+			cliente.getFactura().agregarServicio("Compra de carro " + cap(carro.getMarca()), carro.getPrecioVenta());
 			cliente.getVehiculos().add(carro);
 			//se le agrega al contador del vendedor el servicio realizado
 			vendedor.setServiciosRealizados(vendedor.getServiciosRealizados() + 1);

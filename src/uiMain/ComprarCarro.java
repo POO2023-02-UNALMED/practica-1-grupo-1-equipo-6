@@ -169,7 +169,7 @@ public class ComprarCarro extends Funcionalidad {
 				if (vehiculoRegistrado == null) {
 					return null;
 				}
-				MarcasCarro marca = vehiculoRegistrado.getMarca();
+				MarcasCarro marca = MarcasCarro.valueOf(vehiculoRegistrado.getMarca());
 				if ((marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT)|| marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
 					ingresarVehiculo(cliente, vehiculoRegistrado);
 				}
@@ -187,7 +187,7 @@ public class ComprarCarro extends Funcionalidad {
 			boolean e = Consola.pedirBoolean("Usted no tiene vehiculos registrados con las marcas aceptadas por el parqueadero para venta, ¿desea registrar e ingresar su vehiculo?");
 			if (e) {
 				Vehiculo vehiculoRegistrado = registrarVehiculo(cliente);
-				MarcasCarro marca = vehiculoRegistrado.getMarca();
+				MarcasCarro marca = MarcasCarro.valueOf(vehiculoRegistrado.getMarca());
 				if (vehiculoRegistrado != null && (marca.equals(MarcasCarro.TOYOTA) || marca.equals(MarcasCarro.RENAULT)|| marca.equals(MarcasCarro.CHEVROLET) || marca.equals(MarcasCarro.KIA) || marca.equals(MarcasCarro.MAZDA))) {
 					ingresarVehiculo(cliente, vehiculoRegistrado);
 				}
@@ -272,7 +272,7 @@ public class ComprarCarro extends Funcionalidad {
 	 */
 	private double precioMaximo(Vehiculo vehiculo, Empleado vendedor) { //TODO:el atributo marca es un string, que pasa cuando este no hace match con ninguna marca del enum?
 																	//En escogerVehiculo se verifica que este cumpla con alguna de las marcas.
-		MarcasCarro marca = ((Carro)vehiculo).getMarca();
+		MarcasCarro marca = MarcasCarro.valueOf(((Carro)vehiculo).getMarca());
 		double precioMaximo = 0;
 		if (marca.equals(MarcasCarro.RENAULT)) {
 			precioMaximo = vendedor.precioMaximoCarro(MarcasCarro.RENAULT);

@@ -35,7 +35,7 @@ public class Carro extends Vehiculo implements Serializable {
 	private double precioVenta;
 	private boolean discapacitado; //Si el carro está adecuado para personas discapacitadas
 	
-	public Carro(String placa, Cliente dueno, MarcasCarro marca, String color, String modelo, TipoVehiculo tipo, int puestos, boolean discapacitado) {
+	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos, boolean discapacitado) {
 		super(placa, dueno, marca, color, modelo);
 		this.tipo = tipo;
 		this.puestos = puestos;
@@ -52,7 +52,7 @@ public class Carro extends Vehiculo implements Serializable {
 		this.precioVenta = 0;
 		this.discapacitado = discapacitado;
 	}
-	public Carro(String placa, Cliente dueno, MarcasCarro marca, String color, String modelo, TipoVehiculo tipo, int puestos, boolean discapacitado, long precioVenta) {
+	public Carro(String placa, Cliente dueno, String marca, String color, String modelo, TipoVehiculo tipo, int puestos, boolean discapacitado, long precioVenta) {
 		this(placa, dueno, marca, color, modelo, tipo, puestos, discapacitado);
 		this.precioVenta = precioVenta;
 		motor.setEstado(TipoEstado.EXCELENTE_ESTADO);
@@ -77,7 +77,6 @@ public class Carro extends Vehiculo implements Serializable {
 	
 	
 	//getters and setters
-
 	public boolean isDiscapacitado(){
 		return this.discapacitado;
 	}
@@ -166,9 +165,9 @@ public class Carro extends Vehiculo implements Serializable {
 	@Override
 	public String toString() {
 		if (this.precioVenta != 0) { // para los carros para venta se imprime su valor
-			return String.format("%s %s %s%n%s %d puestos%nPrecio: %d", cap(this.getMarca().name()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos(), this.getPrecioVenta());
+			return String.format("%s %s %s%n%s %d puestos%nPrecio: %d", cap(this.getMarca()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos(), this.getPrecioVenta());
 		}
-		return String.format("%s %s %s%n%s %d puestos%n", cap(this.getMarca().name()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos());
+		return String.format("%s %s %s%n%s %d puestos%n", cap(this.getMarca()), this.getModelo(), this.getColor(), cap(this.getTipo()), this.getPuestos());
 
 	}
 	
